@@ -1,0 +1,41 @@
+# Datos (crudos, intermedios y finales) — pesados y/o de origen restringido
+data/raw/*
+data/build/*
+data/final/*
+!data/raw/.gitkeep
+!data/build/.gitkeep
+!data/final/.gitkeep
+
+*.dta
+*.xlsx
+*.xls
+*.shp
+*.shx
+*.dbf
+*.prj
+*.sbn
+*.sbx
+*.cpg
+*.shp.xml
+*.csv
+
+# Outputs regenerables
+output/figures/*
+output/tables/*
+!output/figures/.gitkeep
+!output/tables/.gitkeep
+
+# legacy/ preserva archivos históricos/huérfanos pero no se versiona por defecto
+legacy/*
+!legacy/.gitkeep
+
+# OS / Office / editor swap files
+.DS_Store
+~$*
+*.stswp
+*.sublime-workspace
+*.swp
+
+# Stata
+*.log
+*.smcl
