@@ -23,6 +23,11 @@
 \definecolor{steellight}{RGB}{140,175,214}
 \definecolor{bgpanel}{RGB}{240,243,247}
 \definecolor{graytext}{RGB}{95,95,95}
+\definecolor{municblue}{RGB}{100,140,190}
+\definecolor{psuborange}{RGB}{222,164,101}
+\definecolor{ppagbrown}{RGB}{150,98,58}
+\definecolor{schoolgreen}{RGB}{80,165,130}
+\definecolor{neutralgray}{RGB}{176,182,192}
 
 % ---------------------------------------------------------------------------
 % Tema base minimalista
@@ -56,7 +61,7 @@
   \hspace{2pt}\textcolor{navy}{\Large\bfseries\insertframetitle}\par
   \vspace{2pt}
   \hspace{2pt}\textcolor{steel}{\rule{0.94\paperwidth}{0.7pt}}
-  \vspace{6pt}
+  \vspace{1pt}
 }
 
 % Footer: solo numeración de página, sin autor/fecha/navegación
@@ -90,7 +95,7 @@
 \textcolor{steel}{\rule{0.5\paperwidth}{0.6pt}}
 
 \vspace{14pt}
-{\large\color{graytext} Estado de avance del proyecto de tesis}
+{\large\color{graytext} Estado de avance julio 2026}
 
 \vspace{55pt}
 {\normalsize
@@ -106,13 +111,30 @@ Micaella Magnasco \\[4pt]
 % 2. MOTIVACIÓN
 % =============================================================================
 \begin{frame}{Motivación}
+\begingroup
+\setlist[itemize]{itemsep=3pt,topsep=2pt,leftmargin=*}
+{\small\textcolor{steel}{\textbf{Mercado laboral femenino}}}
 \begin{itemize}
-  \item En el \textbf{96\,\%} de los hogares con menores de 7 años, la madre ejerce el rol de cuidadora principal (MDSF, 2017); las mujeres destinan el doble de horas diarias que los hombres al cuidado (MDSF, 2023).
-  \item Esta carga de cuidados limita la inserción laboral femenina y condiciona las decisiones reproductivas.
-  \item La participación laboral femenina se mantiene estancada en torno al \textbf{50\,\%}, y la tasa de fertilidad ha caído a \textbf{1,17 hijos por mujer}, una de las más bajas del mundo (OCDE, 2025).
+  \small
+  \item En el \textbf{96\,\%} de los hogares con menores de 7 años, la madre es la cuidadora principal (MDSF, 2017); las mujeres dedican el doble de horas al cuidado que los hombres (MDSF, 2023), lo que limita su inserción laboral.
+  \item La participación laboral femenina se mantiene estancada en torno al \textbf{50\,\%} (OCDE, 2025).
   \item Cerca de \textbf{150.000 mujeres} que salieron de la fuerza laboral durante la pandemia aún no han regresado, especialmente madres con hijos menores de 5 años.
-  \item El tema es central en el debate legislativo actual: \textbf{Ley de Sala Cuna Universal} (en tramitación en el Senado) y \textbf{Ley Chile Cuida / SNAC} (promulgada en febrero de 2026), que crea el cuidado como cuarto pilar de la protección social.
 \end{itemize}
+
+\vspace{4pt}
+{\small\textcolor{steel}{\textbf{Fertilidad}}}
+\begin{itemize}
+  \small
+  \item La carga de cuidados también condiciona las decisiones reproductivas: la tasa de fertilidad ha caído a \textbf{1,17 hijos por mujer}, una de las más bajas del mundo (OCDE, 2025).
+\end{itemize}
+
+\vspace{4pt}
+{\small\textcolor{steel}{\textbf{Debate legislativo actual}}}
+\begin{itemize}
+  \small
+  \item \textbf{Ley de Sala Cuna Universal} (en tramitación en el Senado) y \textbf{Ley Chile Cuida / SNAC} (promulgada en febrero de 2026), que crea el cuidado como cuarto pilar de la protección social.
+\end{itemize}
+\endgroup
 \end{frame}
 
 % =============================================================================
@@ -133,69 +155,55 @@ Micaella Magnasco \\[4pt]
 % 4. CONTEXTO — GOBERNANZA Y PROVISIÓN MIXTA
 % =============================================================================
 \begin{frame}{Educación parvularia en Chile: gobernanza y provisión}
-\begin{columns}[T]
-\begin{column}{0.52\textwidth}
-\begin{itemize}
-  \small
-  \item \textbf{Subsecretaría de Educación Parvularia} (Mineduc): diseño, coordinación y gestión de política. Desde la reforma de 2015, separada de la provisión directa.
-  \item \textbf{Provisión pública}: JUNJI y Fundación Integra (salas cuna y jardines, foco en hogares vulnerables) + provisión municipal (NT1--NT2, vía subvención escolar).
-  \item \textbf{Provisión privada}: particulares subvencionados y particulares pagados, con mayor peso en zonas urbanas y niveles de transición.
-  \item Sistema de \textbf{gobernanza centralizada y provisión mixta}.
-\end{itemize}
-\end{column}
-\begin{column}{0.44\textwidth}
-\small
-\begin{table}
-\begin{tabular}{@{}lr@{}}
-\toprule
-\textbf{Tipo de establecimiento} & \textbf{\%} \\
-\midrule
-Particulares subvencionados & 34,7 \\
-JUNJI AD y VTF & 26,5 \\
-Escuelas municipales & 20,1 \\
-Integra AD y CAD & 10,3 \\
-Escuelas SLEP & 4,3 \\
-Particulares pagados & 3,5 \\
-Jardines privados & 0,6 \\
-\bottomrule
-\end{tabular}
-\end{table}
-\vspace{4pt}
-{\small\textbf{61,2\,\% pública} \textbar\ \textbf{38,8\,\% privada} (2024)}
-\fuente{Fuente: Informe de caracterización de la Educación Parvularia 2024, SdEP.}
-\end{column}
-\end{columns}
+\vspace{-4pt}
+\footnotesize
+\textbf{Subsecretaría de Educación Parvularia} (Mineduc): diseño y gestión de política, separada de la provisión desde 2015. \textbf{Provisión pública}: JUNJI, Integra, municipal y SLEP. \textbf{Provisión privada}: particulares subvencionados y pagados. En sala cuna y nivel medio, \textbf{JUNJI e Integra concentran la matrícula}; en nivel transición domina la escuela.
+
+\vspace{2pt}
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+  ybar,
+  bar width=14pt,
+  width=0.95\textwidth,
+  height=4.6cm,
+  symbolic x coords={Sala cuna,Nivel medio,Nivel transición},
+  xtick=data,
+  xticklabels={Sala cuna (0-2),Nivel medio (2-4),Nivel transición (4-6)},
+  ymin=0, ymax=108,
+  ylabel={\% matr\'icula},
+  ylabel style={font=\scriptsize},
+  tick label style={font=\scriptsize},
+  axis lines*=left,
+  enlarge x limits=0.22,
+  nodes near coords,
+  nodes near coords style={font=\tiny,text=graytext},
+  legend style={at={(0.5,-0.3)},anchor=north,legend columns=4,font=\tiny,draw=none},
+  grid style={gray!20},
+]
+\addplot[fill=navy,draw=none] coordinates {(Sala cuna,70.7)(Nivel medio,47.0)(Nivel transición,1.7)};
+\addplot[fill=steel,draw=none] coordinates {(Sala cuna,28.7)(Nivel medio,23.3)(Nivel transición,0.8)};
+\addplot[fill=psuborange,draw=none] coordinates {(Sala cuna,0.3)(Nivel medio,1.0)(Nivel transición,0.5)};
+\addplot[fill=schoolgreen,draw=none] coordinates {(Sala cuna,0.2)(Nivel medio,28.8)(Nivel transición,97.0)};
+\legend{JUNJI (+VTF), Integra (+CAD), Jard\'in privado, Escuelas}
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\fuente{Fuente: elaboración propia a partir de Figura 5, Matrícula Oficial 2023 por dependencia y nivel, Centro de Estudios MINEDUC.}
 \end{frame}
 
 % =============================================================================
-% 5. CONTEXTO — COBERTURA ACTUAL Y BRECHAS
+% 5. CONTEXTO — EL PERÍODO DE ESTUDIO (2015--2024)
 % =============================================================================
-\begin{frame}{Cobertura actual y brechas}
+\begin{frame}{El período de estudio: expansión 2015--2024}
 \begin{itemize}
-  \item La asistencia neta a educación parvularia (0--5 años) sube de \textasciitilde50\,\% (2015) a \textbf{55\,\%} (2024), tras una caída marcada en pandemia (41\,\% en 2020) \small{--- Fuente: Centro de Estudios Mineduc, Encuesta CASEN.}
-  \item Solo el \textbf{23\,\%} de los niños y niñas en edad de \textbf{sala cuna (0 a 2 años)} asiste a un establecimiento, muy por debajo del promedio OCDE (\textbf{85\,\%}), pese a una inversión superior al promedio de la organización.
-  \item Fuerte gradiente socioeconómico: la asistencia es considerablemente mayor en los quintiles superiores (OCDE, 2025; Bronfman y Buitrago, 2021).
-  \item Persisten \textbf{brechas territoriales} en la expansión reciente --- la sección de cobertura de este avance profundiza en su distribución regional.
-\end{itemize}
-\vspace{10pt}
-\begin{block}{En síntesis}
-\small A pesar de la expansión sostenida desde los años 90, la cobertura pública sigue siendo insuficiente y desigual, lo que motiva estudiar sus efectos causales sobre las decisiones de las madres.
-\end{block}
-\end{frame}
-
-% =============================================================================
-% 6. CONTEXTO — EVOLUCIÓN HISTÓRICA
-% =============================================================================
-\begin{frame}{Evolución histórica: contexto y período de estudio}
-\begin{itemize}
-  \small
-  \item Antes de 2015, la oferta pública se expande gradualmente: creación de JUNJI (\textbf{1970}), Programa Educativo Alternativo de los años 90, meta de 120 mil cupos del gobierno de Lagos, Programa VTF (\textbf{2006}) y la Ley General de Educación (\textbf{2009}), que formaliza el nivel.
-  \item Este trabajo se concentra en \textbf{2015--2024}: es el período para el cual JUNJI e Integra entregaron registros administrativos completos y georreferenciados, y coincide con la ventana de apertura escalonada de jardines (2016--2023) usada para la identificación.
+  \item Entre 2015 y 2024 se crearon más de \textbf{700 nuevos jardines infantiles públicos} administrados por JUNJI e Integra, reflejando un esfuerzo estatal sostenido de distintos gobiernos por ampliar la cobertura de cuidado y educación inicial.
+  \item La tasa de asistencia neta a educación parvularia (0--5 años) muestra un crecimiento neto de \textbf{50\,\% a 55\,\%} en el tramo estudiado, pese a las bajas experimentadas durante la pandemia.
 \end{itemize}
 
-\vspace{10pt}
-\begin{block}{El período de estudio en cifras}
-\small Más de \textbf{700 nuevos jardines públicos} JUNJI + Integra entre 2015 y 2024; la oferta pasa de 3.729 a 4.432 centros (\textbf{+19\,\%}), con expansión más acelerada entre 2015 y 2019 y desaceleración posterior a la pandemia.
+\vspace{8pt}
+\begin{block}{Por qué 2015--2024}
+\small Es el período para el cual JUNJI e Integra entregaron registros administrativos completos y georreferenciados, coincidiendo con la creación de la Subsecretaría de Educación Parvularia, que comienza a fiscalizar y sistematizar datos de cobertura de mejor calidad.
 \end{block}
 \end{frame}
 
@@ -205,13 +213,18 @@ Jardines privados & 0,6 \\
 \begin{frame}{Estrategia de identificación: diseño}
 \begin{columns}[T]
 \begin{column}{0.56\textwidth}
+\begingroup
+\setlist[itemize]{itemsep=3pt,topsep=2pt,leftmargin=*}
 \begin{itemize}
   \small
   \item Diseño cuasi-experimental de \textbf{diferencias en diferencias con estudio de eventos (event study)}, con efectos fijos bidireccionales (TWFE) de unidad vecinal y año.
-  \item \textbf{Unidad de análisis}: unidad vecinal (UV) --- subdivisión territorial de una comuna, creada para descentralizar la gestión comunitaria y promover la participación ciudadana. El MDS la usa para sectorizar el país, focalizar beneficios estatales y analizar datos del Registro Social de Hogares (RSH); ofrece mayor desagregación que la literatura comparada.
-  \item \textbf{Tratamiento}: una UV se considera tratada desde el año en que se inaugura el primer jardín infantil público dentro de su territorio \emph{o en una UV contigua}, permaneciendo tratada el resto del período (tratamiento absorbente).
+  \item \textbf{Unidad de análisis}: unidad vecinal (UV) --- subdivisión territorial de una comuna. El MDS la usa para sectorizar el país, focalizar beneficios estatales y analizar datos del RSH; ofrece mayor desagregación que la literatura comparada.
+  \item \textbf{Tratamiento}: una UV se considera tratada desde el año en que se inaugura el primer jardín infantil público dentro de su territorio o en una UV contigua$^{*}$.
   \item Apertura escalonada entre \textbf{2016 y 2023} $\to$ variación territorial y temporal que identifica el efecto.
 \end{itemize}
+\endgroup
+\vspace{1pt}
+\fuente{$^{*}$Por definir.}
 \end{column}
 \begin{column}{0.4\textwidth}
 \small
@@ -282,8 +295,8 @@ Y_{ijt} = \lambda_j + \lambda_t + \sum_{k \neq -1} \beta_k \, \mathbb{1}\{t - T_
 
 \vspace{10pt}
 \begin{itemize}
-  \item Es la \textbf{pieza del proyecto completamente construida, verificada y documentada} hasta ahora (código, outputs y codebook en el repositorio).
   \item Define la variable de tratamiento a nivel de UV que se usará en el event study, y es el insumo territorial sobre el que se construirá el panel de resultados (mujer-UV).
+  \item Es la \textbf{pieza del proyecto completamente construida, verificada y documentada} hasta ahora (código, outputs y codebook en el repositorio).
   \item Las siguientes slides muestran cómo se construyó (pipeline) y sus cifras y gráficos principales.
 \end{itemize}
 \end{frame}
@@ -294,17 +307,17 @@ Y_{ijt} = \lambda_j + \lambda_t + \sum_{k \neq -1} \beta_k \, \mathbb{1}\{t - T_
 \begin{frame}{Construcción de la base de cobertura: pipeline}
 \begin{center}
 \begin{tikzpicture}[
-  box/.style={draw=steel,thick,fill=bgpanel,rounded corners,text width=10.2cm,align=left,minimum height=1.5cm,inner sep=8pt,font=\small},
-  arr/.style={-{Latex[length=3mm]},steel,thick}
+  box/.style={draw=steel,thick,fill=bgpanel,rounded corners,text width=9.3cm,align=left,minimum height=1.1cm,inner sep=5pt,font=\footnotesize},
+  arr/.style={-{Latex[length=2.5mm]},steel,thick}
 ]
-\node[box] (b1) {\textbf{1. Limpieza JUNJI / Integra} (Stata) \\ \footnotesize bases de solicitudes de transparencia $\to$ una fila por establecimiento, año de apertura y de término};
-\node[box, below=9pt of b1] (b2) {\textbf{2. Asignación espacial jardín $\to$ UV} (Python / GeoPandas) \\ \footnotesize shapefile de unidades vecinales (MDSF, 6.877 UVs) + \texttt{sjoin} espacial};
-\node[box, below=9pt of b2] (b3) {\textbf{3. Panel UV-año} (Stata) \\ \footnotesize expansión por años de actividad, colapso a conteos por UV-año, \texttt{tsfill}, merge con universo completo de UVs, variable \texttt{tratada}};
+\node[box] (b1) {\textbf{1. Limpieza JUNJI / Integra} (Stata) \\ \scriptsize bases de solicitudes de transparencia $\to$ una fila por establecimiento, año de apertura y de término};
+\node[box, below=5pt of b1] (b2) {\textbf{2. Asignación espacial jardín $\to$ UV} (Python / GeoPandas) \\ \scriptsize shapefile de unidades vecinales (MDSF, 6.877 UVs) + \texttt{sjoin} espacial};
+\node[box, below=5pt of b2] (b3) {\textbf{3. Panel UV-año} (Stata) \\ \scriptsize expansión por años de actividad, colapso a conteos por UV-año, \texttt{tsfill}, merge con universo completo de UVs, variable \texttt{tratada}};
 \draw[arr] (b1) -- (b2);
 \draw[arr] (b2) -- (b3);
 \end{tikzpicture}
 \end{center}
-\vspace{4pt}
+\vspace{1pt}
 \fuente{Fuentes: solicitudes de transparencia JUNJI e Integra; shapefile de unidades vecinales, Ministerio de Desarrollo Social y Familia (BIDAT). Output final: \texttt{data/final/base\_cobertura\_cp.dta}.}
 \end{frame}
 
@@ -330,10 +343,16 @@ Y_{ijt} = \lambda_j + \lambda_t + \sum_{k \neq -1} \beta_k \, \mathbb{1}\{t - T_
 % 12. COBERTURA — EVOLUCIÓN JUNJI / INTEGRA (full bleed)
 % =============================================================================
 \begin{frame}{Evolución de la oferta pública, 2015--2024}
-\begin{center}
-\includegraphics[width=0.86\textwidth,height=0.76\textheight,keepaspectratio]{../output/figures/06_jardines_junji_integra_por_anio.png}
-\end{center}
-\fuente{Fuente: elaboración propia, \texttt{code/build/03\_panel\_uv\_anio.do} sobre \texttt{base\_cobertura\_cp.dta}.}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+{\centering\includegraphics[width=\textwidth,height=0.62\textheight,keepaspectratio]{../output/figures/06_jardines_junji_integra_por_anio.png}\par}
+\fuente{Fuente: elaboración propia sobre \texttt{base\_cobertura\_cp.dta}.}
+\end{column}
+\begin{column}{0.5\textwidth}
+{\centering\includegraphics[width=\textwidth,height=0.62\textheight,keepaspectratio]{../crec_acumulado.jpeg}\par}
+\fuente{Fuente: elaboración propia, datos JUNJI e Integra (2015--2024).}
+\end{column}
+\end{columns}
 \end{frame}
 
 % =============================================================================
@@ -341,7 +360,7 @@ Y_{ijt} = \lambda_j + \lambda_t + \sum_{k \neq -1} \beta_k \, \mathbb{1}\{t - T_
 % =============================================================================
 \begin{frame}{Composición de jardines JUNJI por modalidad}
 \begin{center}
-\includegraphics[width=0.82\textwidth,height=0.74\textheight,keepaspectratio]{../output/figures/09_composicion_modalidades_junji.png}
+\includegraphics[width=0.72\textwidth,height=0.6\textheight,keepaspectratio]{../output/figures/09_composicion_modalidades_junji.png}
 \end{center}
 \fuente{Fuente: elaboración propia sobre \texttt{base\_cobertura\_cp.dta}. Clásico Directo y Alternativo dominan la composición de JUNJI durante todo el período.}
 \end{frame}
@@ -387,7 +406,7 @@ Y_{ijt} = \lambda_j + \lambda_t + \sum_{k \neq -1} \beta_k \, \mathbb{1}\{t - T_
 % =============================================================================
 \begin{frame}{Jardines públicos por unidad vecinal, Región Metropolitana}
 \begin{center}
-\includegraphics[width=0.92\textwidth,height=0.8\textheight,keepaspectratio]{../jardines_rm.jpeg}
+\includegraphics[width=0.8\textwidth,height=0.64\textheight,keepaspectratio]{../jardines_rm.jpeg}
 \end{center}
 \fuente{Fuente: elaboración propia a partir de \texttt{base\_cobertura\_cp.dta}. Puntos: jardines JUNJI (rojo) e Integra (azul); color de fondo: n\'umero de jardines p\'ublicos por UV (2023).}
 \end{frame}
@@ -414,19 +433,21 @@ Y_{ijt} = \lambda_j + \lambda_t + \sum_{k \neq -1} \beta_k \, \mathbb{1}\{t - T_
 % =============================================================================
 % 17. COBERTURA — MAPA UVs TRATADAS (full bleed)
 % =============================================================================
-\begin{frame}{UVs tratadas: RM y Valparaíso (2015--2024)}
-\vspace{-4pt}
+\begin{frame}
+\vspace{8pt}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
 \centering
-\includegraphics[width=0.95\textwidth,height=0.64\textheight,keepaspectratio]{../output/figures/mapa_uv_tratadas_panel.png}
+{\large\textbf{\textcolor{navy}{Región Metropolitana}}}\\[4pt]
+\includegraphics[width=0.98\textwidth,height=0.84\textheight,keepaspectratio]{../output/figures/mapa_uv_tratadas_panel.png}
 \end{column}
 \begin{column}{0.5\textwidth}
 \centering
-\includegraphics[width=0.95\textwidth,height=0.64\textheight,keepaspectratio]{../output/figures/mapa_uv_tratadas_valparaiso.png}
+{\large\textbf{\textcolor{navy}{Región de Valparaíso}}}\\[4pt]
+\includegraphics[width=0.98\textwidth,height=0.84\textheight,keepaspectratio]{../output/figures/mapa_uv_tratadas_valparaiso.png}
 \end{column}
 \end{columns}
-\fuente{Fuente: elaboración propia a partir de \texttt{base\_cobertura\_cp.dta}. UV tratada: pasa de 0 a 1+ jardines entre 2015 y 2024.}
+\fuente{UVs tratadas, 2015--2024 (pasan de 0 a 1+ jardines). Fuente: elaboración propia a partir de \texttt{base\_cobertura\_cp.dta}.}
 \end{frame}
 
 % =============================================================================
@@ -434,9 +455,9 @@ Y_{ijt} = \lambda_j + \lambda_t + \sum_{k \neq -1} \beta_k \, \mathbb{1}\{t - T_
 % =============================================================================
 \begin{frame}{Base de panel mujer--UV: en construcción}
 \begin{block}{Objetivo del panel}
-\footnotesize Construir un panel de \textbf{mujeres de 18 a 65 años} a partir del Registro Social de Hogares (RSH), con su \textbf{UV asignada}, que incorpore variables de \textbf{fertilidad} (si tuvo hijos en el período) y de \textbf{mercado laboral} (empleo, ingresos, entre otras).
+\footnotesize Construir un panel de \textbf{mujeres de 18 a 70 años} a partir del Registro Social de Hogares (RSH), con su \textbf{UV asignada}, que incorpore variables de \textbf{fertilidad} (si tuvo hijos en el período) y de \textbf{mercado laboral} (empleo, ingresos, entre otras).
 \end{block}
-\vspace{1pt}
+\vspace{4pt}
 \begingroup
 \setlist[itemize]{itemsep=1pt,topsep=1pt,leftmargin=*}
 \begin{columns}[T]
@@ -448,11 +469,11 @@ Y_{ijt} = \lambda_j + \lambda_t + \sum_{k \neq -1} \beta_k \, \mathbb{1}\{t - T_
   \item Cotizaciones (Super\_Pensiones)
   \item Búsqueda de empleo / contrato (RSH)
 \end{itemize}
-\vspace{1pt}
+\vspace{4pt}
 {\footnotesize\textbf{Variables de fertilidad}}
 \begin{itemize}
   \footnotesize
-  \item Hijos vivos/fallecidos por RUT innominado
+  \item Hijos por RUT innominado
   \item Composición del hogar (RSH)
 \end{itemize}
 \end{column}
@@ -461,16 +482,125 @@ Y_{ijt} = \lambda_j + \lambda_t + \sum_{k \neq -1} \beta_k \, \mathbb{1}\{t - T_
 \begin{itemize}
   \footnotesize
   \item Asignación de UV (RSH)
-  \item Participación en educación parvularia de los hijos (RSH + SIMCE)
+  \item Participación en educación parvularia de los hijos (bases de matrícula, Subsecretaría de Educación Parvularia)
   \item Características territoriales de la UV
 \end{itemize}
-\vspace{1pt}
-\begin{block}{Estado actual}
-\footnotesize Ninguno de estos componentes tiene código terminado en el repositorio todavía. La \textbf{base de cobertura} (sección anterior) es, por ahora, la única etapa completamente construida y verificada.
-\end{block}
 \end{column}
 \end{columns}
 \endgroup
+\end{frame}
+
+% =============================================================================
+% 16b. AVANCE DEL PANEL RSH-UV
+% =============================================================================
+\begin{frame}{Avance del panel RSH-UV}
+\begingroup
+\setlist[itemize]{itemsep=3pt,topsep=2pt,leftmargin=*}
+{\small\textcolor{steel}{\textbf{Panel RSH-UV, 2016--2024}}}
+\begin{itemize}
+  \footnotesize
+  \item Construcción: filtro por sexo/edad (18--70 años como corte amplio inicial), merge con cartografía de UV por año, drop de duplicados en \texttt{rut\_inn}.
+  \item \textbf{Append completo de los 9 años} (2016--2024): panel final de \textbf{\textasciitilde60 millones de observaciones}, con \textbf{\textasciitilde6,93 millones de mujeres únicas}.
+  \item \textbf{2014 y 2015 pendientes}: FPS sin cartografía de UV compatible hasta ahora.
+\end{itemize}
+
+\vspace{4pt}
+{\small\textcolor{steel}{\textbf{Bases asociadas}}}
+\begin{itemize}
+  \footnotesize
+  \item \textbf{Base de hijos}: construida a partir de la base transversal 2025 (\textbf{27 millones de obs.}).
+  \item \textbf{Variables de UV a nivel de toda la población} (no solo la muestra filtrada): población total, n\textsuperscript{o} de hogares, densidad de niños 0--5, CSE promedio --- necesarias para testear pre-trends y selección.
+  \item \textbf{Mercado laboral}: se eligieron las bases históricas de \textbf{Rentas} (\texttt{rut\_inn\_afiliado}, n\textsuperscript{o} de cuenta, renta imponible, mes\_devengamiento), por su mejor cobertura poblacional y ventana temporal.
+\end{itemize}
+\endgroup
+\end{frame}
+
+% =============================================================================
+% 16c. DATOS DESCRIPTIVOS DE PANEL RSH-UV
+% =============================================================================
+\begin{frame}{Datos descriptivos de panel RSH-UV}
+\vspace{-4pt}
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+  xbar,
+  bar width=9pt,
+  width=0.92\textwidth,
+  height=4.6cm,
+  symbolic y coords={1,2,3,4,5,6,7,8,9},
+  ytick={1,2,3,4,5,6,7,8,9},
+  yticklabels={1,2,3,4,5,6,7,8,9 (completo)},
+  xmin=0, xmax=58,
+  xtick={0,10,20,30,40,50},
+  xlabel={\% de mujeres},
+  xlabel style={font=\scriptsize},
+  ylabel={A\~nos en panel},
+  ylabel style={font=\scriptsize},
+  tick label style={font=\scriptsize},
+  axis lines*=left,
+  ytick style={draw=none},
+  enlarge y limits=0.07,
+  nodes near coords={\pgfmathprintnumber[fixed,precision=2]{\pgfplotspointmeta}\,\%},
+  nodes near coords style={font=\tiny,text=graytext},
+  axis line style={gray!60},
+]
+\addplot[fill=navy,draw=none,bar shift=0pt] coordinates {(50.19,9)};
+\addplot[fill=neutralgray,draw=none,bar shift=0pt] coordinates {
+  (7.91,8) (5.37,7) (5.77,6) (7.40,5) (9.00,4) (6.93,3) (3.72,2) (3.72,1)
+};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\fuente{El panel corresponde a mujeres de 18 a 70 años observadas entre 2016 y 2024 en el RSH ($N=$ 6.926.353 mujeres).}
+\vspace{2pt}
+\begin{itemize}
+  \footnotesize
+  \item El \textbf{50\,\%} de las mujeres cuenta con \textbf{panel completo (9 años)}, lo que es relevante para la solidez de la identificación del event study.
+\end{itemize}
+\end{frame}
+
+% =============================================================================
+% 16d. DATOS DESCRIPTIVOS: COMPOSICIÓN DEL PANEL
+% =============================================================================
+\begin{frame}{Datos descriptivos: composición del panel, 2016--2024}
+\vspace{-14pt}
+\begin{center}
+{\rmfamily
+\begin{tikzpicture}
+\begin{axis}[
+  width=0.82\textwidth,
+  height=5.6cm,
+  xmin=2015.5, xmax=2024.5,
+  ymin=0, ymax=100,
+  xtick={2016,2017,2018,2019,2020,2021,2022,2023,2024},
+  ytick={0,20,40,60,80,100},
+  xlabel={A\~no},
+  ylabel={\%},
+  xlabel style={font=\small},
+  ylabel style={font=\small},
+  tick label style={font=\small},
+  scaled x ticks=false,
+  /pgf/number format/1000 sep=,
+  axis lines*=left,
+  axis line style={gray!60},
+  legend style={at={(0.5,-0.22)},anchor=north,legend columns=3,font=\small,draw=none},
+  legend cell align=left,
+]
+\addplot[navy,mark=*,mark size=1.6pt,thick] coordinates {
+  (2016,85.90)(2017,85.78)(2018,85.79)(2019,85.70)(2020,85.53)(2021,85.11)(2022,87.97)(2023,91.62)(2024,87.94)
+};
+\addplot[steel,mark=square*,mark size=1.6pt,thick] coordinates {
+  (2016,42.53)(2017,41.97)(2018,41.33)(2019,40.69)(2020,47.21)(2021,49.73)(2022,49.97)(2023,47.42)(2024,47.21)
+};
+\addplot[schoolgreen,mark=triangle*,mark size=2pt,thick] coordinates {
+  (2016,49.92)(2017,49.50)(2018,49.21)(2019,49.20)(2020,43.72)(2021,43.74)(2022,44.15)(2023,44.07)(2024,44.09)
+};
+\legend{Urbano, Con pareja, Trabaja}
+\end{axis}
+\end{tikzpicture}
+}
+\end{center}
+\fuente{Panel de mujeres de 18 a 70 años (RSH), 2016--2024.}
 \end{frame}
 
 % =============================================================================
@@ -479,31 +609,56 @@ Y_{ijt} = \lambda_j + \lambda_t + \sum_{k \neq -1} \beta_k \, \mathbb{1}\{t - T_
 \begin{frame}{Próximos pasos}
 \begin{itemize}[label={}]
   \small
-  \item \textbf{1.}~Terminar el panel \textbf{RSH-UV} (mujer-año) y el pipeline de \textbf{cotizaciones} (Super\_Pensiones).
-  \item \textbf{2.}~Construir \textbf{características a nivel de UV} (variables territoriales/socioeconómicas para heterogeneidad y controles).
-  \item \textbf{3.}~Extender y limpiar la \textbf{base de nacimientos}.
-  \item \textbf{4.}~\textbf{Primer paso analítico}: validación de primera etapa --- event study de matrícula/asistencia a jardines centrado en el año de apertura de la UV.
-  \item \textbf{5.}~Estimar efectos en \textbf{participación laboral} (rentas, cotizaciones, búsqueda de empleo) y en \textbf{fertilidad} (nacimientos).
-  \item \textbf{6.}~\textbf{Robustez}: reestimar con el estimador de \textbf{Callaway y Sant'Anna (2021)} para tratamiento escalonado.
-  \item \textbf{7.}~Placebo de exogeneidad del timing con tasa de natalidad pre-tratamiento.
+  \item \textbf{1.}~Terminar el panel \textbf{RSH-UV} (mujer-año) agregando variables de resultado (hijos y rentas). Definir muestra para cada outcome.
+  \item \textbf{2.}~Validación de primera etapa --- matrícula/asistencia a jardines en el año de apertura de cada UV.
+  \item \textbf{3.}~Definir estimador y modelo específico en base a situación del panel.
+  \item \textbf{4.}~Estimar efectos en participación laboral y en fertilidad (nacimientos).
 \end{itemize}
+
+\vspace{8pt}
+\begin{block}{Por decidir}
+\small
+\begin{itemize}
+  \item \textbf{Estimador}: ETWFE (Wooldridge 2021) vs. Callaway y Sant'Anna (2021).
+  \item \textbf{Definición de ``UV contigua''} en la variable de tratamiento.
+  \item \textbf{Muestra exacta}: qué rango de edad y qué mujeres incluir en el panel, para fertilidad y para mercado laboral por separado.
+\end{itemize}
+\end{block}
 \end{frame}
 
 % =============================================================================
-% 18. RESULTADOS PRINCIPALES
+% ANEXOS
 % =============================================================================
-\begin{frame}{Resultados principales}
-\vspace{20pt}
+\begin{frame}{Anexo A. Matrícula por dependencia, 2018--2022}
 \begin{center}
-{\Large\bfseries\color{navy} Resultados pendientes}
+\begin{tikzpicture}
+\begin{axis}[
+  ybar stacked,
+  bar width=24pt,
+  width=0.78\textwidth,
+  height=3.9cm,
+  symbolic x coords={2018,2019,2020,2021,2022},
+  xtick=data,
+  ymin=0, ymax=100,
+  ylabel={\% matr\'icula},
+  ylabel style={font=\scriptsize},
+  tick label style={font=\scriptsize},
+  axis lines*=left,
+  enlarge x limits=0.12,
+  legend style={at={(0.5,-0.3)},anchor=north,legend columns=3,font=\tiny,draw=none,/tikz/every even column/.append style={column sep=4pt}},
+  grid style={gray!20},
+]
+\addplot[fill=navy,draw=none] coordinates {(2018,23.94)(2019,23.79)(2020,21.52)(2021,23.16)(2022,22.61)};
+\addplot[fill=steel,draw=none] coordinates {(2018,11.14)(2019,10.89)(2020,10.35)(2021,10.70)(2022,10.45)};
+\addplot[fill=municblue,draw=none] coordinates {(2018,15.30)(2019,15.54)(2020,15.87)(2021,14.31)(2022,14.34)};
+\addplot[fill=steellight,draw=none] coordinates {(2018,0.79)(2019,0.80)(2020,1.53)(2021,2.33)(2022,2.36)};
+\addplot[fill=psuborange,draw=none] coordinates {(2018,42.35)(2019,42.32)(2020,44.40)(2021,43.67)(2022,43.78)};
+\addplot[fill=ppagbrown,draw=none] coordinates {(2018,6.47)(2019,6.67)(2020,6.35)(2021,5.84)(2022,6.47)};
+\legend{JUNJI, Integra, Municipal, SLEP, P. Subvencionado, P. Pagado}
+\end{axis}
+\end{tikzpicture}
 \end{center}
-\vspace{18pt}
-
-\begin{itemize}
-  \item La base de cobertura (UV-año) está construida y verificada; la base de resultados (mujer-UV: RSH, cotizaciones, nacimientos) está en construcción.
-  \item Aún no se han estimado modelos de participación laboral ni de fertilidad.
-  \item El primer resultado esperado es la \textbf{validación de primera etapa} (matrícula/asistencia), seguido de las estimaciones de impacto descritas en ``Próximos pasos''.
-\end{itemize}
+\fuente{Fuente: Tabla 14, Matrícula Oficial Educación Parvularia por dependencia 2018--2022, Centro de Estudios MINEDUC.}
 \end{frame}
 
 \end{document}
