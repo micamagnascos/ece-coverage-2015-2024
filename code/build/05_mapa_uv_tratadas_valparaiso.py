@@ -16,7 +16,7 @@ Corre localmente: requiere geopandas, matplotlib y contextily (ver
 requirements.txt) y se ejecuta desde la raíz del repo (o vía run_all.do, que ya
 se posiciona ahí).
 
-Input:  data/raw/unidades-vecinales_2023/mdsf_Unidades_Vecinales_Julio2023.shp
+Input:  data/raw/unidades-vecinales_2024/UnidadesVecinales_2024v4.shp
         data/final/base_cobertura_cp.dta (salida de code/build/03_panel_uv_anio.do)
 Output: output/figures/mapa_uv_tratadas_valparaiso.png
 """
@@ -47,7 +47,7 @@ COLOR_TRATADA_BORDE = "#1f5fa8"
 
 # Cargar shapefile de unidades vecinales, quedarse con TODAS las UV de
 # Valparaíso (sin filtrar) y reproyectar
-uv = gpd.read_file(RAW / "unidades-vecinales_2023" / "mdsf_Unidades_Vecinales_Julio2023.shp")
+uv = gpd.read_file(RAW / "unidades-vecinales_2024" / "UnidadesVecinales_2024v4.shp")
 uv_vp = uv[uv["t_reg_nom"] == REGION_VP].copy()
 uv_vp["t_id_uv_ca"] = uv_vp["t_id_uv_ca"].astype(int)
 uv_vp = uv_vp.to_crs(CRS_WEB)

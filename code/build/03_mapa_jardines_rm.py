@@ -4,7 +4,7 @@
 Corre localmente: requiere geopandas y matplotlib (ver requirements.txt) y se
 ejecuta desde la raíz del repo (o vía run_all.do, que ya se posiciona ahí).
 
-Input:  data/raw/unidades-vecinales_2023/mdsf_Unidades_Vecinales_Julio2023.shp
+Input:  data/raw/unidades-vecinales_2024/UnidadesVecinales_2024v4.shp
         data/build/junji_uv.csv, data/build/integra_uv.csv
         (salida de code/build/02_spatial_join_uv.py)
 Output: output/figures/mapa_jardines_rm.png
@@ -29,7 +29,7 @@ PCT_ZOOM = (5, 95)  # percentiles de x/y para acotar al núcleo denso (Gran Sant
 MARGEN_ZOOM = 0.05  # margen sobre el rango de percentiles
 
 # Cargar shapefile de unidades vecinales, filtrar a la RM y reproyectar
-uv = gpd.read_file(RAW / "unidades-vecinales_2023" / "mdsf_Unidades_Vecinales_Julio2023.shp")
+uv = gpd.read_file(RAW / "unidades-vecinales_2024" / "UnidadesVecinales_2024v4.shp")
 uv_rm = uv[uv["t_reg_nom"] == REGION_RM].to_crs(CRS_WEB)
 
 print("Unidades vecinales RM:", uv_rm.shape)

@@ -130,9 +130,10 @@ describe FECHA_APERTURA
 *nos quedamos con los que abrieron antes de 2024
 
 *no tengo fecha de cierre!! debería pedirla por transaprencia
-*drop if FECHA_APERTURA > td(31dec2024)
+*no se por que habia eliminado a 2024
+drop if FECHA_APERTURA > td(31dec2024)
 
-drop if FECHA_APERTURA > td(31dec2023)
+*drop if FECHA_APERTURA > td(31dec2023)
 
 duplicates report COD_ESTABLEC
 *4286 contando todos los tipos de establecimiento

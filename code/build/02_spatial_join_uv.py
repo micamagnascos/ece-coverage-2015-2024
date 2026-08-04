@@ -6,7 +6,7 @@ https://colab.research.google.com/drive/1s-6Kq4yACpyCtWODVw9NlB7uqU93pqIX).
 Corre localmente: requiere geopandas (ver requirements.txt) y se ejecuta
 desde la raíz del repo (o vía run_all.do, que ya se posiciona ahí).
 
-Input:  data/raw/unidades-vecinales_2023/mdsf_Unidades_Vecinales_Julio2023.shp
+Input:  data/raw/unidades-vecinales_2024/UnidadesVecinales_2024v4.shp
         data/build/junji_limpia.csv, data/build/integra_limpia.csv
         (salida de code/build/01_limpieza_junji_integra.do)
 Output: data/build/junji_uv.csv, data/build/integra_uv.csv,
@@ -23,7 +23,7 @@ RAW = ROOT / "data" / "raw"
 BUILD = ROOT / "data" / "build"
 
 # Cargar shapefile de unidades vecinales
-uv = gpd.read_file(RAW / "unidades-vecinales_2023" / "mdsf_Unidades_Vecinales_Julio2023.shp")
+uv = gpd.read_file(RAW / "unidades-vecinales_2024" / "UnidadesVecinales_2024v4.shp")
 
 # Cargar CSVs limpios (salida de 01_limpieza_junji_integra.do)
 junji = pd.read_csv(BUILD / "junji_limpia.csv", encoding="latin1")

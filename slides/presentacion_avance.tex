@@ -147,7 +147,7 @@ Micaella Magnasco \\[4pt]
 
 \vspace{6pt}
 \begin{block}{Objetivo general}
-\small Estimar el efecto causal de la apertura de jardines infantiles públicos (JUNJI/Integra) sobre la participación laboral y la fertilidad de las madres, explotando la variación territorial y temporal de su expansión escalonada entre 2016 y 2023.
+\small Estimar el efecto causal de la apertura de jardines infantiles públicos (JUNJI/Integra) sobre la participación laboral y la fertilidad de las madres, explotando la variación territorial y temporal de su expansión escalonada entre 2016 y 2024.
 \end{block}
 \end{frame}
 
@@ -214,17 +214,16 @@ Micaella Magnasco \\[4pt]
 \begin{columns}[T]
 \begin{column}{0.56\textwidth}
 \begingroup
-\setlist[itemize]{itemsep=3pt,topsep=2pt,leftmargin=*}
+\setlist[itemize]{itemsep=2pt,topsep=1pt,leftmargin=*}
 \begin{itemize}
   \small
-  \item Diseño cuasi-experimental de \textbf{diferencias en diferencias con estudio de eventos (event study)}, con efectos fijos bidireccionales (TWFE) de unidad vecinal y año.
-  \item \textbf{Unidad de análisis}: unidad vecinal (UV) --- subdivisión territorial de una comuna. El MDS la usa para sectorizar el país, focalizar beneficios estatales y analizar datos del RSH; ofrece mayor desagregación que la literatura comparada.
-  \item \textbf{Tratamiento}: una UV se considera tratada desde el año en que se inaugura el primer jardín infantil público dentro de su territorio o en una UV contigua$^{*}$.
-  \item Apertura escalonada entre \textbf{2016 y 2023} $\to$ variación territorial y temporal que identifica el efecto.
+  \item Diseño cuasi-experimental de \textbf{diferencias en diferencias con event study}, efectos fijos bidireccionales (TWFE) de UV y año.
+  \item \textbf{Unidad de análisis}: unidad vecinal (UV), subdivisión territorial de una comuna que usa el MDS para sectorizar y focalizar beneficios; mayor desagregación que la literatura comparada.
+  \item \textbf{Tratamiento}: UV tratada desde el año en que se inaugura su primer jardín público, en su territorio o en una UV contigua$^{*}$, sobre la cartografía UV \textbf{vigente en 2024}$^{\dagger}$.
+  \item Apertura escalonada entre \textbf{2016 y 2024} $\to$ variación territorial y temporal que identifica el efecto.
 \end{itemize}
 \endgroup
-\vspace{1pt}
-\fuente{$^{*}$Por definir.}
+\fuente{$^{*}$Por definir. $^{\dagger}$Ver nota en slides de cobertura.}
 \end{column}
 \begin{column}{0.4\textwidth}
 \small
@@ -270,27 +269,11 @@ Y_{ijt} = \lambda_j + \lambda_t + \sum_{k \neq -1} \beta_k \, \mathbb{1}\{t - T_
 \end{frame}
 
 % =============================================================================
-% 9. IDENTIFICACIÓN — SUPUESTOS Y AMENAZAS
-% =============================================================================
-\begin{frame}{Supuestos de identificación}
-\begin{itemize}
-  \item \textbf{Tendencias paralelas}: se evalúa con los coeficientes pre-apertura del event study; deben ser estadísticamente indistinguibles de cero.
-  \item \textbf{No anticipación}: las madres no ajustan decisiones antes de la apertura efectiva. Su validez depende del grado de aviso previo con que se anuncian las aperturas (a analizar).
-  \item \textbf{Exogeneidad del timing}: el momento de instalación no debe correlacionarse con características no observadas de la UV. \textbf{Principal amenaza}: que JUNJI/Integra prioricen unidades con mayor demanda de cuidado o características socioeconómicas particulares.
-\end{itemize}
-
-\vspace{10pt}
-\begin{block}{Chequeo de plausibilidad (placebo)}
-\small Se estimará un event study análogo usando la \textbf{tasa de natalidad pre-tratamiento} de la UV como variable de resultado. Coeficientes pre-tratamiento no significativos fortalecerían el supuesto de tendencias paralelas del modelo principal.
-\end{block}
-\end{frame}
-
-% =============================================================================
 % 10. COBERTURA — OBJETIVO (eje central de este avance)
 % =============================================================================
 \begin{frame}{La base de cobertura: eje central de este avance}
 \begin{block}{Objetivo}
-\small Construir un \textbf{panel balanceado a nivel de unidad vecinal (UV) $\times$ año} (6.877 UVs $\times$ 10 años, 2015--2024), donde cada fila indica cuántos centros de educación parvularia JUNJI e Integra existían en esa UV ese año.
+\small Construir un \textbf{panel balanceado a nivel de unidad vecinal (UV) $\times$ año} (6.887 UVs $\times$ 10 años, 2015--2024, cartografía UV vigente en 2024), donde cada fila indica cuántos centros de educación parvularia JUNJI e Integra existían en esa UV ese año.
 \end{block}
 
 \vspace{10pt}
@@ -311,7 +294,7 @@ Y_{ijt} = \lambda_j + \lambda_t + \sum_{k \neq -1} \beta_k \, \mathbb{1}\{t - T_
   arr/.style={-{Latex[length=2.5mm]},steel,thick}
 ]
 \node[box] (b1) {\textbf{1. Limpieza JUNJI / Integra} (Stata) \\ \scriptsize bases de solicitudes de transparencia $\to$ una fila por establecimiento, año de apertura y de término};
-\node[box, below=5pt of b1] (b2) {\textbf{2. Asignación espacial jardín $\to$ UV} (Python / GeoPandas) \\ \scriptsize shapefile de unidades vecinales (MDSF, 6.877 UVs) + \texttt{sjoin} espacial};
+\node[box, below=5pt of b1] (b2) {\textbf{2. Asignación espacial jardín $\to$ UV} (Python / GeoPandas) \\ \scriptsize shapefile de unidades vecinales (MDSF, actualización 2024, 6.887 UVs) + \texttt{sjoin} espacial};
 \node[box, below=5pt of b2] (b3) {\textbf{3. Panel UV-año} (Stata) \\ \scriptsize expansión por años de actividad, colapso a conteos por UV-año, \texttt{tsfill}, merge con universo completo de UVs, variable \texttt{tratada}};
 \draw[arr] (b1) -- (b2);
 \draw[arr] (b2) -- (b3);
@@ -327,16 +310,10 @@ Y_{ijt} = \lambda_j + \lambda_t + \sum_{k \neq -1} \beta_k \, \mathbb{1}\{t - T_
 \begin{frame}{Base de cobertura: cifras clave}
 \begin{itemize}
   \small
-  \item Panel balanceado: \textbf{6.877 unidades vecinales $\times$ 10 años} (2015--2024) = \textbf{68.770 observaciones}.
-  \item La oferta pública total pasó de \textbf{3.729 a 4.432 centros} entre 2015 y 2024 (\textbf{+19\,\%}); JUNJI concentra \textasciitilde74\,\% de los centros, Integra \textasciitilde26\,\%.
-  \item \textbf{263 UVs} pasan de 0 a 1+ centros durante la ventana 2015--2024 (margen extensivo, variable \texttt{tratada}).
-  \item El spatial join asignó UV al 100\,\% de los jardines con coordenadas válidas; quedaron fuera del panel \textbf{353 jardines JUNJI y 11 Integra} sin coordenadas utilizables.
+  \item La oferta pública total pasó de \textbf{3.730 a 4.447 centros} entre 2015 y 2024 (\textbf{+19\,\%}); JUNJI concentra \textasciitilde74\,\% de los centros, Integra \textasciitilde26\,\%.
+  \item El spatial join asignó UV al \textbf{99,98\,\%} de los jardines con coordenadas válidas (4.458 de 4.459); quedaron fuera del panel \textbf{356 jardines JUNJI y 11 Integra} sin coordenadas utilizables, más 1 jardín JUNJI en el límite entre polígonos.
+  \item \textbf{Resultado} $\to$ panel balanceado: \textbf{6.887 unidades vecinales $\times$ 10 años} (2015--2024, cartografía UV 2024) = \textbf{68.880 observaciones}.
 \end{itemize}
-
-\vspace{4pt}
-\begin{block}{Nota metodológica}
-\footnotesize La mayor parte de la expansión observada ocurre en el \textbf{margen intensivo} (UVs que ya tenían cobertura y suman más centros), no en el margen extensivo (UVs que pasan de 0 a 1+). Las \textasciitilde2.430 UVs que ya tenían cobertura en 2015 nunca pueden marcarse como \texttt{tratada}, por falta de datos previos a ese año.
-\end{block}
 \end{frame}
 
 % =============================================================================
@@ -366,7 +343,33 @@ Y_{ijt} = \lambda_j + \lambda_t + \sum_{k \neq -1} \beta_k \, \mathbb{1}\{t - T_
 \end{frame}
 
 % =============================================================================
-% 14. COBERTURA — COHORTES DE TRATAMIENTO POR AÑO
+% 15. COBERTURA — MAPA JARDINES RM (full bleed)
+% =============================================================================
+\begin{frame}{Jardines públicos por unidad vecinal, Región Metropolitana}
+\begin{center}
+\includegraphics[width=0.98\textwidth,height=0.573\textheight,keepaspectratio]{../jardines_rm.jpeg}
+\end{center}
+\fuente{Fuente: elaboración propia a partir de \texttt{base\_cobertura\_cp.dta}. Puntos: JUNJI (rojo), Integra (azul); fondo: n\'umero de jardines por UV (2023).}
+\end{frame}
+
+% =============================================================================
+% 15b. COBERTURA — TRATAMIENTO (TENTATIVO)
+% =============================================================================
+\begin{frame}{Tratamiento (tentativo)}
+\begin{itemize}
+  \item \textbf{Definición}: una UV se considera \textbf{tratada} si pasa de \textbf{0 a 1+ centros} JUNJI/Integra en algún año de la ventana 2015--2024 (margen extensivo, variable \texttt{tratada}).
+  \item \textbf{269 UVs tratadas} bajo este criterio, de un universo de \textbf{6.887 UVs}.
+  \item Para dimensionar el margen intensivo: si se suman también las UVs que \textbf{ya tenían 1+ centro antes de 2015} y sumaron más durante la ventana, \textbf{634 UVs} aumentan su cobertura en total (269 de margen extensivo + 365 de margen intensivo). Esta comparación es solo de referencia; no es la definición de tratamiento del event study.
+\end{itemize}
+
+\vspace{10pt}
+\begin{block}{Nota metodológica}
+\footnotesize El universo y los límites de UV corresponden a la cartografía \textbf{vigente en 2024} (MDSF, 6.887 UVs); el tratamiento se define y analiza sobre esas UV, no sobre la cartografía 2023 usada en una versión anterior de esta base.
+\end{block}
+\end{frame}
+
+% =============================================================================
+% 15c. COBERTURA — COHORTES DE TRATAMIENTO POR AÑO
 % =============================================================================
 \begin{frame}{Cohortes de tratamiento por año}
 \begin{center}
@@ -376,7 +379,7 @@ Y_{ijt} = \lambda_j + \lambda_t + \sum_{k \neq -1} \beta_k \, \mathbb{1}\{t - T_
   bar width=22pt,
   width=0.92\textwidth,
   height=6.1cm,
-  symbolic x coords={2016,2017,2018,2019,2020,2021,2022,2023},
+  symbolic x coords={2016,2017,2018,2019,2020,2021,2022,2023,2024},
   xtick=data,
   ymin=0, ymax=90,
   nodes near coords,
@@ -385,30 +388,20 @@ Y_{ijt} = \lambda_j + \lambda_t + \sum_{k \neq -1} \beta_k \, \mathbb{1}\{t - T_
   ylabel style={font=\small},
   tick label style={font=\small},
   axis lines*=left,
-  enlarge x limits=0.08,
+  enlarge x limits=0.06,
   ymajorgrids=true,
   grid style={gray!25},
   axis line style={gray!60},
 ]
 \addplot[fill=steel,draw=none] coordinates {
-  (2016,63) (2017,78) (2018,45) (2019,37) (2020,7) (2021,15) (2022,10) (2023,8)
+  (2016,63) (2017,77) (2018,46) (2019,38) (2020,7) (2021,15) (2022,11) (2023,8) (2024,4)
 };
 \end{axis}
 \end{tikzpicture}
 \end{center}
 \vspace{2pt}
-\small \textbf{263 UVs tratadas} en total (2016--2023). El 71\,\% (186 UVs) se concentra entre 2016 y 2018.
+\small \textbf{269 UVs tratadas} en total (2016--2024). El 69\,\% (186 UVs) se concentra entre 2016 y 2018.
 \fuente{Fuente: elaboración propia a partir de \texttt{base\_cobertura\_cp.dta} (\texttt{docs/codebook\_panel\_final.md}).}
-\end{frame}
-
-% =============================================================================
-% 15. COBERTURA — MAPA JARDINES RM (full bleed)
-% =============================================================================
-\begin{frame}{Jardines públicos por unidad vecinal, Región Metropolitana}
-\begin{center}
-\includegraphics[width=0.8\textwidth,height=0.64\textheight,keepaspectratio]{../jardines_rm.jpeg}
-\end{center}
-\fuente{Fuente: elaboración propia a partir de \texttt{base\_cobertura\_cp.dta}. Puntos: jardines JUNJI (rojo) e Integra (azul); color de fondo: n\'umero de jardines p\'ublicos por UV (2023).}
 \end{frame}
 
 % =============================================================================
@@ -419,7 +412,7 @@ Y_{ijt} = \lambda_j + \lambda_t + \sum_{k \neq -1} \beta_k \, \mathbb{1}\{t - T_
 \begin{column}{0.5\textwidth}
 \centering
 \includegraphics[width=\textwidth,height=0.62\textheight,keepaspectratio]{../output/figures/03_uv_tratadas_por_region.png}
-\small Metropolitana (52) y Valparaíso (44) concentran el 37\,\% de las UVs tratadas.
+\small Metropolitana (55) y Valparaíso (45) concentran el 37\,\% de las UVs tratadas.
 \end{column}
 \begin{column}{0.5\textwidth}
 \centering
@@ -607,6 +600,10 @@ Y_{ijt} = \lambda_j + \lambda_t + \sum_{k \neq -1} \beta_k \, \mathbb{1}\{t - T_
 % 17. PASOS A SEGUIR
 % =============================================================================
 \begin{frame}{Próximos pasos}
+\begin{columns}[T]
+\begin{column}{0.52\textwidth}
+\begingroup
+\setlist[itemize]{itemsep=4pt,topsep=1pt,leftmargin=*}
 \begin{itemize}[label={}]
   \small
   \item \textbf{1.}~Terminar el panel \textbf{RSH-UV} (mujer-año) agregando variables de resultado (hijos y rentas). Definir muestra para cada outcome.
@@ -614,16 +611,27 @@ Y_{ijt} = \lambda_j + \lambda_t + \sum_{k \neq -1} \beta_k \, \mathbb{1}\{t - T_
   \item \textbf{3.}~Definir estimador y modelo específico en base a situación del panel.
   \item \textbf{4.}~Estimar efectos en participación laboral y en fertilidad (nacimientos).
 \end{itemize}
-
-\vspace{8pt}
+\endgroup
+\end{column}
+\begin{column}{0.48\textwidth}
 \begin{block}{Por decidir}
-\small
+\footnotesize
+\begingroup
+\setlist[itemize]{itemsep=2pt,topsep=0pt,leftmargin=*}
 \begin{itemize}
   \item \textbf{Estimador}: ETWFE (Wooldridge 2021) vs. Callaway y Sant'Anna (2021).
   \item \textbf{Definición de ``UV contigua''} en la variable de tratamiento.
-  \item \textbf{Muestra exacta}: qué rango de edad y qué mujeres incluir en el panel, para fertilidad y para mercado laboral por separado.
+  \item \textbf{Muestra exacta}: rango de edad y mujeres a incluir, por outcome.
 \end{itemize}
+\endgroup
 \end{block}
+
+\vspace{1pt}
+\begin{block}{Desafío actual}
+\scriptsize Las UV cambian de límites y códigos en el tiempo, pero la base usa cartografía estática (2024). \textbf{Se solicitaron a MDS los shapefiles históricos de UV} para evaluar el impacto sobre el tratamiento.
+\end{block}
+\end{column}
+\end{columns}
 \end{frame}
 
 % =============================================================================
@@ -659,6 +667,22 @@ Y_{ijt} = \lambda_j + \lambda_t + \sum_{k \neq -1} \beta_k \, \mathbb{1}\{t - T_
 \end{tikzpicture}
 \end{center}
 \fuente{Fuente: Tabla 14, Matrícula Oficial Educación Parvularia por dependencia 2018--2022, Centro de Estudios MINEDUC.}
+\end{frame}
+
+% =============================================================================
+% ANEXO B — SUPUESTOS DE IDENTIFICACIÓN
+% =============================================================================
+\begin{frame}{Anexo B. Supuestos de identificación}
+\begin{itemize}
+  \item \textbf{Tendencias paralelas}: se evalúa con los coeficientes pre-apertura del event study; deben ser estadísticamente indistinguibles de cero.
+  \item \textbf{No anticipación}: las madres no ajustan decisiones antes de la apertura efectiva. Su validez depende del grado de aviso previo con que se anuncian las aperturas (a analizar).
+  \item \textbf{Exogeneidad del timing}: el momento de instalación no debe correlacionarse con características no observadas de la UV. \textbf{Principal amenaza}: que JUNJI/Integra prioricen unidades con mayor demanda de cuidado o características socioeconómicas particulares.
+\end{itemize}
+
+\vspace{10pt}
+\begin{block}{Chequeo de plausibilidad (placebo)}
+\small Se estimará un event study análogo usando la \textbf{tasa de natalidad pre-tratamiento} de la UV como variable de resultado. Coeficientes pre-tratamiento no significativos fortalecerían el supuesto de tendencias paralelas del modelo principal.
+\end{block}
 \end{frame}
 
 \end{document}
