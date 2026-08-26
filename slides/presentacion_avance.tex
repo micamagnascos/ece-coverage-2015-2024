@@ -14,6 +14,7 @@
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.17}
 \usetikzlibrary{arrows.meta,positioning,shapes.geometric}
+\usepackage{multirow}
 
 % ---------------------------------------------------------------------------
 % Paleta de colores (navy / azul)
@@ -28,6 +29,9 @@
 \definecolor{ppagbrown}{RGB}{150,98,58}
 \definecolor{schoolgreen}{RGB}{80,165,130}
 \definecolor{neutralgray}{RGB}{176,182,192}
+\definecolor{statusred}{RGB}{176,36,36}
+\definecolor{statuspink}{RGB}{204,100,100}
+\definecolor{statuslisto}{RGB}{40,120,70}
 
 % ---------------------------------------------------------------------------
 % Tema base minimalista
@@ -79,7 +83,7 @@
 
 \title{Impactos de la educación parvularia pública en Chile en fertilidad y mercado laboral de las madres}
 \author{Micaella Magnasco}
-\date{Julio 2026}
+\date{Agosto 2026}
 
 \begin{document}
 
@@ -95,14 +99,14 @@
 \textcolor{steel}{\rule{0.5\paperwidth}{0.6pt}}
 
 \vspace{14pt}
-{\large\color{graytext} Estado de avance julio 2026}
+{\large\color{graytext} Estado de avance agosto 2026}
 
 \vspace{55pt}
 {\normalsize
 Micaella Magnasco \\[4pt]
 \small Profesor guía: Andrés Hojman \\[2pt]
 \small Actividad Final de Grado --- Pontificia Universidad Católica de Chile \\[2pt]
-\small Julio 2026
+\small Agosto 2026
 }
 \end{center}
 \end{frame}
@@ -140,15 +144,85 @@ Micaella Magnasco \\[4pt]
 % =============================================================================
 % 3. PREGUNTA DE INVESTIGACIÓN Y OBJETIVOS
 % =============================================================================
-\begin{frame}{Pregunta de investigación y objetivos}
+\begin{frame}{Pregunta de investigación y relevancia del estudio}
 \begin{block}{Pregunta de investigación}
 \small ¿Cuáles son los efectos de la expansión pública de la educación parvularia en Chile sobre la participación laboral femenina y la fertilidad de las madres?
 \end{block}
 
 \vspace{6pt}
-\begin{block}{Objetivo general}
-\small Estimar el efecto causal de la apertura de jardines infantiles públicos (JUNJI/Integra) sobre la participación laboral y la fertilidad de las madres, explotando la variación territorial y temporal de su expansión escalonada entre 2016 y 2024.
+\begin{block}{Relevancia del estudio}
+\begingroup
+\setlist[itemize]{itemsep=3pt,topsep=1pt,leftmargin=*}
+\begin{itemize}
+  \small
+  \item \textbf{Innovación metodológica}: construye una base geoespacial inédita que integra jardines infantiles, censo y RSH con resolución sub-municipal; no hay estudios previos con este nivel de detalle.
+  \item \textbf{Pionero en Latinoamérica}: la evidencia empírica sobre el tema es aún incipiente en la región; evalúa si la expansión de jardines públicos mejora la inserción laboral femenina.
+\end{itemize}
+\endgroup
 \end{block}
+\end{frame}
+
+% =============================================================================
+% 7. IDENTIFICACIÓN — DISEÑO
+% =============================================================================
+\begin{frame}{Estrategia de identificación: diseño}
+\vspace{-6pt}
+\begin{columns}[T]
+\begin{column}{0.66\textwidth}
+\begingroup
+\setlist[itemize]{itemsep=1pt,topsep=0pt,leftmargin=*}
+\begin{itemize}
+  \small
+  \item \textbf{DiD con adopción escalonada y event study}, efectos fijos de mujer y año (TWFE).
+  \item \textbf{Unidad de análisis}: mujeres, panel individual (id. por RUT en el RIS), restringido a quienes permanecen en la misma unidad vecinal (UV) durante toda la ventana de observación.
+  \item \textbf{Unidad de tratamiento}: UV, subdivisión territorial de una comuna que usa el MDS; mayor desagregación que la literatura comparada.
+  \item \textbf{Tratamiento}: mujer tratada desde el año en que se inaugura el primer jardín público en su UV de residencia$^{*}$, sobre la cartografía UV \textbf{vigente en 2025}.
+  \item Apertura escalonada entre \textbf{2016 y 2024} $\to$ variación territorial y temporal que identifica el efecto.
+\end{itemize}
+\endgroup
+\fuente{$^{*}$Por definir.}
+\end{column}
+\begin{column}{0.3\textwidth}
+\small
+\begin{tikzpicture}
+\node[draw=steel,thick,fill=bgpanel,rounded corners,text width=2.4cm,align=center,minimum height=1cm] (a) {UV expuesta a apertura en año $T_j$};
+\node[draw=steel,thick,fill=bgpanel,rounded corners,text width=2.4cm,align=center,minimum height=1cm,below=8pt of a] (b) {\textbf{ITT}};
+\draw[-{Latex[length=2.5mm]},steel,thick] (a) -- (b);
+\end{tikzpicture}
+\vspace{6pt}
+
+\small El efecto captura el impacto promedio de residir en un territorio con mayor \emph{acceso potencial} a educación parvularia pública, no la participación efectiva del hogar.
+\end{column}
+\end{columns}
+\end{frame}
+
+% =============================================================================
+% 8. IDENTIFICACIÓN — ECUACIÓN DEL MODELO
+% =============================================================================
+\begin{frame}{Especificación empírica}
+\[
+Y_{ijt} = \lambda_j + \lambda_t + \sum_{k \neq -1} \beta_k \, \mathbb{1}\{t - T_j = k\} \, D_j + X'_{ijt}\gamma + \varepsilon_{ijt}
+\]
+
+\vspace{2pt}
+\begingroup
+\setlist[itemize]{itemsep=1pt,topsep=1pt,leftmargin=*}
+\begin{itemize}
+  \footnotesize
+  \item $Y_{ijt}$: resultado del hogar $i$ en la UV $j$, año $t$. \quad $\lambda_j,\lambda_t$: efectos fijos de UV y año.
+  \item $T_j$: año de apertura del primer jardín en la UV $j$; $k$ es el tiempo relativo a la apertura.
+  \item $D_j$: indicador de UV alguna vez tratada. \quad $X_{ijt}$: controles a nivel de hogar.
+  \item $\beta_k$: efecto ITT $k$ años antes/después de la apertura, respecto al período $t=-1$ (referencia).
+\end{itemize}
+\endgroup
+
+\vspace{2pt}
+\begin{block}{Coeficientes pre-apertura ($k<0$)}
+\footnotesize deben ser estadísticamente indistinguibles de cero $\to$ evidencia de tendencias paralelas.
+\end{block}
+
+\vspace{1pt}
+\footnotesize Dado que el tratamiento es escalonado, el TWFE estándar puede generar ponderaciones negativas al usar unidades ya tratadas como control. El \textbf{estimador exacto que corrige este problema aún no está definido}: se evaluarán alternativas (ETWFE, Wooldridge 2021; Callaway y Sant'Anna, 2021) según sus ventajas y desventajas.
 \end{frame}
 
 % =============================================================================
@@ -208,67 +282,6 @@ Micaella Magnasco \\[4pt]
 \end{frame}
 
 % =============================================================================
-% 7. IDENTIFICACIÓN — DISEÑO
-% =============================================================================
-\begin{frame}{Estrategia de identificación: diseño}
-\begin{columns}[T]
-\begin{column}{0.56\textwidth}
-\begingroup
-\setlist[itemize]{itemsep=2pt,topsep=1pt,leftmargin=*}
-\begin{itemize}
-  \small
-  \item Diseño cuasi-experimental de \textbf{diferencias en diferencias con event study}, efectos fijos bidireccionales (TWFE) de UV y año.
-  \item \textbf{Unidad de análisis}: unidad vecinal (UV), subdivisión territorial de una comuna que usa el MDS para sectorizar y focalizar beneficios; mayor desagregación que la literatura comparada.
-  \item \textbf{Tratamiento}: UV tratada desde el año en que se inaugura su primer jardín público, en su territorio o en una UV contigua$^{*}$, sobre la cartografía UV \textbf{vigente en 2024}$^{\dagger}$.
-  \item Apertura escalonada entre \textbf{2016 y 2024} $\to$ variación territorial y temporal que identifica el efecto.
-\end{itemize}
-\endgroup
-\fuente{$^{*}$Por definir. $^{\dagger}$Ver nota en slides de cobertura.}
-\end{column}
-\begin{column}{0.4\textwidth}
-\small
-\begin{tikzpicture}
-\node[draw=steel,thick,fill=bgpanel,rounded corners,text width=3.6cm,align=center,minimum height=1.6cm] (a) {UV expuesta a apertura en año $T_j$};
-\node[draw=steel,thick,fill=bgpanel,rounded corners,text width=3.6cm,align=center,minimum height=1.6cm,below=10pt of a] (b) {Efecto interpretado como \textbf{intención de tratamiento (ITT)}};
-\draw[-{Latex[length=2.5mm]},steel,thick] (a) -- (b);
-\end{tikzpicture}
-\vspace{6pt}
-
-\small El efecto captura el impacto promedio de residir en un territorio con mayor \emph{acceso potencial} a educación parvularia pública, no la participación efectiva del hogar.
-\end{column}
-\end{columns}
-\end{frame}
-
-% =============================================================================
-% 8. IDENTIFICACIÓN — ECUACIÓN DEL MODELO
-% =============================================================================
-\begin{frame}{Especificación empírica}
-\[
-Y_{ijt} = \lambda_j + \lambda_t + \sum_{k \neq -1} \beta_k \, \mathbb{1}\{t - T_j = k\} \, D_j + X'_{ijt}\gamma + \varepsilon_{ijt}
-\]
-
-\vspace{2pt}
-\begingroup
-\setlist[itemize]{itemsep=1pt,topsep=1pt,leftmargin=*}
-\begin{itemize}
-  \footnotesize
-  \item $Y_{ijt}$: resultado del hogar $i$ en la UV $j$, año $t$. \quad $\lambda_j,\lambda_t$: efectos fijos de UV y año.
-  \item $T_j$: año de apertura del primer jardín en la UV $j$; $k$ es el tiempo relativo a la apertura.
-  \item $D_j$: indicador de UV alguna vez tratada. \quad $X_{ijt}$: controles a nivel de hogar.
-  \item $\beta_k$: efecto ITT $k$ años antes/después de la apertura, respecto al período $t=-1$ (referencia).
-\end{itemize}
-\endgroup
-
-\vspace{2pt}
-\begin{block}{Coeficientes pre-apertura ($k<0$)}
-\footnotesize deben ser estadísticamente indistinguibles de cero $\to$ evidencia de tendencias paralelas.
-\end{block}
-
-\vspace{1pt}
-\footnotesize Dado que el tratamiento es escalonado, el TWFE estándar puede generar ponderaciones negativas al usar unidades ya tratadas como control. El \textbf{estimador exacto que corrige este problema aún no está definido}: se evaluarán alternativas (ETWFE, Wooldridge 2021; Callaway y Sant'Anna, 2021) según sus ventajas y desventajas.
-\end{frame}
-
-% =============================================================================
 % 10. COBERTURA — OBJETIVO (eje central de este avance)
 % =============================================================================
 \begin{frame}{La base de cobertura: eje central de este avance}
@@ -302,6 +315,16 @@ Y_{ijt} = \lambda_j + \lambda_t + \sum_{k \neq -1} \beta_k \, \mathbb{1}\{t - T_
 \end{center}
 \vspace{1pt}
 \fuente{Fuentes: solicitudes de transparencia JUNJI e Integra; shapefile de unidades vecinales, Ministerio de Desarrollo Social y Familia (BIDAT). Output final: \texttt{data/final/base\_cobertura\_cp.dta}.}
+\end{frame}
+
+% =============================================================================
+% 15. COBERTURA — MAPA JARDINES RM (full bleed)
+% =============================================================================
+\begin{frame}{Jardines públicos por unidad vecinal, Región Metropolitana}
+\begin{center}
+\includegraphics[width=0.98\textwidth,height=0.573\textheight,keepaspectratio]{../jardines_rm.jpeg}
+\end{center}
+\fuente{Fuente: elaboración propia a partir de \texttt{base\_cobertura\_cp.dta}. Puntos: JUNJI (rojo), Integra (azul); fondo: n\'umero de jardines por UV (2023).}
 \end{frame}
 
 % =============================================================================
@@ -340,16 +363,6 @@ Y_{ijt} = \lambda_j + \lambda_t + \sum_{k \neq -1} \beta_k \, \mathbb{1}\{t - T_
 \includegraphics[width=0.72\textwidth,height=0.6\textheight,keepaspectratio]{../output/figures/09_composicion_modalidades_junji.png}
 \end{center}
 \fuente{Fuente: elaboración propia sobre \texttt{base\_cobertura\_cp.dta}. Clásico Directo y Alternativo dominan la composición de JUNJI durante todo el período.}
-\end{frame}
-
-% =============================================================================
-% 15. COBERTURA — MAPA JARDINES RM (full bleed)
-% =============================================================================
-\begin{frame}{Jardines públicos por unidad vecinal, Región Metropolitana}
-\begin{center}
-\includegraphics[width=0.98\textwidth,height=0.573\textheight,keepaspectratio]{../jardines_rm.jpeg}
-\end{center}
-\fuente{Fuente: elaboración propia a partir de \texttt{base\_cobertura\_cp.dta}. Puntos: JUNJI (rojo), Integra (azul); fondo: n\'umero de jardines por UV (2023).}
 \end{frame}
 
 % =============================================================================
@@ -553,85 +566,127 @@ Y_{ijt} = \lambda_j + \lambda_t + \sum_{k \neq -1} \beta_k \, \mathbb{1}\{t - T_
 \end{frame}
 
 % =============================================================================
-% 16d. DATOS DESCRIPTIVOS: COMPOSICIÓN DEL PANEL
+% 17. AVANCES HASTA HOY
 % =============================================================================
-\begin{frame}{Datos descriptivos: composición del panel, 2016--2024}
-\vspace{-14pt}
-\begin{center}
-{\rmfamily
-\begin{tikzpicture}
-\begin{axis}[
-  width=0.82\textwidth,
-  height=5.6cm,
-  xmin=2015.5, xmax=2024.5,
-  ymin=0, ymax=100,
-  xtick={2016,2017,2018,2019,2020,2021,2022,2023,2024},
-  ytick={0,20,40,60,80,100},
-  xlabel={A\~no},
-  ylabel={\%},
-  xlabel style={font=\small},
-  ylabel style={font=\small},
-  tick label style={font=\small},
-  scaled x ticks=false,
-  /pgf/number format/1000 sep=,
-  axis lines*=left,
-  axis line style={gray!60},
-  legend style={at={(0.5,-0.22)},anchor=north,legend columns=3,font=\small,draw=none},
-  legend cell align=left,
-]
-\addplot[navy,mark=*,mark size=1.6pt,thick] coordinates {
-  (2016,85.90)(2017,85.78)(2018,85.79)(2019,85.70)(2020,85.53)(2021,85.11)(2022,87.97)(2023,91.62)(2024,87.94)
-};
-\addplot[steel,mark=square*,mark size=1.6pt,thick] coordinates {
-  (2016,42.53)(2017,41.97)(2018,41.33)(2019,40.69)(2020,47.21)(2021,49.73)(2022,49.97)(2023,47.42)(2024,47.21)
-};
-\addplot[schoolgreen,mark=triangle*,mark size=2pt,thick] coordinates {
-  (2016,49.92)(2017,49.50)(2018,49.21)(2019,49.20)(2020,43.72)(2021,43.74)(2022,44.15)(2023,44.07)(2024,44.09)
-};
-\legend{Urbano, Con pareja, Trabaja}
-\end{axis}
-\end{tikzpicture}
-}
-\end{center}
-\fuente{Panel de mujeres de 18 a 70 años (RSH), 2016--2024.}
+\begin{frame}{Avances hasta hoy}
+\begingroup
+\setlist[itemize]{itemsep=2pt,topsep=1pt,leftmargin=*}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+{\small\textcolor{steel}{\textbf{Crosswalk de unidades vecinales}}}
+\begin{itemize}
+  \footnotesize
+  \item El RIS entregó shapefiles históricos desde \textbf{2013} (sin 2016); crosswalk armado para \textbf{2020--2025}, en desarrollo \textbf{2015--2019} (correlativos de código poco claros; 2015 no se puede resolver).
+  \item Cerca de un 3\,\% de las UVs por año se dividen; se asigna la ``UV madre'' de mayor área.
+  \item Abierto: cuántas mujeres cambian de UV y si es válido excluirlas (riesgo de sesgo de atrición).
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+{\small\textcolor{steel}{\textbf{Otros avances}}}
+\begin{itemize}
+  \footnotesize
+  \item Rentas depuradas (avanzado); revisados 4 papers sobre nuevos métodos de diferencias en diferencias, TWFE (Callaway y Sant'Anna) tentativo.
+  \item En evaluación incluir \textbf{cotizaciones} como proxy de empleo, y solicitud por transparencia de \textbf{jardines privados} a la Superintendencia de Educación Parvularia.
+  \item Pendiente: definir muestra exacta (edad, mujeres a incluir) por variable de resultado.
+\end{itemize}
+\end{column}
+\end{columns}
+\endgroup
 \end{frame}
 
 % =============================================================================
-% 17. PASOS A SEGUIR
+% 17b. PRÓXIMOS PASOS
 % =============================================================================
 \begin{frame}{Próximos pasos}
+\small Horizonte: agosto -- noviembre 2026 (4 meses).
+\vspace{8pt}
 \begin{columns}[T]
-\begin{column}{0.52\textwidth}
-\begingroup
-\setlist[itemize]{itemsep=4pt,topsep=1pt,leftmargin=*}
-\begin{itemize}[label={}]
-  \small
-  \item \textbf{1.}~Terminar el panel \textbf{RSH-UV} (mujer-año) agregando variables de resultado (hijos y rentas). Definir muestra para cada outcome.
-  \item \textbf{2.}~Validación de primera etapa --- matrícula/asistencia a jardines en el año de apertura de cada UV.
-  \item \textbf{3.}~Definir estimador y modelo específico en base a situación del panel.
-  \item \textbf{4.}~Estimar efectos en participación laboral y en fertilidad (nacimientos).
-\end{itemize}
-\endgroup
-\end{column}
-\begin{column}{0.48\textwidth}
-\begin{block}{Por decidir}
+\begin{column}{0.33\textwidth}
+\begin{block}{Corto plazo}
 \footnotesize
 \begingroup
-\setlist[itemize]{itemsep=2pt,topsep=0pt,leftmargin=*}
+\setlist[itemize]{itemsep=3pt,topsep=1pt,leftmargin=*}
 \begin{itemize}
-  \item \textbf{Estimador}: ETWFE (Wooldridge 2021) vs. Callaway y Sant'Anna (2021).
-  \item \textbf{Definición de ``UV contigua''} en la variable de tratamiento.
-  \item \textbf{Muestra exacta}: rango de edad y mujeres a incluir, por outcome.
+  \item Terminar el \textbf{panel de mujeres}:
+  \begin{itemize}
+    \item Terminar el crosswalk de unidades vecinales
+    \item Incorporar datos de cobertura
+    \item Incorporar variables de resultado (falta cotizaciones)
+  \end{itemize}
 \end{itemize}
 \endgroup
 \end{block}
-
-\vspace{1pt}
-\begin{block}{Desafío actual}
-\scriptsize Las UV cambian de límites y códigos en el tiempo, pero la base usa cartografía estática (2024). \textbf{Se solicitaron a MDS los shapefiles históricos de UV} para evaluar el impacto sobre el tratamiento.
+\end{column}
+\begin{column}{0.33\textwidth}
+\begin{block}{Mediano plazo}
+\footnotesize
+\begingroup
+\setlist[itemize]{itemsep=3pt,topsep=1pt,leftmargin=*}
+\begin{itemize}
+  \item Validación de primera etapa con datos de matrícula de educación parvularia
+  \item Evaluación de la calidad del panel
+\end{itemize}
+\endgroup
+\end{block}
+\end{column}
+\begin{column}{0.33\textwidth}
+\begin{block}{Largo plazo}
+\footnotesize
+\begingroup
+\setlist[itemize]{itemsep=3pt,topsep=1pt,leftmargin=*}
+\begin{itemize}
+  \item Estimaciones
+  \item Análisis de los resultados
+\end{itemize}
+\endgroup
 \end{block}
 \end{column}
 \end{columns}
+\end{frame}
+
+% =============================================================================
+% 17c. PRÓXIMOS PASOS — DETALLE POR TAREA
+% =============================================================================
+\begin{frame}{Próximos pasos: detalle por tarea}
+\vspace{-8pt}
+\tiny
+\setlength{\tabcolsep}{2.5pt}
+\renewcommand{\arraystretch}{0.85}
+\setlength{\aboverulesep}{0.8pt}
+\setlength{\belowrulesep}{0.8pt}
+\begin{center}
+\begin{tabular}{@{}p{1.3cm}p{3.7cm}c p{6.2cm}@{}}
+\toprule
+\textbf{Bloque} & \textbf{Tarea} & \textbf{Estado} & \textbf{Nota} \\
+\midrule
+\multirow{8}{1.3cm}{\shortstack[l]{2. Generación\\de datos}}
+ & Base de cobertura (jardines por UV, 2014--2025) & {\color{schoolgreen}\textbf{avanzado}} & En base a shapefiles 2024; mejora posible: agregar jardines privados (transparencia) \\
+ & Base de panel (mujeres + características por UV) & {\color{schoolgreen}\textbf{avanzado}} & 2016--2024 armado; 2014--15 sin UV con código (RIS); faltan edades por outcome; \textcolor{statusred}{\textbf{UV no actualizada}} \\
+ & Depuración bases de rentas & {\color{statuslisto}\textbf{listo}} & Renta anual, meses trabajados, dummy trabaja/no trabaja \\
+ & Depuración bases de cotizaciones AFP & {\color{schoolgreen}\textbf{avanzado}} & Falta agregar independientes, estatales y FF.AA. \\
+ & Depuración bases de hijos & {\color{statuslisto}\textbf{listo}} & Dummy: tuvo hijo o no, por año \\
+ & Unión panel mujeres + var. resultado & {\color{schoolgreen}\textbf{avanzado}} & Merge por \texttt{rut\_inn} \\
+ & Crosswalk shapefiles UV 2014--2025 & {\color{psuborange}\textbf{avance medio}} & RIS entregó shapefiles desde 2013 (sin 2016); códigos unificadores mal para 2020 hacia atrás \\
+ & Definir tratadas y no tratadas en el panel & {\color{statusred}\textbf{no iniciado}} & Ligado a la definición de tratamiento \\
+\midrule
+\multirow{2}{1.3cm}{\shortstack[l]{3. Análisis\\base de panel}}
+ & Estimación primera etapa (matrícula) & {\color{psuborange}\textbf{avance medio}} & 15/08 se entregaron las bases de matrícula \\
+ & Time to event, panel bal.\ vs.\ no bal. & {\color{statusred}\textbf{no iniciado}} & Depende de la definición de tratamiento y del crosswalk de UV; insumo descriptivo (50\,\% panel completo) \\
+\midrule
+\multirow{4}{1.3cm}{\shortstack[l]{4. Análisis\\de datos}}
+ & Elección de metodología según los datos & {\color{statusred}\textbf{no iniciado}} & Depende del estado final del panel; tentativamente TWFE (Callaway y Sant'Anna) \\
+ & Elección de tratamiento & {\color{statuspink}\textbf{iniciado}} & Margen extensivo definido; faltan sub-decisiones (UV contigua, distancia, etc.) \\
+ & Correr las regresiones & {\color{statusred}\textbf{no iniciado}} & \\
+ & Análisis de los resultados & {\color{statusred}\textbf{no iniciado}} & \\
+\midrule
+\multirow{2}{1.3cm}{\shortstack[l]{5. Explicaciones\\y mecanismos}}
+ & Heterogeneidad según grupos & {\color{statusred}\textbf{no iniciado}} & \\
+ & Efectos de política pública & {\color{statusred}\textbf{no iniciado}} & \\
+\midrule
+\shortstack[l]{6. Escribir\\documento} & --- & {\color{statuspink}\textbf{iniciado}} & \\
+\bottomrule
+\end{tabular}
+\end{center}
 \end{frame}
 
 % =============================================================================
@@ -683,6 +738,50 @@ Y_{ijt} = \lambda_j + \lambda_t + \sum_{k \neq -1} \beta_k \, \mathbb{1}\{t - T_
 \begin{block}{Chequeo de plausibilidad (placebo)}
 \small Se estimará un event study análogo usando la \textbf{tasa de natalidad pre-tratamiento} de la UV como variable de resultado. Coeficientes pre-tratamiento no significativos fortalecerían el supuesto de tendencias paralelas del modelo principal.
 \end{block}
+\end{frame}
+
+% =============================================================================
+% ANEXO C — DATOS DESCRIPTIVOS: COMPOSICIÓN DEL PANEL
+% =============================================================================
+\begin{frame}{Anexo C. Composición del panel, 2016--2024}
+\vspace{-14pt}
+\begin{center}
+{\rmfamily
+\begin{tikzpicture}
+\begin{axis}[
+  width=0.82\textwidth,
+  height=5.6cm,
+  xmin=2015.5, xmax=2024.5,
+  ymin=0, ymax=100,
+  xtick={2016,2017,2018,2019,2020,2021,2022,2023,2024},
+  ytick={0,20,40,60,80,100},
+  xlabel={A\~no},
+  ylabel={\%},
+  xlabel style={font=\small},
+  ylabel style={font=\small},
+  tick label style={font=\small},
+  scaled x ticks=false,
+  /pgf/number format/1000 sep=,
+  axis lines*=left,
+  axis line style={gray!60},
+  legend style={at={(0.5,-0.22)},anchor=north,legend columns=3,font=\small,draw=none},
+  legend cell align=left,
+]
+\addplot[navy,mark=*,mark size=1.6pt,thick] coordinates {
+  (2016,85.90)(2017,85.78)(2018,85.79)(2019,85.70)(2020,85.53)(2021,85.11)(2022,87.97)(2023,91.62)(2024,87.94)
+};
+\addplot[steel,mark=square*,mark size=1.6pt,thick] coordinates {
+  (2016,42.53)(2017,41.97)(2018,41.33)(2019,40.69)(2020,47.21)(2021,49.73)(2022,49.97)(2023,47.42)(2024,47.21)
+};
+\addplot[schoolgreen,mark=triangle*,mark size=2pt,thick] coordinates {
+  (2016,49.92)(2017,49.50)(2018,49.21)(2019,49.20)(2020,43.72)(2021,43.74)(2022,44.15)(2023,44.07)(2024,44.09)
+};
+\legend{Urbano, Con pareja, Trabaja}
+\end{axis}
+\end{tikzpicture}
+}
+\end{center}
+\fuente{Panel de mujeres de 18 a 70 años (RSH), 2016--2024.}
 \end{frame}
 
 \end{document}

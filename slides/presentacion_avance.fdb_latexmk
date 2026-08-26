@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1784872652.92801 "presentacion_avance.tex" "presentacion_avance.pdf" "presentacion_avance" 1784872663.75507 0
+["pdflatex"] 1787237865.88217 "presentacion_avance.tex" "presentacion_avance.pdf" "presentacion_avance" 1787237872.68569 0
   "../crec_acumulado.jpeg" 1783910871.71563 65788 f5bbc676c3c8649104048891a6397b9f ""
   "../jardines_rm.jpeg" 1783811352.92542 497538 497b8296ab521a731c0b4e963f38a745 ""
   "../output/figures/03_uv_tratadas_por_region.png" 1784871977.67933 118608 d1068bc7234cbc8d22ba3b2cce0d6adb ""
@@ -278,6 +278,7 @@
   "/usr/local/texlive/2026/texmf-dist/tex/latex/lm/t1lmr.fd" 1616454256 1867 996fe743d88a01aca041ed22cc10e1bb ""
   "/usr/local/texlive/2026/texmf-dist/tex/latex/lm/t1lmss.fd" 1616454256 1641 f48673bce41ac279099d0c9523459753 ""
   "/usr/local/texlive/2026/texmf-dist/tex/latex/lm/t1lmtt.fd" 1616454256 2682 555da1faa2e266801e4b221d01a42cb5 ""
+  "/usr/local/texlive/2026/texmf-dist/tex/latex/multirow/multirow.sty" 1731446765 6696 886c9f3087d0b973ed2c19aa79cb3023 ""
   "/usr/local/texlive/2026/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty" 1601326656 1090 bae35ef70b3168089ef166db3e66f5b2 ""
   "/usr/local/texlive/2026/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty" 1673816307 373 00b204b1d7d095b892ad31a7494b0373 ""
   "/usr/local/texlive/2026/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-0-65.sty" 1601326656 21013 f4ff83d25bb56552493b030f27c075ae ""
@@ -308,10 +309,10 @@
   "/usr/local/texlive/2026/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1783785815 5573038 b99aad5e4898a9034e953632f940512b ""
   "/usr/local/texlive/2026/texmf-var/web2c/pdftex/pdflatex.fmt" 1774209607 3636776 dc5fa9b6b1453b9d196cd42edf876004 ""
   "/usr/local/texlive/2026/texmf.cnf" 1774209515 577 648cd9f92f9c0eac486f4c71c85cfbbe ""
-  "presentacion_avance.aux" 1784872663.31937 3528 fdfa7ce1363a7a37a794a21fdc24c44a "pdflatex"
-  "presentacion_avance.nav" 1784872663.32167 2411 8c6bbe43bf923ac88764b8cf06f7ccff "pdflatex"
-  "presentacion_avance.out" 1784872655.30428 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "presentacion_avance.tex" 1784872645.58321 33228 40b7876dc3afdcfc8250767b2269ed1c ""
+  "presentacion_avance.aux" 1787237872.38116 3786 27b42bfa0e767eaa46e89b97e7f759c4 "pdflatex"
+  "presentacion_avance.nav" 1787237872.38273 2597 8d929ff01d0e977ef9f19206c5472659 "pdflatex"
+  "presentacion_avance.out" 1787237867.15553 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "presentacion_avance.tex" 1787237857.76799 38069 3b902250e0095cd27664eb1328d080cc ""
   (generated)
   "presentacion_avance.aux"
   "presentacion_avance.log"
