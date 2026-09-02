@@ -83,7 +83,7 @@ sort COD_ESTABLEC
 bysort COD_ESTABLEC: egen d_prog_convenio_alimentacion = max(PROGRAMA == "Convenio Alimentación")
 bysort COD_ESTABLEC: egen d_prog_educ_familia          = max(PROGRAMA == "Educativo para la Familia")
 bysort COD_ESTABLEC: egen d_prog_alternativo           = max(PROGRAMA == "Jardín Infantil Alternativo")
-bysort COD_ESTABLEC: egen d_prog_clasico_terceros      = max(PROGRAMA == "Jardín Infantil Clásico Adm. por Terc..")
+bysort COD_ESTABLEC: egen d_prog_clasico_terceros      = max(PROGRAMA == "Jardín Infantil Clásico Adm. por Terceros (VTF)")
 bysort COD_ESTABLEC: egen d_prog_clasico_directa       = max(PROGRAMA == "Jardín Infantil Clásico de Adm. Directa")
 bysort COD_ESTABLEC: egen d_prog_transitorio           = max(PROGRAMA == "Transitorio")
 
@@ -148,7 +148,7 @@ tab main_programa
                   Convenio Alimentación |         73        1.69        1.69
               Educativo para la Familia |        485       11.26       12.95
             Jardín Infantil Alternativo |        782       18.15       31.10
-Jardín Infantil Clásico Adm. por Terc.. |      1,862       43.21       74.31
+Jardín Infantil Clásico Adm. por Terceros (VTF) |      1,862       43.21       74.31
 Jardín Infantil Clásico de Adm. Directa |        898       20.84       95.15
                             Transitorio |        209        4.85      100.00
 ----------------------------------------+-----------------------------------

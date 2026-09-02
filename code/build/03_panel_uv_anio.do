@@ -300,6 +300,7 @@ tab t_reg_nom if tratada == 1
 order anio t_* n_*
 
 save "data/final/base_cobertura_cp.dta", replace
+export excel using "data/final/base_cobertura_cp.xlsx", firstrow(variables) replace
 
 
 
