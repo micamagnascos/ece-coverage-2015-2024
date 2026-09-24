@@ -1,0 +1,407 @@
+8 TABLAS/ELEMENTOS
+
+DESCRIPTIVA M LABORAL 
+Mujeres mayores de 18 del RSH que tengan al menos un hijo en edad de educ parv (menor a 5 años)
+
+
+
+Contains data from \\10.60.214.178\Repositorio_Datos_ADM\repositorio_ris\RIS_INVESTIGACION_11\190_
+> impacto_jardines\03_EDITABLES\01_DATOS_SALIDA\FERTILIDAD_ML\bases_muestra/muestra_laboral_ingres
+> os.dta
+  obs:     8,517,281                          
+ vars:            84                          14 Sep 2026 17:39
+--------------------------------------------------------------------------------------------------
+              storage   display    value
+variable name   type    format     label      variable label
+--------------------------------------------------------------------------------------------------
+anio            int     %9.0g                 
+rut_inn         double  %15.0f                
+codigo_uv_rsh   str9    %9s                   
+uv_nom          str100  %100s                 
+per_edad        byte    %8.0g                 
+folio_inn       double  %10.0g                
+grupfami_c_zona byte    %8.0g                 
+grupfami_comunaine
+                int     %8.0g                 
+grupfami_unidadvecinal
+                str9    %9s                   
+per_fechanacimiento
+                long    %12.0g                
+per_sexo_id     byte    %8.0g                 
+per_nacionalidad_id
+                byte    %8.0g                 
+per_fic_numpareja
+                byte    %8.0g                 
+per_fic_pueblooriginario
+                byte    %8.0g                 
+per_fic_asisteestabeducacional
+                byte    %8.0g                 
+per_fic_noasistemotivo
+                byte    %8.0g                 
+per_fic_curso   byte    %8.0g                 
+per_fic_tipoeducacion_id
+                byte    %8.0g                 
+per_fic_trabaja byte    %8.0g                 
+per_fic_ocupacionactual
+                byte    %8.0g                 
+per_fic_codigosrama
+                byte    %8.0g                 
+per_fic_temppermanen
+                byte    %8.0g                 
+per_fic_codigocontrato
+                byte    %8.0g                 
+per_fic_relacioncontractual
+                byte    %8.0g                 
+per_fic_horastrabajo
+                int     %8.0g                 
+per_fic_buscotrabajo
+                byte    %8.0g                 
+per_fic_nobuscotrabajomotivo
+                byte    %8.0g                 
+per_fic_ingresoanual
+                long    %12.0g                
+per_fic_ingresojubilacion
+                long    %12.0g                
+per_fic_ingresootros
+                long    %12.0g                
+grupfami_fecha_encuesta
+                long    %12.0g                
+calc_quintil_validacion2
+                byte    %8.0g                 
+calc_indice_necesidad
+                double  %8.0g                 
+calc_ingreso_laboral
+                long    %12.0g                
+calc_ingreso_pension
+                long    %12.0g                
+calc_isaprecarga_costoso_g
+                byte    %8.0g                 
+calc_colegio_costoso_g
+                byte    %8.0g                 
+calc_vehiculos_costosos_g
+                byte    %8.0g                 
+calc_propiedades_costosas_g
+                byte    %8.0g                 
+ingreso_transformado
+                long    %10.0g                
+pob_total_uv    float   %9.0g                 Poblacion total de la UV
+n_hogares_uv    float   %9.0g                 Numero de hogares en la UV
+n_ninos_0_5_uv  int     %9.0g                 
+densidad_ninos_uv
+                float   %9.0g                 Densidad niños 0-5/ pob total UV
+cse_prom_uv     float   %9.0g                 CSE promedio de la UV
+cambia_uv       byte    %9.0g                 
+tag_mujer       byte    %9.0g                 
+puntaje         str1    %9s                   
+tuvo_hijo       byte    %9.0g                 Tuvo hijo ese año (1=si, 0=no)
+n_hijos_menor5  byte    %8.0g                 Stock de hijos vivos menores a 5 años en el año
+tiene_hijo_menor5
+                byte    %9.0g                 
+id_uv_2024      long    %15.0f                
+t_reg_ca        byte    %10.0g                t_reg_ca
+t_prov_ca       int     %10.0g                t_prov_ca
+t_com           int     %10.0g                t_com
+t_reg_nom       str41   %41s                  t_reg_nom
+t_prov_nom      str17   %17s                  t_prov_nom
+t_com_nom       str20   %20s                  t_com_nom
+t_uv_nom        str84   %84s                  t_uv_nom
+n_junji         byte    %10.0g                n_junji
+n_conv_alim     byte    %10.0g                n_conv_alim
+n_educ_fam      byte    %10.0g                n_educ_fam
+n_alternativo   byte    %10.0g                n_alternativo
+n_clas_terc     byte    %10.0g                n_clas_terc
+n_clas_dir      byte    %10.0g                n_clas_dir
+n_transitorio   byte    %10.0g                n_transitorio
+n_integra       byte    %10.0g                n_integra
+n_total         byte    %10.0g                n_total
+tratada         byte    %10.0g                tratada
+uv_nom16        str100  %100s                 
+grupfami_c_zona16
+                byte    %8.0g                 
+grupfami_comunaine16
+                int     %8.0g                 
+renta_imponible_anual
+                long    %10.0g                Renta imponible AFC total del año (suma de los meses
+                                                y las cuentas)
+meses_con_renta byte    %8.0g                 Cantidad de meses del año con renta imponible
+                                                registrada
+tuvo_subsidio_incapacidad
+                byte    %8.0g                 (max) (max) (max) subsidio_incapacidad
+monto_dep_anual long    %10.0g                (sum) monto_dep
+monto_indep_anual
+                long    %10.0g                (sum) monto_indep
+meses_cotizados_dep
+                byte    %9.0g                 (sum) cotizo_dep_mes
+meses_cotizados_indep
+                byte    %9.0g                 (sum) cotizo_indep_mes
+meses_cotizados_total
+                byte    %10.0g                (count) dn_mes_devengamiento
+trabajo_dep     byte    %9.0g                 
+trabajo_indep   byte    %9.0g                 
+trabajo_binario_cotiz
+                byte    %9.0g                 
+tipo_cotizante_anual
+                byte    %18.0g     tipo_cot   
+--------------------------------------------------------------------------------------------------
+Sorted by: 
+     Note: Dataset has changed since last saved.
+
+
+
+
+
+
+
+
+
+. gunique rut_inn
+N = 8,517,281; 1,909,347 unbalanced groups of sizes 1 to 11
+
+. gunique id_uv_2024
+N = 8,481,471; 6,857 unbalanced groups of sizes 1 to 47,257
+
+
+
+
+
+
+
+
+. tabstat n_years_obs, by(tratada) stat(mean sd min max)
+
+Summary for variables: n_years_obs
+     by categories of: tratada (tratada)
+
+ tratada |      mean        sd       min       max
+---------+----------------------------------------
+       0 |  5.722155   2.12388         1        11
+       1 |  5.749422  1.972264         1        11
+---------+----------------------------------------
+   Total |  5.722303  2.123088         1        11
+--------------------------------------------------
+
+. 
+
+
+. ttest ingreso_anual, by(tratada)
+
+Two-sample t test with equal variances
+------------------------------------------------------------------------------
+   Group |     Obs        Mean    Std. Err.   Std. Dev.   [95% Conf. Interval]
+---------+--------------------------------------------------------------------
+       0 | 3585679     6911918    3747.293     7095833     6904574     6919263
+       1 |  19,795     6165989    46779.24     6581592     6074298     6257681
+---------+--------------------------------------------------------------------
+combined | 3605474     6907823    3735.671     7093325     6900501     6915145
+---------+--------------------------------------------------------------------
+    diff |              745929    50553.88                646845.2    845012.8
+------------------------------------------------------------------------------
+    diff = mean(0) - mean(1)                                      t =  14.7551
+Ho: diff = 0                                     degrees of freedom =  3.6e+06
+
+    Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = 1.0000         Pr(|T| > |t|) = 0.0000          Pr(T > t) = 0.0000
+
+
+
+
+
+eststo: estpost ttest $balance_vars, by(tratada)
+esttab, cells("mu_1 mu_2 b(star)") varwidth(25)
+
+esttab, cells("mu_1 mu_2 b(star)") varwidth(25)
+
+-------------------------------------------------------------------
+                                   (1)                             
+                                                                   
+                                  mu_1         mu_2            b   
+-------------------------------------------------------------------
+ingreso_anual                  6911918      6165989       745929***
+meses_trabajando              9.047302     8.951907     .0953953***
+per_edad                      30.91901     30.46501     .4539999***
+n_hijos_menor5                1.094575     1.099796    -.0052211***
+calc_indice_necesidad          3.05066     3.075351    -.0246907***
+per_fic_horastrabajo          51.46692     40.75814     10.70878***
+per_fic_trabaja               1.574421     1.519563     .0548579***
+per_fic_tipoeducacion_id      19.03315     21.67399    -2.640832***
+cse_prom_uv                   54.22262     55.92773     -1.70511***
+pob_total_uv                  7508.934     6256.533     1252.401***
+n_hogares_uv                  3245.297     2526.728     718.5699***
+n_ninos_0_5_uv                518.9025     408.9783     109.9242***
+densidad_ninos_uv             .0665853     .0661756     .0004096***
+-------------------------------------------------------------------
+N                              6855736                             
+-------------------------------------------------------------------
+
+
+
+
+
+
+
+. tabstat $balance_vars if anio == 2015, by(grupo_uv) stat(mean sd n) varwidth(25)
+
+grupo_uv    stats |  ingres~l  meses_~o  per_edad  n_hijo~5  p~hora~o  per_~aja  per_fi~d  pob_to~v  densid~v
+------------------+------------------------------------------------------------------------------------------
+never t      mean |   4411915  8.568219  29.31265  1.109086  36.02684  .4947892   5.25681  3722.082  .0654802
+               sd |   4581900  4.135863  6.798751  .3259981  13.43446  .4999741  3.193027  5385.074   .018505
+                N |    142563    142563    270677    270677    110517    192292    270659    270677    270677
+------------------+------------------------------------------------------------------------------------------
+switchers(t) mean |   4464707  8.574043  29.44306  1.109183  36.12317  .4879946  5.319316  6230.609  .0641476
+               sd |   4690634  4.131115   6.85846  .3247337  13.49411   .499868  3.173601  5633.423  .0176499
+                N |     15464     15464     28585     28585     11910     20574     28583     28585     28585
+------------------+------------------------------------------------------------------------------------------
+siempre cob  mean |   4043317  8.426284  28.97619  1.112559  35.77098   .489527  4.973287  8776.487   .075151
+               sd |   4157193  4.194662  6.830705  .3305938  13.57508   .499891  2.970283  9930.889  .0163073
+                N |    268117    268117    521771    521771    208766    365606    521725    521771    521771
+------------------+------------------------------------------------------------------------------------------
+Total        mean |   4181920  8.479129  29.10337  1.111296  35.86902  .4912217  5.078807  7021.521  .0715797
+               sd |   4327561  4.173342  6.823254  .3288864  13.52598  .4999234  3.055845   8883.04  .0177491
+                N |    426144    426144    821033    821033    331193    578472    820967    821033    821033
+-------------------------------------------------------------------------------------------------------------
+
+
+
+keep if anio == 2015
+global balance_vars ingreso_anual meses_trabajando per_edad n_hijos_menor5 per_fic_horastrabajo per_fic_trabaja per_fic_tipoeducacion_id pob_total_uv densidad_ninos_uv 
+eststo clear 
+eststo: estpost ttest $balance_vars, by(grupo_tratada)
+esttab, cells("mu_1 mu_2 b(star)") varwidth(25)
+-------------------------------------------------------------------
+                                   (1)                             
+                                                                   
+                         alguna vez trat   never trat            b   
+-------------------------------------------------------------------
+ingreso_anual                  4172111      4387200    -215088.9***
+meses_trabajando              8.476598     8.532109    -.0555111   
+per_edad                      29.09293     29.32767    -.2347383***
+n_hijos_menor5                 1.11139     1.109279     .0021116   
+per_fic_horastrabajo          35.86449     35.96508    -.1005844   
+per_fic_trabaja               .4911544     .4926659    -.0015115   
+per_fic_tipoeducacion_id      5.067919     5.312813    -.2448945***
+pob_total_uv                  7065.606     6074.037     991.5686***
+densidad_ninos_uv             .0718128     .0665698      .005243***
+-------------------------------------------------------------------
+N                               821033                             
+-------------------------------------------------------------------
+
+
+
+A NIVEL DE UVS 
+
+. estpost tabstat $balance_vars if anio == 2016, by(grupo_tratada) stat(mean sd n) columns(statistics)
+
+Summary statistics: mean sd count
+     for variables: ingreso_anual meses_trabajando per_edad n_hijos_menor5 calc_indice_necesidad per_fic_horastrabajo per_fic_trabaja per_fic_tipoeducacion_id cse_prom_uv pob_total_uv n_hogares_uv n_n
+> inos_0_5_uv densidad_ninos_uv grupfami_c_zona
+  by categories of: grupo_tratada
+
+grupo_tratad |   e(mean)      e(sd)   e(count) 
+-------------+---------------------------------
+0            |                                 
+ingreso_an~l |   4397069    1984495       6118 
+meses_trab~o |  8.285167    1.65925       6118 
+    per_edad |  29.75911   1.891796       6269 
+n_hijos_me~5 |  1.101251   .0754499       6269 
+calc_indic~d |  3.241695   .3725603       6269 
+per_fic_ho~o |  36.21309   5.767114       5977 
+per_fic_tr~a |  1.552234   .1798714       6207 
+per_fic_ti~d |  5.070514   1.378174       6247 
+ cse_prom_uv |  53.70739   6.623747       6269 
+pob_total_uv |  1882.621   2986.082       6269 
+n_hogares_uv |  692.6996   1051.875       6269 
+n_ninos_0_~v |  129.3337   231.8196       6269 
+densidad_n~v |  .0632473   .0233798       6269 
+grupfami_c~a |  1.383728    .486332       6244 
+-------------+---------------------------------
+1            |                                 
+ingreso_an~l |   4608719    1894135        249 
+meses_trab~o |  8.335005   1.339341        249 
+    per_edad |  29.88324   1.779068        250 
+n_hijos_me~5 |  1.103201   .0530205        250 
+calc_indic~d |  3.206026   .3118561        250 
+per_fic_ho~o |  36.29558   4.967035        247 
+per_fic_tr~a |  1.536952   .1479383        250 
+per_fic_ti~d |  5.363886   1.395295        249 
+ cse_prom_uv |  55.56339   6.884946        250 
+pob_total_uv |  2186.672    2827.16        250 
+n_hogares_uv |   806.936   991.9332        250 
+n_ninos_0_~v |   137.188   191.2733        250 
+densidad_n~v |  .0607773   .0201273        250 
+grupfami_c~a |  1.313253   .4647505        249 
+-------------+---------------------------------
+Total        |                                 
+ingreso_an~l |   4405346    1981321       6367 
+meses_trab~o |  8.287116   1.647848       6367 
+    per_edad |  29.76387   1.887618       6519 
+n_hijos_me~5 |  1.101325   .0747119       6519 
+calc_indic~d |  3.240327   .3704587       6519 
+per_fic_ho~o |  36.21636   5.737162       6224 
+per_fic_tr~a |  1.551642   .1787559       6457 
+per_fic_ti~d |   5.08176   1.379876       6496 
+ cse_prom_uv |  53.77857   6.642977       6519 
+pob_total_uv |  1894.281   2980.509       6519 
+n_hogares_uv |  697.0805   1049.797       6519 
+n_ninos_0_~v |  129.6349   230.3888       6519 
+densidad_n~v |  .0631526    .023267       6519 
+grupfami_c~a |  1.381026   .4856763       6493 
+
+. esttab, cells("mean(fmt(3)) sd(fmt(3) par)") noobs label 
+
+----------------------------------------------
+                              (1)             
+                                              
+                             mean           sd
+----------------------------------------------
+0                                             
+(mean) ingreso_anual  4397069.024 (1984495.396)
+(mean) meses_traba~o        8.285      (1.659)
+(mean) per_edad            29.759      (1.892)
+(mean) Stock de hi~o        1.101      (0.075)
+(mean) calc_indice~d        3.242      (0.373)
+(mean) per_fic_hor~o       36.213      (5.767)
+(mean) per_fic_tra~a        1.552      (0.180)
+(mean) per_fic_tip~d        5.071      (1.378)
+(firstnm) CSE prom~V       53.707      (6.624)
+(firstnm) Poblacio~      1882.621   (2986.082)
+(firstnm) Numero d~l      692.700   (1051.875)
+(firstnm) n_ninos_~v      129.334    (231.820)
+(firstnm) Densidad~o        0.063      (0.023)
+(firstnm) grupfami~a        1.384      (0.486)
+----------------------------------------------
+1                                             
+(mean) ingreso_anual  4608718.684 (1894134.527)
+(mean) meses_traba~o        8.335      (1.339)
+(mean) per_edad            29.883      (1.779)
+(mean) Stock de hi~o        1.103      (0.053)
+(mean) calc_indice~d        3.206      (0.312)
+(mean) per_fic_hor~o       36.296      (4.967)
+(mean) per_fic_tra~a        1.537      (0.148)
+(mean) per_fic_tip~d        5.364      (1.395)
+(firstnm) CSE prom~V       55.563      (6.885)
+(firstnm) Poblacio~      2186.672   (2827.160)
+(firstnm) Numero d~l      806.936    (991.933)
+(firstnm) n_ninos_~v      137.188    (191.273)
+(firstnm) Densidad~o        0.061      (0.020)
+(firstnm) grupfami~a        1.313      (0.465)
+----------------------------------------------
+Total                                         
+(mean) ingreso_anual  4405346.198 (1981321.141)
+(mean) meses_traba~o        8.287      (1.648)
+(mean) per_edad            29.764      (1.888)
+(mean) Stock de hi~o        1.101      (0.075)
+(mean) calc_indice~d        3.240      (0.370)
+(mean) per_fic_hor~o       36.216      (5.737)
+(mean) per_fic_tra~a        1.552      (0.179)
+(mean) per_fic_tip~d        5.082      (1.380)
+(firstnm) CSE prom~V       53.779      (6.643)
+(firstnm) Poblacio~      1894.281   (2980.509)
+(firstnm) Numero d~l      697.081   (1049.797)
+(firstnm) n_ninos_~v      129.635    (230.389)
+(firstnm) Densidad~o        0.063      (0.023)
+(firstnm) grupfami~a        1.381      (0.486)
+----------------------------------------------
+
+
+
+

@@ -1,0 +1,205 @@
+**********************************************************************
+* PROCESAMIENTO BASE COTIZACIONES (Super Intendencia de Pensiones)
+* para incorporar informaciòn laboral de personas independientes, sector pùblico y fuerzas armadas 
+*RENTA MENUSAL
+
+* ============================================================
+* BASE COTIZACIONES MENSUALES (rut_inn - mes) - Superintendencia de Pensiones
+* Do-file GENÉRICO y reutilizable: cualquier proyecto puede usarlo
+* cambiando $ruta_filtro_ruts a su propia lista de RUT (o a la unión
+* de varios proyectos que compartan este procesamiento en el RIS).
+*
+* INPUT:
+*   - Bases semestrales crudas 2015-2025, en $cotizaciones
+*   - Lista de RUT de filtro (rut_inn), en $ruta_filtro_ruts
+*     -> cambiar esta ruta según el proyecto/muestra que use este do-file
+*
+* OUTPUT PRINCIPAL: panel_cotizaciones_rut_mes.dta
+*   Nivel: persona-mes (long). Una fila = un rut_inn en un mes con
+*   al menos una cotización (dependiente y/o independiente) registrada.
+*
+*   Variables:
+*     rut_inn               - identificador anonimizado de la persona (INN)
+*     dn_mes_devengamiento  - mes de devengo de la cotización, formato YYYYMM
+*     monto_dep             - monto cotizado como dependiente ese mes
+*                             (unidad ya ajustada x10 respecto al crudo;
+*                             sumado si tuvo más de un empleador dependiente
+*                             el mismo mes)
+*     monto_indep           - monto cotizado como independiente ese mes
+*                             (mismo ajuste de unidad; incluye boleta de
+*                             honorarios y, desde 2025, cotización obligatoria
+*                             de independientes vía cod. movimiento/rut empleador)
+*
+*   Cobertura: desde 2014-01 en adelante (se excluyen meses anteriores,
+*   que llegan como residuo retroactivo de archivos posteriores y no
+*   son representativos de cobertura real).
+*
+* ARCHIVOS INTERMEDIOS (temporales, se borran al final del do-file):
+*   afp_filtrado_<AAAAMM>.parquet - un archivo por período semestral
+*   procesado, ya filtrado por RUT y colapsado a persona-mes. Sirven
+*   solo para el apilado y la resolución de traslapes entre archivos;
+*   no son un producto final ni deberían usarse fuera de este do-file.
+* ============================================================
+
+
+clear all
+set more off
+
+global cotizaciones "Y:\BASES_COMUNES2\Super_Pensiones\COTIZACIONES"
+*cambiar dependiendo de la muestra
+global ruts "\\10.60.214.178\Repositorio_Datos_ADM\repositorio_ris\RIS_INVESTIGACION_11\190_impacto_jardines\03_EDITABLES\01_DATOS_SALIDA\FERTILIDAD_ML\bases_muestra/ruts_panel_2016_2024.dta"
+global salida 
+global salida "\\10.60.214.178\Repositorio_Datos_ADM\repositorio_ris\RIS_INVESTIGACION_11\190_impacto_jardines\03_EDITABLES\01_DATOS_SALIDA\FERTILIDAD_ML\cotizaciones"
+
+
+*Bases semestrales desde 2015-2025
+*Loop por año y por semestre 
+
+forv anio = 2015/2025 {
+	
+	*primer semestre disponible es el segundo de 2015
+	local semestres "06 12"
+	if `anio' == 2015 local semestres "12"
+	
+	*revisa si es que esta cada archivo en la carpeta cruda 
+	foreach sem of local semestres {
+	
+		local per = `anio' * 100 + `sem'
+		local archivo "$cotizaciones/`anio'/sdp_cotizaciones_`per'_inn.parquet"
+		
+		capture confirm file "`archivo'"
+		if _rc {
+			di as error "No existe `archivo' - se salta"
+			continue 
+		}
+		
+		pq use "`archivo'", clear 
+		di as text "`per': `=_N' obs crudas"
+		
+		*estandarizar nombres 
+		rename *, lower
+		cap rename run_inn rut_inn
+		cap rename nuevo_run_falso rut_inn
+		cap rename periodo dn_mes_devengamiento
+		cap rename mes_pension dn_mes_devengamiento 
+		cap rename periododev dn_mes_devengamiento
+		
+		if `anio' >= 2025 {
+			*a partir de 2025 cambia la estructura de la base, contempla rut del emplador 
+			gen indep=0
+			replace indep=1 if (mcci_codigomov==11084 | mcci_codigomov==11085 | mcci_codigomov==11086)
+			replace indep=1 if ((mcci_codigomov==11010 | mcci_codigomov==11001) & (rut_inn==rut_empleador_inn))
+			gen dep = 1 if indep == 0
+			replace dep = 0 if indep == 1
+			
+			gen monto_dep = cotizacion if dep == 1
+			gen monto_indep = cotizacion if indep==1
+			replace monto_indep = 0 if monto_indep == . 
+			replace monto_dep = 0 if monto_dep == .
+			
+			cap drop remuneracion_imp mcci_actecoempl mcci_codigomov mcci_tipoplanilla dep indep rut_empleador_inn
+			}
+		
+		else {
+		*estandarizar nombres 
+			cap rename cotizacion monto_dep
+			cap gen monto_indep = . 
+			cap drop ind dep deuda 
+		}
+		
+		*filtrar por ruts del panel 
+		merge m:1 rut_inn using "\\10.60.214.178\Repositorio_Datos_ADM\repositorio_ris\RIS_INVESTIGACION_11\190_impacto_jardines\03_EDITABLES\01_DATOS_SALIDA\FERTILIDAD_ML\bases_muestra/ruts_panel_2016_2024.dta", keep(match) nogenerate 
+		
+		di as text "`per': `=_N' obs tras filtro por RUT"
+		
+		keep rut_inn dn_mes_devengamiento monto_dep monto_indep
+		
+		replace monto_indep = 0 if monto_indep == . 
+		drop if monto_dep == 0 & monto_indep == 0 
+
+		
+		*sumar montos de personas que pueden tener dos trabajos o màs el mismo mes 
+		collapse (sum) monto_dep monto_indep, by(rut_inn dn_mes_devengamiento)
+		
+		gen archivo_fecha = `per' //marca de que archivo viene 
+		
+		compress
+		pq save "$salida/afp_filtrado_`per'.parquet", replace 
+		
+		}
+
+}
+
+
+
+*Apilamos todos los archivos (todos los años y semestres)
+
+clear 
+tempfile acumulado 
+local n_archivos = 0 
+
+forv anio = 2015/2025 {
+	local semestres "06 12"
+	if `anio' == 2015 local semestres "12"
+	
+	*revisa si es que esta el archivo filtrado en mi carpeta de cotizaciones 
+	foreach sem of local semestres {
+		local per = `anio' * 100 + `sem'
+		
+		capture confirm file "$salida/afp_filtrado_`per'.parquet"
+		
+		if !_rc {
+			local n_archivos = `n_archivos' + 1 
+			if `n_archivos' == 1 {
+				pq use "$salida/afp_filtrado_`per'.parquet", clear
+			}
+		else {
+			pq append using "$salida/afp_filtrado_`per'.parquet"
+			}
+
+		}
+
+	}
+}
+di as result "Total tras apilar: `=_N' obs (rut-mes-archivo), de `n_archivos' archivos"
+
+
+
+
+*Eliminamos duplicados exactos entre archivos (rt, mes y monto)  - se pueden repetir las obs entre archivos porque son fotos que incluyen datos dos años hacia atràs
+gduplicates drop rut_inn dn_mes_devengamiento monto_dep monto_indep, force 
+
+*Traslape con totales DISTINTOS entre archivos: el archivo màs reciente gana, mejor aproximaciòn disponible al total mas completo que incluya todos los montos del mes 
+bysort rut_inn dn_mes_devengamiento (archivo_fecha): keep if _n == _N 
+drop archivo_fecha 
+
+isid rut_inn dn_mes_devengamiento // tiene que ser ùnico a este punto 
+
+*borramos obs de 2013 que no son representativas 
+drop if dn_mes_devengamiento < 201401
+
+*Ajuste de unidad (sacado por contexto)
+replace monto_dep = monto_dep * 10
+replace monto_indep = monto_indep * 10 
+
+compress
+save "$salida/panel_cotizaciones_rut_mes.dta", replace 
+di as result "Panel final: `=_N' obs persona-mes"
+
+
+*eliminamos los archivos temp
+forv anio = 2015/2025 {
+	local semestres "06 12"
+	if `anio' == 2015 local semestres "12"
+	foreach sem of local semestres {
+	local per = `anio' * 100 + `sem'
+	capture erase "$salida/afp_filtrado_`per'.parquet"
+	}
+}
+
+
+
+
+
+
+

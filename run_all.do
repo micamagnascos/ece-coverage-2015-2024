@@ -1,6 +1,6 @@
 *===================================================================
 * run_all.do — corre el pipeline completo de construcción del panel
-* de cobertura JUNJI/Integra por UV-año (2015-2024)
+* de cobertura JUNJI/Integra por UV-año (2014-2024)
 *
 * Requiere:
 *   - Stata (probado con las rutas relativas de este repo)
@@ -20,5 +20,8 @@ shell python3 code/build/02_spatial_join_uv.py
 
 * Paso 3 — Construcción del panel UV-año (Stata)
 do "code/build/03_panel_uv_anio.do"
+
+* Paso 4 — Variables del tratamiento 1 (Stata)
+do "code/build/04_tratamiento_t1.do"
 
 di as result "run_all.do: pipeline completo. Panel final en data/final/base_cobertura_cp.dta"

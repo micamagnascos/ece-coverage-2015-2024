@@ -218,11 +218,11 @@ count if missing(direccion)
 *año de apertura para hacer panel
 gen anio_apertura = year(fecha_apertura)
 
-* año de inicio para el panel UV-año: tope mínimo 2015 (igual que Integra),
+* año de inicio para el panel UV-año: tope mínimo 2014 (igual que Integra),
 * para que jardines abiertos antes del período de estudio entren desde el
 * primer año del panel en vez de con anio_inicio faltante
 gen anio_inicio = anio_apertura
-replace anio_inicio = 2015 if anio_apertura < 2015
+replace anio_inicio = 2014 if anio_apertura < 2014
 
 *borramos las dummies para que calce con panel
 drop d_mod*

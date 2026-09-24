@@ -286,7 +286,7 @@ Y_{ijt} = \lambda_j + \lambda_t + \sum_{k \neq -1} \beta_k \, \mathbb{1}\{t - T_
 % =============================================================================
 \begin{frame}{La base de cobertura: eje central de este avance}
 \begin{block}{Objetivo}
-\small Construir un \textbf{panel balanceado a nivel de unidad vecinal (UV) $\times$ año} (6.887 UVs $\times$ 10 años, 2015--2024, cartografía UV vigente en 2024), donde cada fila indica cuántos centros de educación parvularia JUNJI e Integra existían en esa UV ese año.
+\small Construir un \textbf{panel balanceado a nivel de unidad vecinal (UV) $\times$ año} (6.887 UVs $\times$ 11 años, 2014--2024, cartografía UV vigente en 2024; 2014 es el año base previo al período de estudio), donde cada fila indica cuántos centros de educación parvularia JUNJI e Integra existían en esa UV ese año.
 \end{block}
 
 \vspace{10pt}
@@ -308,9 +308,11 @@ Y_{ijt} = \lambda_j + \lambda_t + \sum_{k \neq -1} \beta_k \, \mathbb{1}\{t - T_
 ]
 \node[box] (b1) {\textbf{1. Limpieza JUNJI / Integra} (Stata) \\ \scriptsize bases de solicitudes de transparencia $\to$ una fila por establecimiento, año de apertura y de término};
 \node[box, below=5pt of b1] (b2) {\textbf{2. Asignación espacial jardín $\to$ UV} (Python / GeoPandas) \\ \scriptsize shapefile de unidades vecinales (MDSF, actualización 2024, 6.887 UVs) + \texttt{sjoin} espacial};
-\node[box, below=5pt of b2] (b3) {\textbf{3. Panel UV-año} (Stata) \\ \scriptsize expansión por años de actividad, colapso a conteos por UV-año, \texttt{tsfill}, merge con universo completo de UVs, variable \texttt{tratada}};
+\node[box, below=5pt of b2] (b3) {\textbf{3. Panel UV-año} (Stata) \\ \scriptsize expansión por años de actividad (2014--2024), colapso a conteos por UV-año, \texttt{tsfill}, merge con universo completo de UVs};
+\node[box, below=5pt of b3] (b4) {\textbf{4. Variables de tratamiento} (Stata) \\ \scriptsize UVs con 0 jardines en 2014, año de primera apertura, grupos (excluida / nunca tratada / tratada), \texttt{tratada} y tiempo al evento};
 \draw[arr] (b1) -- (b2);
 \draw[arr] (b2) -- (b3);
+\draw[arr] (b3) -- (b4);
 \end{tikzpicture}
 \end{center}
 \vspace{1pt}
@@ -333,24 +335,24 @@ Y_{ijt} = \lambda_j + \lambda_t + \sum_{k \neq -1} \beta_k \, \mathbb{1}\{t - T_
 \begin{frame}{Base de cobertura: cifras clave}
 \begin{itemize}
   \small
-  \item La oferta pública total pasó de \textbf{3.730 a 4.447 centros} entre 2015 y 2024 (\textbf{+19\,\%}); JUNJI concentra \textasciitilde74\,\% de los centros, Integra \textasciitilde26\,\%.
+  \item La oferta pública total pasó de \textbf{3.294 a 4.446 centros} entre 2014 y 2024 (\textbf{+35\,\%}; +19\,\% desde 2015); JUNJI concentra \textasciitilde74\,\% de los centros, Integra \textasciitilde26\,\%.
   \item El spatial join asignó UV al \textbf{99,98\,\%} de los jardines con coordenadas válidas (4.458 de 4.459); quedaron fuera del panel \textbf{356 jardines JUNJI y 11 Integra} sin coordenadas utilizables, más 1 jardín JUNJI en el límite entre polígonos.
-  \item \textbf{Resultado} $\to$ panel balanceado: \textbf{6.887 unidades vecinales $\times$ 10 años} (2015--2024, cartografía UV 2024) = \textbf{68.880 observaciones}.
+  \item \textbf{Resultado} $\to$ panel balanceado: \textbf{6.887 unidades vecinales $\times$ 11 años} (2014--2024, cartografía UV 2024) = \textbf{75.757 observaciones}.
 \end{itemize}
 \end{frame}
 
 % =============================================================================
 % 12. COBERTURA — EVOLUCIÓN JUNJI / INTEGRA (full bleed)
 % =============================================================================
-\begin{frame}{Evolución de la oferta pública, 2015--2024}
+\begin{frame}{Evolución de la oferta pública, 2014--2024}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
 {\centering\includegraphics[width=\textwidth,height=0.62\textheight,keepaspectratio]{../output/figures/06_jardines_junji_integra_por_anio.png}\par}
 \fuente{Fuente: elaboración propia sobre \texttt{base\_cobertura\_cp.dta}.}
 \end{column}
 \begin{column}{0.5\textwidth}
-{\centering\includegraphics[width=\textwidth,height=0.62\textheight,keepaspectratio]{../crec_acumulado.jpeg}\par}
-\fuente{Fuente: elaboración propia, datos JUNJI e Integra (2015--2024).}
+{\centering\includegraphics[width=\textwidth,height=0.62\textheight,keepaspectratio]{../output/figures/10_crec_acumulado.png}\par}
+\fuente{Fuente: elaboración propia, datos JUNJI e Integra (2015--2024), sobre \texttt{base\_cobertura\_cp.dta}.}
 \end{column}
 \end{columns}
 \end{frame}
@@ -371,8 +373,8 @@ Y_{ijt} = \lambda_j + \lambda_t + \sum_{k \neq -1} \beta_k \, \mathbb{1}\{t - T_
 \begin{frame}{Tratamiento (tentativo)}
 \begin{itemize}
   \item \textbf{Definición}: una UV se considera \textbf{tratada} si pasa de \textbf{0 a 1+ centros} JUNJI/Integra en algún año de la ventana 2015--2024 (margen extensivo, variable \texttt{tratada}).
-  \item \textbf{269 UVs tratadas} bajo este criterio, de un universo de \textbf{6.887 UVs}.
-  \item Para dimensionar el margen intensivo: si se suman también las UVs que \textbf{ya tenían 1+ centro antes de 2015} y sumaron más durante la ventana, \textbf{634 UVs} aumentan su cobertura en total (269 de margen extensivo + 365 de margen intensivo). Esta comparación es solo de referencia; no es la definición de tratamiento del event study.
+  \item \textbf{447 UVs tratadas} y \textbf{4.175 nunca tratadas} (muestra de \textbf{4.622 UVs} con 0 centros en 2014). Las \textbf{2.265 UVs} que ya tenían 1+ centro en 2014 quedan fuera de la muestra, de un universo de \textbf{6.887 UVs}.
+  \item Para dimensionar el margen intensivo: si se suman también las UVs que \textbf{ya tenían 1+ centro en 2014} y sumaron más durante la ventana, \textbf{934 UVs} aumentan su cobertura en total (447 de margen extensivo + 487 de margen intensivo). Esta comparación es solo de referencia; no es la definición de tratamiento del event study.
 \end{itemize}
 
 \vspace{10pt}
@@ -389,12 +391,12 @@ Y_{ijt} = \lambda_j + \lambda_t + \sum_{k \neq -1} \beta_k \, \mathbb{1}\{t - T_
 \begin{tikzpicture}
 \begin{axis}[
   ybar,
-  bar width=22pt,
+  bar width=20pt,
   width=0.92\textwidth,
-  height=6.1cm,
-  symbolic x coords={2016,2017,2018,2019,2020,2021,2022,2023,2024},
+  height=5.4cm,
+  symbolic x coords={2015,2016,2017,2018,2019,2020,2021,2022,2023,2024},
   xtick=data,
-  ymin=0, ymax=90,
+  ymin=0, ymax=200,
   nodes near coords,
   nodes near coords style={font=\small,text=navy},
   ylabel={N\'umero de UVs tratadas},
@@ -407,14 +409,14 @@ Y_{ijt} = \lambda_j + \lambda_t + \sum_{k \neq -1} \beta_k \, \mathbb{1}\{t - T_
   axis line style={gray!60},
 ]
 \addplot[fill=steel,draw=none] coordinates {
-  (2016,63) (2017,77) (2018,46) (2019,38) (2020,7) (2021,15) (2022,11) (2023,8) (2024,4)
+  (2015,179) (2016,63) (2017,77) (2018,46) (2019,37) (2020,7) (2021,15) (2022,11) (2023,8) (2024,4)
 };
 \end{axis}
 \end{tikzpicture}
 \end{center}
 \vspace{2pt}
-\small \textbf{269 UVs tratadas} en total (2016--2024). El 69\,\% (186 UVs) se concentra entre 2016 y 2018.
-\fuente{Fuente: elaboración propia a partir de \texttt{base\_cobertura\_cp.dta} (\texttt{docs/codebook\_panel\_final.md}).}
+\small \textbf{447 UVs tratadas} (muestra: 0 centros en 2014). El 71\,\% (319) se concentra entre 2015 y 2017.
+\fuente{Fuente: elaboración propia sobre \texttt{base\_cobertura\_cp.dta}.}
 \end{frame}
 
 % =============================================================================
@@ -425,7 +427,7 @@ Y_{ijt} = \lambda_j + \lambda_t + \sum_{k \neq -1} \beta_k \, \mathbb{1}\{t - T_
 \begin{column}{0.5\textwidth}
 \centering
 \includegraphics[width=\textwidth,height=0.62\textheight,keepaspectratio]{../output/figures/03_uv_tratadas_por_region.png}
-\small Metropolitana (55) y Valparaíso (45) concentran el 37\,\% de las UVs tratadas.
+\small Metropolitana (85) y Valparaíso (62) concentran el 33\,\% de las UVs tratadas.
 \end{column}
 \begin{column}{0.5\textwidth}
 \centering

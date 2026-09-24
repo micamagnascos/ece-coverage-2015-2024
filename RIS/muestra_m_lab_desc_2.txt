@@ -1,0 +1,446 @@
+19 ELEMENTOS/TABLAS EN ESTE DOCS
+
+MUESTRA M LAB DESC 2 
+
+
+. tabstat n_years_obs, by(grupo_t1) stat(mean sd min max)
+
+Summary for variables: n_years_obs
+     by categories of: grupo_t1 
+
+     grupo_t1 |      mean        sd       min       max
+--------------+----------------------------------------
+     Excluida |  5.632148  2.221455         1        11
+Nunca tratada |  5.468414  2.199827         1        11
+      Tratada |  5.496375  2.212257         1        11
+--------------+----------------------------------------
+        Total |  5.567497  2.214925         1        11
+-------------------------------------------------------
+
+5.5-5.7 años promedio, parejo entre grupos.
+
+
+. tab anio tratada, m
+
+           |        tratada
+      anio |         0          1 |     Total
+-----------+----------------------+----------
+      2014 |   804,702          0 |   804,702 
+      2015 |   802,242     18,791 |   821,033 
+      2016 |   830,949      8,708 |   839,657 
+      2017 |   818,375      9,485 |   827,860 
+      2018 |   809,594      7,759 |   817,353 
+      2019 |   786,002      4,022 |   790,024 
+      2020 |   726,135        744 |   726,879 
+      2021 |   744,286      1,782 |   746,068 
+      2022 |   745,507      2,639 |   748,146 
+      2023 |   702,966      1,686 |   704,652 
+      2024 |   654,736        361 |   655,097 
+-----------+----------------------+----------
+     Total | 8,425,494     55,977 | 8,481,471 
+
+. tab anio grupo_t1, m
+
+           |             grupo_t1
+      anio |  Excluida  Nunca tra    Tratada |     Total
+-----------+---------------------------------+----------
+      2014 |   486,854    263,627     54,221 |   804,702 
+      2015 |   494,969    270,677     55,387 |   821,033 
+      2016 |   504,955    278,321     56,381 |   839,657 
+      2017 |   496,726    275,087     56,047 |   827,860 
+      2018 |   492,593    271,070     53,690 |   817,353 
+      2019 |   477,078    260,732     52,214 |   790,024 
+      2020 |   425,368    251,496     50,015 |   726,879 
+      2021 |   426,792    266,350     52,926 |   746,068 
+      2022 |   435,703    258,425     54,018 |   748,146 
+      2023 |   410,308    243,815     50,529 |   704,652 
+      2024 |   381,648    226,130     47,319 |   655,097 
+-----------+---------------------------------+----------
+     Total | 5,032,994  2,865,730    582,747 | 8,481,471 
+
+
+
+. tab rel_t1 
+
+     rel_t1 |      Freq.     Percent        Cum.
+------------+-----------------------------------
+        -10 |        290        0.05        0.05
+         -9 |      2,525        0.43        0.48
+         -8 |      5,242        0.90        1.38
+         -7 |      6,966        1.20        2.58
+         -6 |      7,572        1.30        3.88
+         -5 |     10,591        1.82        5.69
+         -4 |     17,568        3.01        8.71
+         -3 |     26,955        4.63       13.33
+         -2 |     35,634        6.11       19.45
+         -1 |     54,942        9.43       28.88
+          0 |     55,972        9.60       38.48
+          1 |     56,107        9.63       48.11
+          2 |     51,486        8.84       56.95
+          3 |     49,507        8.50       65.44
+          4 |     46,118        7.91       73.36
+          5 |     44,536        7.64       81.00
+          6 |     40,395        6.93       87.93
+          7 |     31,882        5.47       93.40
+          8 |     22,851        3.92       97.32
+          9 |     15,608        2.68      100.00
+------------+-----------------------------------
+      Total |    582,747      100.00
+
+
+
+
+. tab grupo_t1 if tag_uv == 1 
+
+     grupo_t1 |      Freq.     Percent        Cum.
+--------------+-----------------------------------
+     Excluida |      2,265       33.03       33.03
+Nunca tratada |      4,145       60.45       93.48
+      Tratada |        447        6.52      100.00
+--------------+-----------------------------------
+        Total |      6,857      100.00
+
+. tab g1 if tag_uv == 1 & muestra_t1 == 1 
+
+         g1 |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |      4,145       90.27       90.27
+       2015 |        179        3.90       94.16
+       2016 |         63        1.37       95.54
+       2017 |         77        1.68       97.21
+       2018 |         46        1.00       98.21
+       2019 |         37        0.81       99.02
+       2020 |          7        0.15       99.17
+       2021 |         15        0.33       99.50
+       2022 |         11        0.24       99.74
+       2023 |          8        0.17       99.91
+       2024 |          4        0.09      100.00
+------------+-----------------------------------
+      Total |      4,592      100.00
+
+447 UVs tratadas en total, concentradas en 2015 (179 UVs, 40%) y decreciendo cada año — la cohorte 2015 domina el panel de tratadas.
+
+
+
+. tab grupo_t1 if tag_mujer_grupo == 1 
+
+     grupo_t1 |      Freq.     Percent        Cum.
+--------------+-----------------------------------
+     Excluida |  1,236,645       56.64       56.64
+Nunca tratada |    775,274       35.51       92.14
+      Tratada |    171,586        7.86      100.00
+--------------+-----------------------------------
+        Total |  2,183,505      100.00
+
+
+
+Missings de información de ingreso: ingreso_anual le falta el dato a casi la mitad de las mujeres (missing, no es que ganen 0, simplemente no se cuánto ganan). El problema sería que a quién le falta el dato cambie de forma distinta entre las UVs tratadas y las no tratadas.
+
+Para las nunca tratadas
+. tabstat tiene_ingreso if grupo_t1 == 2, by(anio) stat(mean n)
+
+Summary for variables: tiene_ingreso
+     by categories of: anio 
+
+    anio |      mean         N
+---------+--------------------
+    2014 |  .5148904    263627
+    2015 |  .5266905    270677
+    2016 |  .5244915    278321
+    2017 |  .5146917    275087
+    2018 |  .5231158    271070
+    2019 |  .5194261    260732
+    2020 |   .495654    251496
+    2021 |  .5480233    266350
+    2022 |  .5855896    258425
+    2023 |  .5701372    243815
+    2024 |  .5662583    226130
+---------+--------------------
+   Total |  .5346296   2865730
+------------------------------
+
+Para las tratadas o alguna vez tratada 
+. tabstat tiene_ingreso if grupo_t1 == 3, by(anio) stat(mean n)
+
+Summary for variables: tiene_ingreso
+     by categories of: anio 
+
+    anio |      mean         N
+---------+--------------------
+    2014 |  .5109459     54221
+    2015 |   .523408     55387
+    2016 |   .522481     56381
+    2017 |  .5136582     56047
+    2018 |  .5249208     53690
+    2019 |  .5203968     52214
+    2020 |  .4977507     50015
+    2021 |  .5512414     52926
+    2022 |  .5918583     54018
+    2023 |  .5762038     50529
+    2024 |  .5733215     47319
+---------+--------------------
+   Total |  .5363923    582747
+------------------------------
+
+
+tamaño de los dos grupos dentro de muestra_t1==1
+. tab ever_t1 if !missing(ever_t1)
+
+    ever_t1 |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |  2,865,730       83.10       83.10
+          1 |    582,747       16.90      100.00
+------------+-----------------------------------
+      Total |  3,448,477      100.00
+
+
+Comparación para 2014 
+. tabstat $bad_ind if anio == `pre', by(grupo_t1) stat(mean sd n) varwidth(25)
+
+grupo_t1         stats |  ingres~l  meses_~o  per_edad  n_hijo~5  p~hora~o  per_~aja  per_fi~d  pob_to~v  densid~v
+-----------------------+------------------------------------------------------------------------------------------
+Excluida          mean |   3604981  8.318541  28.82371  1.116571  36.15672  .4798193  4.823649  8973.425  .0753176
+                    sd |   3696712  4.208665  6.915994  .3363406  13.57552  .4995933  2.864558     10058  .0162137
+                     N |    246888    246888    486854    486854    184967    332075    486802    486854    486854
+-----------------------+------------------------------------------------------------------------------------------
+Nunca tratada     mean |   3967957  8.504203  29.14741  1.112519  36.28316  .4876514  5.094631  3733.139  .0653767
+                    sd |   4116119  4.142316  6.888513  .3307147  13.44723  .4998489  3.095834  5411.789  .0184486
+                     N |    135739    135739    263627    263627    102721    182774    263603    263627    263627
+-----------------------+------------------------------------------------------------------------------------------
+Tratada           mean |   3901221  8.436868   29.1907  1.114439   36.4701  .4842605  5.088203  5536.674  .0671556
+                    sd |   4059238  4.172834  6.941145  .3346713  13.44422  .4997589  3.055158  5104.855  .0175227
+                     N |     27704     27704     54221     54221     21006     37104     54216     54221     54221
+-----------------------+------------------------------------------------------------------------------------------
+Total             mean |   3745056  8.387948  28.95449    1.1151  36.22012  .4827114  4.930252  7025.095  .0715109
+                    sd |   3869016    4.1853  6.910598     .3344  13.52429  .4997015   2.95816  8862.942   .017709
+                     N |    410331    410331    804702    804702    308694    551953    804621    804702    804702
+------------------------------------------------------------------------------------------------------------------
+
+. 
+Test de diferencia de medias para las variables comparando las nunca tratadas (mu_1) (ever_t1==0) con las alguna vez tratadas (mu_2) (ever_t1==1)
+. *tratadas vs nunca tratadas 
+. preserve 
+
+. keep if anio ==  `pre' & muestra_t1 == 1 
+(8,163,623 observations deleted)
+
+. eststo clear 
+
+. eststo: estpost ttest $bal_ind, by(ever_t1)
+
+             |      e(b)   e(count)      e(se)       e(t)    e(df_t)     e(p_l)       e(p)     e(p_u)     e(N_1)    e(mu_1)     e(N_2)    e(mu_2) 
+-------------+------------------------------------------------------------------------------------------------------------------------------------
+ingreso_an~l |  66735.43     163443   27072.91   2.465026     163441   .9931493   .0137014   .0068507     135739    3967957      27704    3901221 
+meses_trab~o |  .0673346     163443    .027343   2.462588     163441   .9931026   .0137948   .0068974     135739   8.504203      27704   8.436868 
+    per_edad | -.0432958     317848   .0325255  -1.331133     317846    .091573    .183146    .908427     263627   29.14741      54221    29.1907 
+n_hijos_me~5 | -.0019202     317848   .0015627  -1.228794     317846   .1095749   .2191499   .8904251     263627   1.112519      54221   1.114439 
+per_fic_ho~o | -.1869484     123727   .1018233  -1.836008     123725   .0331794   .0663589   .9668206     102721   36.28316      21006    36.4701 
+per_fic_tr~a |   .003391     219878   .0028461   1.191444     219876   .8832598   .2334805   .1167402     182774   .4876514      37104   .4842605 
+per_fic_ti~d |  .0064282     317819   .0145666   .4412957     317817   .6705004   .6589992   .3294996     263603   5.094631      54216   5.088203 
+pob_total_uv | -1803.535     317848   25.27845  -71.34675     317846          0          0          1     263627   3733.139      54221   5536.674 
+densidad_n~v | -.0017789     317848   .0000863  -20.62146     317846   1.02e-94   2.03e-94          1     263627   .0653767      54221   .0671556 
+(est1 stored)
+
+. esttab, cells("mu_1 mu_2 b(star)") varwidth(25)
+
+-------------------------------------------------------------------
+                                   (1)                             
+                                                  
+                            nev.treated    treated         dif   
+-------------------------------------------------------------------
+ingreso_anual                  3967957      3901221     66735.43*  
+meses_trabajando              8.504203     8.436868     .0673346*  
+per_edad                      29.14741      29.1907    -.0432958   
+n_hijos_menor5                1.112519     1.114439    -.0019202   
+per_fic_horastrabajo          36.28316      36.4701    -.1869484   
+per_fic_trabaja               .4876514     .4842605      .003391   
+per_fic_tipoeducacion_id      5.094631     5.088203     .0064282   
+pob_total_uv                  3733.139     5536.674    -1803.535***
+densidad_ninos_uv             .0653767     .0671556    -.0017789***
+-------------------------------------------------------------------
+N                               317848                             
+-------------------------------------------------------------------
+las mujeres se parecen entre grupos, las UVs no — la selección está en dónde se abre el jardín, no en quién vive ahí.
+
+
+DIFERENCIA NORMALIZADA 
+
+ingreso_anual                         .
+meses_trabajando                 -0.189
+per_edad                          0.072
+n_hijos_menor5                    0.053
+per_fic_horastrabajo                  .
+per_fic_trabaja                       .
+per_fic_tipoeducacion_id              .
+pob_total_uv                          .
+densidad_ninos_uv                     .
+
+
+ gcollapse (mean) ingreso_anual meses_trabajando, by(anio ever_t1)
+
+. list, sepby(ever_t1)
+
+     +--------------------------------------+
+     | anio   ever_t1   ingres~l   meses_~o |
+     |--------------------------------------|
+  1. | 2014         0    3967957   8.504203 |
+     |--------------------------------------|
+  2. | 2014         1    3901221   8.436869 |
+     |--------------------------------------|
+  3. | 2015         0    4411915   8.568219 |
+     |--------------------------------------|
+  4. | 2015         1    4335947    8.50445 |
+     |--------------------------------------|
+  5. | 2016         0    4899366   8.620529 |
+     |--------------------------------------|
+  6. | 2016         1    4775102   8.546405 |
+     |--------------------------------------|
+  7. | 2017         0    5368143   8.762919 |
+     |--------------------------------------|
+  8. | 2017         1    5191642   8.653166 |
+     |--------------------------------------|
+  9. | 2018         0    5759894    8.96036 |
+     |--------------------------------------|
+ 10. | 2018         1    5660698   8.909626 |
+     |--------------------------------------|
+ 11. | 2019         0    6307106   9.139126 |
+     |--------------------------------------|
+ 12. | 2019         1    6184691   9.068968 |
+     |--------------------------------------|
+ 13. | 2020         0    6839003   9.092215 |
+     |--------------------------------------|
+ 14. | 2020         1    6673023   9.014822 |
+     |--------------------------------------|
+ 15. | 2021         0    7999662   9.452057 |
+     |--------------------------------------|
+ 16. | 2021         1    7827799   9.385193 |
+     |--------------------------------------|
+ 17. | 2022         0    8981730   9.376242 |
+     |--------------------------------------|
+ 18. | 2022         1    8835094   9.366207 |
+     |--------------------------------------|
+ 19. | 2023         0   1.05e+07   9.640948 |
+     |--------------------------------------|
+ 20. | 2023         1   1.02e+07   9.581968 |
+     |--------------------------------------|
+ 21. | 2024         0   1.14e+07   9.709913 |
+     |--------------------------------------|
+ 22. | 2024         1   1.12e+07   9.644476 |
+     +--------------------------------------+
+
+Año	Ingreso nunca-tratada	Ingreso tratada	Meses nunca-tratada	Meses tratada
+2014	3,967,957	3,901,221	8.504	8.437
+2018	5,759,894	5,660,698	8.960	8.910
+2021	7,999,662	7,827,799	9.452	9.385
+2024	11,400,000 (1.14e7)	11,200,000 (1.12e7)	9.710	9.644
+
+ambos grupos crecen de forma prácticamente paralela durante todo el panel (~3x en 10 años, consistente con crecimiento nominal de ingresos, no con nada relacionado al tratamiento) — y la brecha nivel entre tratadas y no tratadas se mantiene chica y estable (~1.5-2% más bajo en tratadas, todo el período). 
+
+
+
+PRIMERA APROXIMACIÓN MAL ESPECIFICADA -> me falto efecto fijo año 
+
+. reghdfe ingreso_anual post_t1 if muestra_t1 == 1, absorb(id_uv_2024) cluster(id_uv_2024)
+(dropped 25 singleton observations)
+(MWFE estimator converged in 1 iterations)
+
+HDFE Linear regression                            Number of obs   =  1,844,660
+Absorbing 1 HDFE group                            F(   1,   4541) =    1279.66
+Statistics robust to heteroskedasticity           Prob > F        =     0.0000
+                                                  R-squared       =     0.1226
+                                                  Adj R-squared   =     0.1205
+                                                  Within R-sq.    =     0.0054
+Number of clusters (id_uv_2024) =      4,542      Root MSE        =  6.924e+06
+
+                         (Std. Err. adjusted for 4,542 clusters in id_uv_2024)
+------------------------------------------------------------------------------
+             |               Robust
+ingreso_an~l |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+     post_t1 |    3158054   88282.09    35.77   0.000      2984979     3331130
+       _cons |    6523608   10683.05   610.65   0.000      6502664     6544552
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+  id_uv_2024 |      4542        4542           0    *|
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. 
+end of do-file
+
+. do "E:\TEMP\2\STD1ea0_000000.tmp"
+
+. reghdfe meses_trabajando post_t1 if muestra_t1 == 1, absorb(id_uv_2024) cluster(id_uv_2024)
+(dropped 25 singleton observations)
+(MWFE estimator converged in 1 iterations)
+
+HDFE Linear regression                            Number of obs   =  1,844,660
+Absorbing 1 HDFE group                            F(   1,   4541) =     534.57
+Statistics robust to heteroskedasticity           Prob > F        =     0.0000
+                                                  R-squared       =     0.0376
+                                                  Adj R-squared   =     0.0353
+                                                  Within R-sq.    =     0.0007
+Number of clusters (id_uv_2024) =      4,542      Root MSE        =     3.9194
+
+                         (Std. Err. adjusted for 4,542 clusters in id_uv_2024)
+------------------------------------------------------------------------------
+             |               Robust
+meses_trab~o |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+     post_t1 |   .6475272   .0280063    23.12   0.000     .5926211    .7024332
+       _cons |   8.983245   .0033891  2650.66   0.000       8.9766    8.989889
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+  id_uv_2024 |      4542        4542           0    *|
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+
+
+
+BALANCE A NIVEL DE UV 
+
+. tab grupo_t1 if anio == `pre'
+
+    (firstnm) |
+     grupo_t1 |      Freq.     Percent        Cum.
+--------------+-----------------------------------
+Nunca tratada |      3,909       90.26       90.26
+      Tratada |        422        9.74      100.00
+--------------+-----------------------------------
+        Total |      4,331      100.00
+
+
+                                no trat     trat    dif norm  no trat trat pond dif norm pond
+ingreso_anual                  3.60e+06 3.55e+06   -0.033  3945782.80 3.89e+06   -0.039
+meses_trabajando                   8.14     8.10   -0.024        8.44    8.372   -0.058
+per_edad                          29.24    29.25    0.008       29.26   29.292    0.026
+n_hijos_menor5                     1.11     1.11    0.045        1.11    1.113    0.049
+per_fic_horastrabajo              37.07    37.68    0.099       36.55   36.813    0.068
+per_fic_trabaja                    0.45     0.45    0.023        0.48    0.484   -0.006
+per_fic_tipoeducacion_id           4.98     5.02    0.028        5.20    5.177   -0.020
+pob_total_uv                    1126.79  2011.08    0.410     3530.92 5287.255    0.340
+densidad_ninos_uv                  0.06     0.06    0.155        0.06    0.064    0.139
+
+Este balance a nivel UV (año 2014, 3.909 UVs nunca tratadas vs. 422 tratadas) muestra que las mujeres de UVs que eventualmente se tratan se parecen mucho a las de UVs nunca tratadas en todo lo que las describe a ellas como personas —ingreso, meses trabajados, edad, número de hijos, horas de trabajo, si trabajan, nivel educativo— con diferencias normalizadas chicas (todas por debajo de 0.10, bien lejos del umbral de 0.25 que se usa como señal de desbalance), y esto se confirma tanto ponderando por población de la UV como sin ponderar. La única variable donde el desbalance es real y relevante es el tamaño de la UV (pob_total_uv): las UVs que terminan tratándose tienen en promedio casi el doble de población que las que nunca se tratan (diferencia normalizada de 0.41 sin ponderar, 0.34 ponderada, ambas por sobre el umbral de preocupación), con densidad_ninos_uv mostrando un desbalance moderado en la misma dirección (0.16 / 0.14). En conjunto, esto confirma con un número riguroso lo que ya sospechábamos: la asignación de jardines no es aleatoria en cuanto al tamaño y composición demográfica de la UV (el Estado probablemente prioriza UVs más pobladas y con más niños), pero sí parece aleatoria respecto a las características socioeconómicas de las mujeres que viven ahí — que es justamente la distinción que valida usar efectos fijos por UV y por año en el diseño, en vez de invalidar la comparación completa.
+
+
+Numero de UVs
+
+. count if ever_t1 == 0
+  3,909
+
+. count if ever_t1 == 1
+  422
+
+
+
+

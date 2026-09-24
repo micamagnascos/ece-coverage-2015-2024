@@ -1,0 +1,308 @@
+7 ELEMENTOS/TABLAS
+
+ANALISIS PRIMERA ETAPA 
+Aumenta la matrìcula de los hijos de las madres tratadas?
+
+
+ collapse (mean) matriculado, by(time_to_event)
+
+     +---------------------+
+     | time_t~t   matric~o |
+     |---------------------|
+  1. |      -10   .2817338 |
+  2. |       -9   .2783542 |
+  3. |       -8   .2784722 |
+  4. |       -7   .2949471 |
+  5. |       -6   .3059657 |
+     |---------------------|
+  6. |       -5   .3189767 |
+  7. |       -4   .3081095 |
+  8. |       -3   .3059342 |
+  9. |       -2   .3188066 |
+ 10. |       -1   .3274817 |
+     |---------------------|
+ 11. |        0   .3578137 |
+ 12. |        1   .3697953 |
+ 13. |        2   .3608728 |
+ 14. |        3   .3489285 |
+ 15. |        4   .3483541 |
+     |---------------------|
+ 16. |        5   .3605761 |
+ 17. |        6   .3694198 |
+ 18. |        7   .3979275 |
+ 19. |        8   .3984156 |
+ 20. |        .   .3714894 |
+     +---------------------+
+
+
+PRIMERA ETAPA 
+
+
+
+. reghdfe matriculado post, absorb(id_uv_2024 anio) cluster(id_uv_2024)
+(MWFE estimator converged in 5 iterations)
+
+HDFE Linear regression                            Number of obs   =    412,308
+Absorbing 2 HDFE groups                           F(   1,    252) =      35.63
+Statistics robust to heteroskedasticity           Prob > F        =     0.0000
+                                                  R-squared       =     0.0328
+                                                  Adj R-squared   =     0.0322
+                                                  Within R-sq.    =     0.0003
+Number of clusters (id_uv_2024) =        253      Root MSE        =     0.4670
+
+                           (Std. Err. adjusted for 253 clusters in id_uv_2024)
+------------------------------------------------------------------------------
+             |               Robust
+ matriculado |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        post |   .0287718   .0048204     5.97   0.000     .0192785    .0382651
+       _cons |   .3256728   .0028901   112.69   0.000      .319981    .3313646
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+  id_uv_2024 |       253         253           0    *|
+        anio |        11           1          10     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+
+
+*cuàntos niños aparecen en el panel en algun año?
+*2,684,829
+
+
+* cuàntos niños son tratados?
+* 143,855
+
+
+
+A NIVEL DE UVS 
+
+
+. reghdfe matriculado post, absorb(id_uv_2024 anio) cluster(id_uv_2024)
+(MWFE estimator converged in 4 iterations)
+
+HDFE Linear regression                            Number of obs   =      2,760
+Absorbing 2 HDFE groups                           F(   1,    252) =      36.77
+Statistics robust to heteroskedasticity           Prob > F        =     0.0000
+                                                  R-squared       =     0.6124
+                                                  Adj R-squared   =     0.5716
+                                                  Within R-sq.    =     0.0225
+Number of clusters (id_uv_2024) =        253      Root MSE        =     0.0812
+
+                           (Std. Err. adjusted for 253 clusters in id_uv_2024)
+------------------------------------------------------------------------------
+             |               Robust
+ matriculado |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        post |   .0468727   .0077298     6.06   0.000     .0316494    .0620959
+       _cons |   .3259703   .0049011    66.51   0.000     .3163179    .3356227
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+  id_uv_2024 |       253         253           0    *|
+        anio |        11           1          10     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+
+
+. reghdfe matriculado kd*, absorb(id_uv_2024 anio) cluster(id_uv_2024)
+(dropped 30 singleton observations)
+(MWFE estimator converged in 5 iterations)
+note: kd20 is probably collinear with the fixed effects (all partialled-out values are close to ze
+> ro; tol = 1.0e-09)
+
+HDFE Linear regression                            Number of obs   =     72,582
+Absorbing 2 HDFE groups                           F(  18,   6826) =       4.44
+Statistics robust to heteroskedasticity           Prob > F        =     0.0000
+                                                  R-squared       =     0.4991
+                                                  Adj R-squared   =     0.4469
+                                                  Within R-sq.    =     0.0012
+Number of clusters (id_uv_2024) =      6,827      Root MSE        =     0.1107
+
+                         (Std. Err. adjusted for 6,827 clusters in id_uv_2024)
+------------------------------------------------------------------------------
+             |               Robust
+ matriculado |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         kd1 |   .0376422   .0226469     1.66   0.097    -.0067527    .0820371
+         kd2 |   .0242723   .0152818     1.59   0.112    -.0056849    .0542294
+         kd3 |   .0215603   .0154435     1.40   0.163    -.0087139    .0518344
+         kd4 |   .0206966   .0114703     1.80   0.071    -.0017888    .0431821
+         kd5 |   .0266249   .0122599     2.17   0.030     .0025918     .050658
+         kd6 |   .0103101   .0098965     1.04   0.298    -.0090901    .0297103
+         kd7 |   .0140322   .0090287     1.55   0.120    -.0036668    .0317313
+         kd8 |   .0117978   .0076211     1.55   0.122    -.0031418    .0267375
+         kd9 |   .0016751    .005572     0.30   0.764    -.0092477    .0125979
+        kd11 |   .0485662    .008313     5.84   0.000     .0322701    .0648622
+        kd12 |   .0538541   .0081785     6.58   0.000     .0378217    .0698865
+        kd13 |   .0514589   .0081053     6.35   0.000       .03557    .0673477
+        kd14 |   .0476918   .0074099     6.44   0.000      .033166    .0622176
+        kd15 |   .0437504   .0075248     5.81   0.000     .0289994    .0585014
+        kd16 |   .0417579   .0084414     4.95   0.000     .0252101    .0583058
+        kd17 |   .0435204   .0093716     4.64   0.000     .0251491    .0618916
+        kd18 |   .0453088   .0093605     4.84   0.000     .0269593    .0636584
+        kd19 |   .0412439   .0129139     3.19   0.001     .0159287    .0665592
+        kd20 |          0  (omitted)
+       _cons |   .3490402   .0001958  1782.94   0.000     .3486565     .349424
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+  id_uv_2024 |      6827        6827           0    *|
+        anio |        11           1          10     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+
+
+
+
+
+*****************************************************************
+*NUEVAS VAR DE TRAT
+
+NO PONDERADO: 
+
+. reghdfe tasa_matricula d1 d2 d3 d4 d6 d7 d8 d9 d10 d11, absorb(id_uv_2024 an
+> io) vce(cluster id_uv_2024)
+(dropped 24 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+HDFE Linear regression                            Number of obs   =     48,348
+Absorbing 2 HDFE groups                           F(  10,   4567) =       5.96
+Statistics robust to heteroskedasticity           Prob > F        =     0.0000
+                                                  R-squared       =     0.4539
+                                                  Adj R-squared   =     0.3967
+                                                  Within R-sq.    =     0.0011
+Number of clusters (id_uv_2024) =      4,568      Root MSE        =     0.1240
+
+                         (Std. Err. adjusted for 4,568 clusters in id_uv_2024)
+------------------------------------------------------------------------------
+             |               Robust
+tasa_matri~a |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+          d1 |   -.002201    .008411    -0.26   0.794    -.0186906    .0142886
+          d2 |  -.0086512   .0087098    -0.99   0.321    -.0257266    .0084243
+          d3 |  -.0126166   .0068603    -1.84   0.066    -.0260662     .000833
+          d4 |  -.0233443   .0060223    -3.88   0.000    -.0351508   -.0115378
+          d6 |    .020071   .0054042     3.71   0.000     .0094763    .0306658
+          d7 |   .0227511   .0051523     4.42   0.000       .01265    .0328522
+          d8 |   .0157787   .0052614     3.00   0.003     .0054638    .0260935
+          d9 |   .0183602   .0053848     3.41   0.001     .0078035    .0289169
+         d10 |   .0165852   .0054004     3.07   0.002     .0059979    .0271725
+         d11 |   .0193244   .0055443     3.49   0.000     .0084548     .030194
+       _cons |   .3257825   .0002277  1430.81   0.000     .3253361    .3262289
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+  id_uv_2024 |      4568        4568           0    *|
+        anio |        11           1          10     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+
+
+
+
+PONDERADO:
+
+. reghdfe tasa_matricula d1 d2 d3 d4 d6 d7 d8 d9 d10 d11 [aweight=n_ninos], ab
+> sorb(id_uv_2024 anio) vce(cluster id_uv_2024)
+(dropped 24 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+HDFE Linear regression                            Number of obs   =     48,348
+Absorbing 2 HDFE groups                           F(  10,   4567) =       7.03
+Statistics robust to heteroskedasticity           Prob > F        =     0.0000
+                                                  R-squared       =     0.7142
+                                                  Adj R-squared   =     0.6843
+                                                  Within R-sq.    =     0.0042
+Number of clusters (id_uv_2024) =      4,568      Root MSE        =     0.0571
+
+                         (Std. Err. adjusted for 4,568 clusters in id_uv_2024)
+------------------------------------------------------------------------------
+             |               Robust
+tasa_matri~a |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+          d1 |  -.0146622    .009798    -1.50   0.135    -.0338711    .0045467
+          d2 |  -.0112987   .0057017    -1.98   0.048    -.0224767   -.0001206
+          d3 |  -.0180612   .0040681    -4.44   0.000    -.0260367   -.0100857
+          d4 |   -.017474   .0041102    -4.25   0.000    -.0255319   -.0094161
+          d6 |   .0068133   .0034749     1.96   0.050     8.57e-07    .0136258
+          d7 |    .013196   .0034362     3.84   0.000     .0064595    .0199326
+          d8 |   .0118044   .0031379     3.76   0.000     .0056526    .0179562
+          d9 |    .007457   .0034185     2.18   0.029     .0007552    .0141589
+         d10 |   .0085415   .0033248     2.57   0.010     .0020234    .0150596
+         d11 |   .0088108   .0030678     2.87   0.004     .0027963    .0148253
+       _cons |   .3338788   .0002858  1168.08   0.000     .3333184    .3344392
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+  id_uv_2024 |      4568        4568           0    *|
+        anio |        11           1          10     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+
+
+CON EL EVENT STUDY 
+
+. eventstudyinteract tasa_matricula d1 d2 d3 d4 d6 d7 d8 d9 d10 d11, cohort(g1
+> ) control_cohort(nunca_tratada)  absorb(id_uv_2024 anio) vce(cluster id_uv_2
+> 024)
+(obs=4,741)
+
+IW estimates for dynamic effects                Number of obs     =     48,348
+Absorbing 2 HDFE groups                         F(  75,   4567)   =       5.44
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.4542
+                                                Adj R-squared     =     0.3961
+                                                Root MSE          =     0.1240
+                         (Std. Err. adjusted for 4,568 clusters in id_uv_2024)
+------------------------------------------------------------------------------
+             |               Robust
+tasa_matri~a |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+          d1 |   .0062091   .0102309     0.61   0.544    -.0138484    .0262666
+          d2 |   .0043618   .0089005     0.49   0.624    -.0130874     .021811
+          d3 |  -.0051826   .0065533    -0.79   0.429    -.0180302     .007665
+          d4 |  -.0169561   .0057449    -2.95   0.003    -.0282188   -.0056934
+          d6 |   .0226933   .0053779     4.22   0.000       .01215    .0332365
+          d7 |   .0258413   .0051421     5.03   0.000     .0157603    .0359223
+          d8 |   .0186389   .0053934     3.46   0.001     .0080653    .0292126
+          d9 |   .0209722   .0052456     4.00   0.000     .0106884     .031256
+         d10 |   .0194512    .005353     3.63   0.000     .0089568    .0299456
+         d11 |   .0225286   .0055003     4.10   0.000     .0117453     .033312
+------------------------------------------------------------------------------
+
+. 
+end of do-file
+
+. do "E:\TEMP\2\STD1ea0_000000.tmp"
+
+. matrix list e(b_iw)
+
+e(b_iw)[1,10]
+            d1          d2          d3          d4          d6          d7
+r1   .00620911   .00436176  -.00518257   -.0169561   .02269327   .02584129
+
+            d8          d9         d10         d11
+r1   .01863894   .02097218   .01945117   .02252865
+
+

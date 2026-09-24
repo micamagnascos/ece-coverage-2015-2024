@@ -1,0 +1,53 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{times}
+\pagestyle{empty}
+
+\sisetup{
+  table-format=2.2,
+  table-number-alignment = center
+}
+
+\begin{document}
+
+\begin{table}[!ht]
+\centering
+{\bfseries \MakeUppercase{Estad\'isticas de balance de covariables}}\\[8pt]
+
+\begin{tabular}{@{}l S[table-format=4.2] S[table-format=4.2] S[table-format=1.3] S[table-format=4.2] S[table-format=4.2] S[table-format=1.3] c@{}}
+\toprule
+\toprule
+ & \multicolumn{3}{c}{Sin ponderar} & \multicolumn{3}{c}{Ponderado por poblaci\'on UV} & \\
+\cmidrule(lr){2-4} \cmidrule(lr){5-7}
+{Variable} & {No tratada} & {Tratada} & {Dif. norm.} & {No tratada} & {Tratada} & {Dif. norm.} & {Sig.\textsuperscript{a}} \\
+\midrule
+\multicolumn{8}{@{}l}{\textit{Niveles de covariables, a\~no 2014}} \\
+Ingreso anual (millones CLP) & 3.60 & 3.55 & -0.033 & 3.95 & 3.89 & -0.039 & * \\
+Meses trabajando            & 8.14 & 8.10 & -0.024 & 8.44 & 8.37 & -0.058 & * \\
+Edad                        & 29.24 & 29.25 & 0.008 & 29.26 & 29.29 & 0.026 & \\
+N\'umero de hijos $<$5       & 1.11 & 1.11 & 0.045 & 1.11 & 1.11 & 0.049 & \\
+Horas de trabajo            & 37.07 & 37.68 & 0.099 & 36.55 & 36.81 & 0.068 & \\
+Trabaja (proporci\'on)       & 0.45 & 0.45 & 0.023 & 0.48 & 0.48 & -0.006 & \\
+Tipo de educaci\'on (c\'odigo) & 4.98 & 5.02 & 0.028 & 5.20 & 5.18 & -0.020 & \\
+Poblaci\'on de la UV         & 1126.79 & 2011.08 & \bfseries 0.410 & 3530.92 & 5287.26 & \bfseries 0.340 & *** \\
+Densidad ni\~nos 0-5 UV       & 0.06 & 0.06 & 0.155 & 0.06 & 0.06 & 0.139 & *** \\
+\midrule
+N\'umero de UVs               & \multicolumn{2}{c}{3909 \quad 422} & & \multicolumn{2}{c}{3909 \quad 422} & & \\
+\bottomrule
+\end{tabular}
+
+\par\vspace{6pt}
+\begin{minipage}{0.95\textwidth}
+\footnotesize
+\textit{Notas:} balance de covariables entre UV que nunca abren un jard\'in infantil y UV que lo abren en alg\'un momento (\texttt{ever\_t1}), a\~no 2014 (previo a toda apertura). Columnas ponderadas usan la poblaci\'on de la UV como peso. Diferencia normalizada $=$ (media tratada $-$ media no tratada)~/~$\sqrt{(\text{var. tratada}+\text{var. no tratada})/2}$. Ingreso en millones de CLP. $N=3909$ no tratadas, $N=422$ tratadas.
+
+\textsuperscript{a}T-test a nivel mujer, mismo a\~no (* p$<$0.05, *** p$<$0.01), solo como referencia: con N mucho mayor tiende a marcar significativas diferencias normalizadas peque\~nas (p.ej. meses trabajando: * pero dif. norm. $=-0.189$). Se prioriza la diferencia normalizada.
+\end{minipage}
+
+\end{table}
+
+\end{document}

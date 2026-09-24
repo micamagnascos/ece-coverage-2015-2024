@@ -14,7 +14,8 @@ y desagregación por programa JUNJI).
 Hace merge JUNJI + Integra, completa el panel con tsfill (todas
 las UV x todos los años), reemplaza missings por cero y agrega
 la base completa de UVs (base_uv_completa) para tener el universo
-de 6,877 UVs balanceado 2015-2024.
+de 6,887 UVs (shapefile oficial 2024, UnidadesVecinales_2024v4.shp)
+balanceado 2015-2024.
 
 Genera n_total y la variable tratada (UV que pasa de 0 a ≥1
 centros). Incluye gráficos descriptivos de evolución de
@@ -81,6 +82,13 @@ duplicates tag codigo_junji, gen(dup)
 bysort codigo_junji: keep if _n == 1
 drop dup
 
+* jardines cuyo punto no cayó dentro de ninguna UV en el sjoin (how = left en
+* 02_spatial_join_uv.py) -> t_id_uv_ca vacío. Si no se dropean, collapse crea
+* una "UV" fantasma con t_id_uv_ca = . que contamina el panel y los totales.
+count if missing(t_id_uv_ca)
+assert r(N) <= 5
+drop if missing(t_id_uv_ca)
+
 describe
 
 tab programa
@@ -136,7 +144,7 @@ save "data/build/uv_junji.dta", replace
 *===================================================================
 /* PANEL INTEGRA: leer asignación espacial jardín-UV, resolver
    duplicados de codigo_integra (1 jardín asignado a dos UV),
-   definir anio_inicio (tope mínimo 2015 para jardines que ya
+   definir anio_inicio (tope mínimo 2014 para jardines que ya
    existían antes del período), expandir a una fila por año de
    actividad y colapsar a conteos por UV-año */
 
@@ -150,9 +158,15 @@ duplicates list codigo_integra
 *un jardin asignado a dos uv distintas
 bysort codigo_integra: keep if _n == 1
 
+* jardines cuyo punto no cayó dentro de ninguna UV en el sjoin (how = left) ->
+* t_id_uv_ca vacío. Dropear para no generar una "UV" fantasma en el collapse.
+count if missing(t_id_uv_ca)
+assert r(N) <= 5
+drop if missing(t_id_uv_ca)
+
 gen anio_inicio = anio_apertura
 count if missing(anio_inicio)
-replace anio_inicio = 2015 if anio_apertura < 2015
+replace anio_inicio = 2014 if anio_apertura < 2014
 
 gen n_anios = anio_termino - anio_inicio + 1
 expand n_anios
@@ -188,11 +202,12 @@ save "data/build/uv_integra.dta", replace
 
 
 *===================================================================
-* CREAR PANEL COMPLETO DE TODAS LAS UV PARA TODOS LOS AÑOS 2015-2024
+* CREAR PANEL COMPLETO DE TODAS LAS UV PARA TODOS LOS AÑOS 2014-2024
 
-/* Cargar shapefile completo de UVs (6,877 UVs, salida de Python),
-   estandarizar strings y guardar como .dta. Este será el universo
-   completo de UVs con el que se hace merge más adelante */
+/* Cargar shapefile completo de UVs (6,887 UVs, shapefile oficial 2024
+   UnidadesVecinales_2024v4.shp, salida de Python), estandarizar strings
+   y guardar como .dta. Este será el universo completo de UVs con el que
+   se hace merge más adelante */
 
 import delimited "data/build/base_uv_completa.csv", encoding(utf-8) clear
 estandarizar_strings
@@ -220,7 +235,7 @@ drop region
 
 
 /* PANEL BALANCEADO: tsfill, full crea todas las combinaciones
-   UV x año (2015-2024) para las UVs que ya tenían al menos un
+   UV x año (2014-2024) para las UVs que ya tenían al menos un
    registro en JUNJI/Integra. Las celdas nuevas quedan con missing
    en n_junji/n_integra -> se reemplazan por 0 */
 xtset t_id_uv_ca anio
@@ -237,7 +252,7 @@ save "data/build/uv_junji_integra.dta", replace
 
 
 /* MERGE CON UNIVERSO COMPLETO DE UVs: expandir base_uv_completa
-   (6,877 UVs) a 10 filas por UV, una por año 2015-2024, y hacer
+   (6,887 UVs) a 11 filas por UV, una por año 2014-2024, y hacer
    merge con uv_junji_integra (UVs que tuvieron al menos un centro
    en algún año, ya balanceadas con tsfill).
 
@@ -247,14 +262,27 @@ save "data/build/uv_junji_integra.dta", replace
      en uv_junji_integra): entran con missing en todos los conteos,
      reemplazado por 0 a continuación.
 
-   Resultado: panel balanceado 6,877 UVs x 10 años = 68,770 obs */
+   Resultado: panel balanceado 6,887 UVs x 11 años = 75,757 obs */
 
 use "data/build/base_uv_completa.dta", clear
-* expandir para tener 10 filas por UV
-expand 10
-bysort t_id_uv_ca: gen anio = 2014 + _n
+* nº de UVs del marco (shapefile oficial 2024): debería ser 6,887
+count
+local n_uv = r(N)
+assert `n_uv' == 6887
+
+* expandir para tener 11 filas por UV
+expand 11
+bysort t_id_uv_ca: gen anio = 2013 + _n
 
 merge 1:1 t_id_uv_ca anio using "data/build/uv_junji_integra.dta", nogen
+
+* el universo de base_uv_completa (shapefile 2024) es el marco definitivo:
+* toda UV de JUNJI/Integra ya debería estar acá. Si el merge deja filas
+* "solo using" (t_reg_ca vacío) es una UV que no está en el shapefile 2024
+* -> revisar el sjoin en 02_spatial_join_uv.py.
+assert !missing(t_reg_ca)
+* panel balanceado: 6,887 UVs x 11 años = 75,757 obs
+assert _N == `n_uv' * 11
 
 replace n_junji = 0 if n_junji == .
 replace n_integra = 0 if n_integra == .
@@ -279,7 +307,13 @@ bysort t_id_uv_ca (anio): gen tratada = (n_total >= 1 & n_total[_n-1] == 0)
 tab anio if tratada == 1
 /*
 Verificado con una corrida completa del pipeline (10/07/2026), tras el fix
-de anio_inicio para JUNJI en 01_limpieza_junji_integra.do:
+de anio_inicio para JUNJI en 01_limpieza_junji_integra.do.
+
+NOTA: los conteos de abajo son PREVIOS al drop de jardines sin UV asignada
+(t_id_uv_ca vacío). Ese jardín JUNJI no genera una transición 0->1 nueva,
+así que la tabla de "tratada" no cambia, pero los totales de n_junji por
+año bajan en 1 respecto de lo documentado en los bloques de más abajo.
+Volver a correr el pipeline para refrescar estas cifras.
 
        anio |      Freq.     Percent        Cum.
 ------------+-----------------------------------
@@ -313,20 +347,7 @@ export excel using "data/final/base_cobertura_cp.xlsx", firstrow(variables) repl
 use "data/final/base_cobertura_cp.dta", clear
 
 
-*GRAFICO DE UV TRATADAS POR AÑO POR REGION
-preserve
-keep if tratada == 1
-contract t_reg_nom, freq(n_tratadas)
-gsort -n_tratadas
-
-graph hbar n_tratadas, over(t_reg_nom, sort(n_tratadas) descending) ///
-    title("UVs tratadas por región") ///
-    ytitle("Número de UVs") ///
-    blabel(bar)
-
-graph export "output/figures/03_uv_tratadas_por_region.png", replace width(1600)
-
-restore
+* (el grafico de UVs tratadas por region se genera en 04_tratamiento_t1.do)
 
 
 describe
@@ -360,7 +381,7 @@ preserve
 collapse (sum) n_junji n_integra, by(anio)
 
 twoway (line n_junji anio, lcolor(navy) lwidth(medium)), ///
-       xlabel(2015(1)2024) ///
+       xlabel(2014(1)2024) ///
        ylabel(, angle(0)) ///
        title("Jardines JUNJI por año") ///
        xtitle("Año") ytitle("Número de establecimientos")
@@ -373,7 +394,7 @@ restore
 preserve
 collapse (sum) n_junji n_integra, by(anio)
 twoway (line n_integra anio, lcolor(cranberry) lwidth(medium)), ///
-       xlabel(2015(1)2024) ///
+       xlabel(2014(1)2024) ///
        ylabel(, angle(0)) ///
        title("Jardines Integra por año") ///
        xtitle("Año") ytitle("Número de establecimientos")
@@ -390,7 +411,7 @@ collapse (sum) n_junji n_integra, by(anio)
 
 twoway (line n_junji anio, lcolor(navy) lwidth(medium)) ///
        (line n_integra anio, lcolor(cranberry) lwidth(medium)), ///
-       xlabel(2015(1)2024) ///
+       xlabel(2014(1)2024) ///
        ylabel(0(500)3500, angle(0)) ///
        title("Jardines JUNJI e Integra por año") ///
        xtitle("Año") ytitle("Número de establecimientos") ///
@@ -432,11 +453,11 @@ twoway ///
     (connected n_alternativo anio, lcolor(green) mcolor(green)) ///
     (connected n_clas_dir anio, lcolor(orange) mcolor(orange)) ///
     (connected n_transitorio anio, lcolor(purple) mcolor(purple)), ///
-    title("Jardines JUNJI por modalidad, 2015–2024") ///
+    title("Jardines JUNJI por modalidad, 2014–2024") ///
     xtitle("Año") ytitle("N° jardines") ///
     legend(order(1 "Conv. alimentación" 2 "Educ. familia" ///
                  3 "Alternativo" 4 "Clásico directo" 5 "Transitorio")) ///
-    xlabel(2015(1)2024, angle(45))
+    xlabel(2014(1)2024, angle(45))
 
 graph export "output/figures/07_modalidades_junji_por_anio.png", replace width(1600)
 
@@ -461,7 +482,7 @@ collapse (sum) n_conv_alim n_educ_fam n_alternativo n_clas_terc n_clas_dir n_tra
 * las más grandes dibujadas después (clas_dir, transitorio).
 graph bar n_conv_alim n_educ_fam n_alternativo n_clas_terc n_clas_dir n_transitorio, ///
     over(anio) stack ///
-    title("Composición de jardines JUNJI por modalidad, 2015-2024") ///
+    title("Composición de jardines JUNJI por modalidad, 2014-2024") ///
     ytitle("N° jardines") ///
     legend(order(1 "Conv. alim." 2 "Educ. familia" 3 "Alternativo" ///
                   4 "Clásico terc." 5 "Clásico directo" 6 "Transitorio") ///
@@ -469,4 +490,23 @@ graph bar n_conv_alim n_educ_fam n_alternativo n_clas_terc n_clas_dir n_transito
 
 graph export "output/figures/09_composicion_modalidades_junji.png", replace width(1600)
 
+restore
+
+* GRAFICO CRECIMIENTO ACUMULADO DE CENTROS RESPECTO A 2015
+preserve
+collapse (sum) n_junji n_integra, by(anio)
+keep if anio >= 2015
+gen d_junji = n_junji - n_junji[1]
+gen d_integra = n_integra - n_integra[1]
+
+twoway (area d_junji anio, color(navy%25) lcolor(navy)) ///
+       (connected d_junji anio, lcolor(navy) mcolor(navy) mlabel(d_junji) mlabposition(12) mlabcolor(navy)) ///
+       (area d_integra anio, color(cranberry%25) lcolor(cranberry)) ///
+       (connected d_integra anio, lcolor(cranberry) mcolor(cranberry) mlabel(d_integra) mlabposition(6) mlabcolor(cranberry)), ///
+       xlabel(2015(1)2024) ylabel(0(100)700, angle(0)) ///
+       title("Crecimiento acumulado de centros parvularios públicos" "Nuevos centros respecto a 2015, Chile") ///
+       xtitle("") ytitle("Nuevos centros desde 2015") ///
+       legend(order(2 "JUNJI" 4 "Integra") position(6) rows(1))
+
+graph export "output/figures/10_crec_acumulado.png", replace width(1600)
 restore
