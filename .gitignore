@@ -39,3 +39,6 @@ legacy/*
 # Stata
 *.log
 *.smcl
+
+# Guión y audio de presentaciones — uso personal, no se comparte
+slides/guion_*
