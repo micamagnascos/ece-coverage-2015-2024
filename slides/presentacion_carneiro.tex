@@ -83,6 +83,9 @@
 
 \newcommand{\fuente}[1]{\vspace{2pt}\textcolor{graytext}{\scriptsize #1}}
 
+% One-line slide conclusion
+\newcommand{\takeaway}[1]{\par\vspace{6pt}{\small\textcolor{steel}{$\Rightarrow$}\ \textbf{\textcolor{navy}{#1}}}}
+
 % Placeholder box for pending results
 \newcommand{\placeholder}[1]{%
   \begin{tikzpicture}
@@ -110,7 +113,7 @@
 {\LARGE\bfseries\color{navy} Impacts of Public Early Childhood Education\\[3pt] in Chile on Maternal Fertility\\[3pt] and Labor Market Outcomes}
 
 \vspace{8pt}
-{\large\color{graytext} Progress update}
+{\large\color{graytext} Short-run effects --- progress update}
 
 \vspace{10pt}
 \textcolor{steel}{\rule{0.5\paperwidth}{0.6pt}}
@@ -125,6 +128,47 @@ Andr\'es Hojman \quad Marigen Narea \quad Jorge Rodr\'iguez \quad Pedro Carneiro
 \end{frame}
 
 % =============================================================================
+% 1b. EXECUTIVE SUMMARY
+% =============================================================================
+\begin{frame}
+\vspace{4pt}
+{\large\bfseries\color{navy} Where we are}
+\vspace{8pt}
+
+\begin{columns}[T]
+\begin{column}{0.49\textwidth}
+{\small\textcolor{steel}{\textbf{What we do}}}
+\begin{itemize}
+  \footnotesize
+  \item \textbf{Question}: does opening a public preschool nearby change mothers' labor supply and fertility?
+  \item \textbf{Variation}: 447 neighborhood units (UVs) open their \emph{first} JUNJI/Integra preschool in 2015--2024 vs.\ 4{,}145 that never do
+  \item \textbf{Design}: staggered event study at the UV level, Sun--Abraham estimator (Baker et al., \emph{JEL} 2026)
+  \item \textbf{Data}: woman-level panel linking administrative registries --- RSH/FPS, SII/AFP earnings, Civil Registry births, preschool enrollment
+\end{itemize}
+\end{column}
+\begin{column}{0.49\textwidth}
+{\small\textcolor{steel}{\textbf{What we find so far}}}
+\begin{itemize}
+  \footnotesize
+  \item \textbf{Balance}: in 2014, women in treated and never-treated UVs look alike; UVs differ in \emph{size} $\to$ UV + year FE
+  \item \textbf{First stage}: enrollment rises $\approx$\textbf{2pp} on a 33\% base ($\approx$6\%) the year a preschool opens, persistent and robust across 3 estimators
+  \item \textbf{Labor \& fertility}: estimates in progress
+\end{itemize}
+\end{column}
+\end{columns}
+
+\vspace{10pt}
+\begin{block}{Project status}
+\footnotesize
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.36\textwidth}>{\raggedright\arraybackslash}p{0.30\textwidth}>{\raggedright\arraybackslash}p{0.28\textwidth}@{}}
+{\color{statuslisto}\textbf{Done}}: data construction, treatment definition, balance, first stage &
+{\color{statuspink}\textbf{In progress}}: labor market and fertility event studies &
+{\color{statusred}\textbf{Next}}: heterogeneity, mechanisms, writing
+\end{tabular}
+\end{block}
+\end{frame}
+
+% =============================================================================
 % 2. RESEARCH QUESTION
 % =============================================================================
 \begin{frame}{Research question}
@@ -132,10 +176,33 @@ Andr\'es Hojman \quad Marigen Narea \quad Jorge Rodr\'iguez \quad Pedro Carneiro
 \small What are the effects of the public expansion of early childhood education in Chile on mothers' labor market participation and fertility?
 \end{block}
 
-\vspace{10pt}
-\begin{block}{Design innovation}
-\small First sub-municipal panel linking public preschools (JUNJI/Integra), the Census/RSH, and geolocation at the neighborhood-unit (UV) level --- no prior study in the region has this level of spatial detail.
-\end{block}
+\vspace{4pt}
+\begin{columns}[T]
+\begin{column}{0.49\textwidth}
+{\small\textcolor{steel}{\textbf{What we know}}}
+\begin{itemize}
+  \footnotesize
+  \item \textbf{Mixed evidence}: positive effects on maternal employment in Quebec and Argentina, close to zero in Norway
+  \item Recent Latin American evidence comes from \textbf{lotteries and experiments} (Rio de Janeiro, Nicaragua)
+  \item Less is known about a \textbf{national, decade-long public expansion} observed in administrative data
+\end{itemize}
+\end{column}
+\begin{column}{0.49\textwidth}
+{\small\textcolor{steel}{\textbf{Our contribution}}}
+\begin{itemize}
+  \footnotesize
+  \item \textbf{First study to use neighborhood-unit (UV) variation}: preschools geolocated to the UV and linked to individual administrative records
+  \item \textbf{Fertility} as a second margin, alongside labor supply
+\end{itemize}
+
+\vspace{4pt}
+\colorbox{bgpanel}{\parbox{0.95\linewidth}{\raggedright\footnotesize \textbf{\textcolor{steel}{What is a UV?}} \emph{Unidad Vecinal}: the official sub-municipal territorial unit --- $\sim$6{,}900 UVs vs.\ 346 municipalities.}}
+\end{column}
+\end{columns}
+
+\takeaway{Finer geography: a sharper measure of exposure and more variation to identify the effect.}
+\par\vspace{10pt}
+{\tiny\textcolor{graytext}{Quebec: Baker et al.\ (2008); Argentina: Berlinski \& Galiani (2007); Norway: Havnes \& Mogstad (2011); Rio: Attanasio et al.\ (2025); Nicaragua: Hojman \& L\'opez B\'oo (2022).}\par}
 \end{frame}
 
 % =============================================================================
@@ -143,6 +210,7 @@ Andr\'es Hojman \quad Marigen Narea \quad Jorge Rodr\'iguez \quad Pedro Carneiro
 % =============================================================================
 \begin{frame}{Public provision expanded sharply between 2015 and 2024}
 \begin{itemize}
+  \footnotesize
   \item Mixed provision: \textbf{public} (JUNJI, Integra, municipal/SLEP) vs. \textbf{private} (subsidized/paid)
   \item \textbf{700+ new public preschools} opened between 2015 and 2024
   \item Net attendance rate (ages 0--5) rose from \textbf{50\% to 55\%} over the period, despite pandemic-era setbacks
@@ -155,7 +223,7 @@ Andr\'es Hojman \quad Marigen Narea \quad Jorge Rodr\'iguez \quad Pedro Carneiro
   ybar,
   bar width=14pt,
   width=0.92\textwidth,
-  height=4.2cm,
+  height=3.7cm,
   symbolic x coords={Sala cuna,Nivel medio,Nivel transicion},
   xtick=data,
   xticklabels={Nursery (0-2),Toddler (2-4),Pre-K (4-6)},
@@ -167,7 +235,7 @@ Andr\'es Hojman \quad Marigen Narea \quad Jorge Rodr\'iguez \quad Pedro Carneiro
   enlarge x limits=0.22,
   nodes near coords,
   nodes near coords style={font=\tiny,text=graytext},
-  legend style={at={(0.5,-0.3)},anchor=north,legend columns=4,font=\tiny,draw=none},
+  legend style={at={(0.5,-0.27)},anchor=north,legend columns=4,font=\tiny,draw=none},
   grid style={gray!20},
 ]
 \addplot[fill=navy,draw=none] coordinates {(Sala cuna,70.7)(Nivel medio,47.0)(Nivel transicion,1.7)};
@@ -178,7 +246,9 @@ Andr\'es Hojman \quad Marigen Narea \quad Jorge Rodr\'iguez \quad Pedro Carneiro
 \end{axis}
 \end{tikzpicture}
 \end{center}
+\vspace{-12pt}
 \fuente{Source: authors' elaboration based on Figura 5, Matr\'icula Oficial 2023, Centro de Estudios MINEDUC.}
+\takeaway{Ages 0--4: JUNJI and Integra are the main providers --- our focus.}
 \end{frame}
 
 % =============================================================================
@@ -188,11 +258,12 @@ Andr\'es Hojman \quad Marigen Narea \quad Jorge Rodr\'iguez \quad Pedro Carneiro
 \begin{columns}[T]
 \begin{column}{0.66\textwidth}
 \begin{itemize}
+  \small
   \item \textbf{Design}: staggered-adoption difference-in-differences with event study
-  \item \textbf{Unit of treatment}: neighborhood unit (UV) --- finer geographic resolution than comparable literature
-  \item \textbf{Unit of analysis}: panel of women, linked to their UV of residence
-  \item \textbf{Fixed effects}: UV and year (baseline); since the panel tracks the same women over time, \textbf{woman fixed effects} can replace UV effects as a robustness check
-  \item \textbf{Estimand}: ATT of UV-level treatment (Baker et al., \emph{JEL} 2026) --- exposure to greater \emph{potential} access, not necessarily individual take-up
+  \item \textbf{Unit of treatment}: the UV, the year it opens its first public preschool
+  \item \textbf{Unit of analysis}: \textbf{UV $\times$ year} panel, built from a woman $\times$ year panel linked to each woman's UV of residence
+  \item \textbf{Fixed effects}: \textbf{UV + year} (baseline); woman FE on the woman $\times$ year panel as a \textbf{robustness check}
+  \item \textbf{Estimand}: ATT of UV-level treatment (Baker et al., \emph{JEL} 2026) --- an \textbf{intent-to-treat effect of access}, not individual take-up
 \end{itemize}
 \end{column}
 \begin{column}{0.32\textwidth}
@@ -205,10 +276,9 @@ Andr\'es Hojman \quad Marigen Narea \quad Jorge Rodr\'iguez \quad Pedro Carneiro
 \draw[-{Latex[length=2mm]},steel,thick] (a.south) |- ($(c.north)+(-0.7,4pt)$);
 \draw[-{Latex[length=2mm]},gray,thick] (b.south) |- ($(c.north)+(0.7,4pt)$);
 \end{tikzpicture}
-\vspace{4pt}
-{\tiny\textcolor{graytext} Compares the \emph{change} for treated UVs against the change for never-treated UVs --- not levels.}
 \end{column}
 \end{columns}
+\takeaway{We compare changes in UVs that get their first preschool vs.\ UVs that never do --- an intent-to-treat effect of access.}
 \end{frame}
 
 % =============================================================================
@@ -234,17 +304,48 @@ Treated         & 0 in 2014, opens first center 2015--2024           & 447     &
 \end{tabular}
 \end{center}
 \fuente{Source: \texttt{base\_cobertura\_cp.dta}. Design sample (\texttt{muestra\_t1==1}) = Never-treated + Treated = 4{,}592 UVs.}
+\takeaway{We identify the effect of the first preschool (0 $\to$ 1): 447 treated vs.\ 4{,}145 never-treated.}
 \end{frame}
 
 % =============================================================================
 % 6. TREATMENT COHORTS BY YEAR
 % =============================================================================
 \begin{frame}{Treatment cohorts by year}
-\begin{center}
-\includegraphics[width=0.8\textwidth,height=0.56\textheight,keepaspectratio]{cohortes_tratamiento_por_anio_crop.png}
-\end{center}
-\vspace{6pt}
-\footnotesize Using \textbf{2014 as the reference year} captures the full 2015 cohort (179 UVs, \textbf{40\%} of all treated) --- the largest cohort, tied to the \textbf{Bachelet administration's} preschool expansion policy. Without 2014 as the base year, that cohort cannot be identified as ``went from 0 to 1'' (no prior year to compare), and treated UVs would drop to \textbf{$\sim$268} instead of 447.
+\begin{columns}[T]
+\begin{column}{0.56\textwidth}
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+  ybar,
+  bar width=9pt,
+  width=\linewidth,
+  height=5.2cm,
+  symbolic x coords={2015,2016,2017,2018,2019,2020,2021,2022,2023,2024},
+  xtick=data,
+  ymin=0, ymax=200,
+  ylabel={Treated UVs},
+  ylabel style={font=\scriptsize},
+  tick label style={font=\tiny},
+  axis lines*=left,
+  enlarge x limits=0.06,
+  nodes near coords,
+  nodes near coords style={font=\tiny,text=graytext},
+]
+\addplot[fill=steel,draw=none] coordinates {(2015,179)(2016,63)(2017,77)(2018,46)(2019,37)(2020,7)(2021,15)(2022,11)(2023,8)(2024,4)};
+\end{axis}
+\end{tikzpicture}
+\end{column}
+\begin{column}{0.42\textwidth}
+\begin{itemize}
+  \footnotesize
+  \item \textbf{2015 cohort is the largest}: 179 UVs (40\%), tied to the Bachelet preschool expansion
+  \item \textbf{71\% open in 2015--2017}; only 45 UVs open after 2019
+  \item \textbf{2014 as base year} lets us identify the 2015 cohort as 0 $\to$ 1; without it, treated UVs drop from 447 to $\sim$268
+\end{itemize}
+\end{column}
+\end{columns}
+\fuente{Source: \texttt{base\_cobertura\_cp.dta}. 447 treated UVs (0 centers in 2014).}
+\takeaway{Most openings are early (2015--17): long post-treatment windows for most treated UVs.}
 \end{frame}
 
 % =============================================================================
@@ -252,15 +353,15 @@ Treated         & 0 in 2014, opens first center 2015--2024           & 447     &
 % =============================================================================
 \begin{frame}{Empirical specification and estimator}
 \[
-Y_{iut} = \lambda_u + \lambda_t + f(\text{Age}_{it}) + \sum_{k \neq -1} \beta_k \, \mathbb{1}\{t - G_u = k\} + \varepsilon_{iut}
+Y_{ut} = \lambda_u + \lambda_t + \gamma\,\overline{\text{Age}}_{ut} + \sum_{k \neq -1} \beta_k \, \mathbf{1}\{t - G_u = k\} + \varepsilon_{ut}
 \]
 
 \vspace{2pt}
 \begin{itemize}
   \footnotesize
-  \item $Y_{iut}$: outcome for woman $i$, UV $u$, year $t$ --- \textbf{one observation per woman-year} (not collapsed to UV-year). $\lambda_u,\lambda_t$: UV and year fixed effects (primary specification).
-  \item $f(\text{Age}_{it})$: flexible age control (labor market spec also controls for the youngest eligible child's age).
-  \item $\beta_k$: ATT $k$ years before/after opening, relative to $t=-1$ (omitted reference).
+  \item $Y_{ut}$: average outcome of women in UV $u$, year $t$ (built from the woman $\times$ year panel). $\lambda_u,\lambda_t$: UV and year fixed effects; SE clustered by UV.
+  \item $\overline{\text{Age}}_{ut}$: average age of mothers in the UV-year (labor market specification).
+  \item $\beta_k$: effect $k$ years from opening, relative to $k=-1$ (omitted); $k \le -5$ binned.
 \end{itemize}
 
 \vspace{4pt}
@@ -269,7 +370,9 @@ Y_{iut} = \lambda_u + \lambda_t + f(\text{Age}_{it}) + \sum_{k \neq -1} \beta_k 
 \end{block}
 
 \vspace{4pt}
-\footnotesize \textbf{Parallel trends} tested via pre-period coefficients ($k<0$); main threat is non-random timing of openings (JUNJI/Integra prioritizing UVs by care demand or socioeconomic profile) --- tested directly ahead. \textbf{Woman FE} ($\mu_i$ replacing $\lambda_u$) run only as a \textbf{robustness check} --- absorbs individual-level composition, but does not address \emph{where/when} preschools are built, which remains a UV-level question.
+\footnotesize \textbf{Main threat}: non-random placement of openings (JUNJI/Integra prioritizing UVs by care demand or socioeconomic profile). \textbf{UV FE} absorb permanent differences across UVs; \textbf{pre-period coefficients} ($k<-1$) test whether trends were already diverging.
+
+\takeaway{Main estimator: Sun--Abraham with never-treated UVs as controls; TWFE as reference.}
 \end{frame}
 
 % =============================================================================
@@ -278,55 +381,62 @@ Y_{iut} = \lambda_u + \lambda_t + f(\text{Age}_{it}) + \sum_{k \neq -1} \beta_k 
 \begin{frame}{Data: what we have and how each sample is built}
 \small
 \begin{center}
-\begin{tabular}{@{}p{2.6cm}p{4.7cm}p{4.4cm}@{}}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{2.8cm}>{\raggedright\arraybackslash}p{5.0cm}>{\raggedright\arraybackslash}p{4.6cm}@{}}
 \toprule
 \textbf{Sample} & \textbf{Source data} & \textbf{Key variables} \\
 \midrule
-Coverage (UV $\times$ year) & JUNJI/Integra transparency requests + UV shapefile (MDSF) & \texttt{n\_total}, \texttt{tratada}, \texttt{g1}, \texttt{grupo\_t1}, \texttt{rel\_t1} \\
-Women panel (base) & RSH (2016--2024) + FPS (2014--2015) & \texttt{id\_uv\_2024}, \texttt{pob\_total\_uv}, \texttt{densidad\_ninos\_uv}, \texttt{cambia\_uv} \\
-Labor market & + Rentas (SII/AFC) + Cotizaciones (AFP) & \texttt{ingreso\_anual}, \texttt{meses\_trabajando}, \texttt{trabaja}, dep./indep. \\
-Fertility & + Civil Registry birth records (via RIS) & \texttt{tuvo\_hijo}, \texttt{n\_hijos\_menor5} \\
-First stage (enrollment) & + Matr\'icula parvularia (child-level) & \texttt{matriculado}, \texttt{tasa\_matricula} \\
+Coverage (UV $\times$ year) & JUNJI/Integra transparency requests + UV shapefile (MDSF) & Number of centers, treatment status, opening cohort \\
+Women panel (base) & RSH (2016--2024) + FPS (2014--2015) & UV of residence, UV population, child density \\
+Labor market & + Rentas (SII/AFC) + Cotizaciones (AFP) & Annual income, months worked, employment \\
+Fertility & + Civil Registry birth records (via RIS) & Birth in the year, children under 5 \\
+First stage (enrollment) & + Matr\'icula parvularia (child-level) & Enrollment, enrollment rate \\
 \bottomrule
 \end{tabular}
 \end{center}
-\vspace{4pt}
-\footnotesize All sources are \textbf{administrative registries} (JUNJI/Integra, SII, AFP, RSH/FPS) --- no survey self-report used for the core outcomes.
+\takeaway{All administrative registries, linked at the individual level --- no survey self-reports.}
 \end{frame}
 
 % =============================================================================
 % 9. DATA PIPELINE
 % =============================================================================
 \begin{frame}{Every preschool is matched to its 2024 neighborhood unit}
+\begin{columns}[T]
+\begin{column}{0.38\textwidth}
 \begin{itemize}
-  \item Each JUNJI/Integra preschool is spatially matched to the UV where it is located (GeoPandas spatial join)
-  \item Uses the \textbf{2024 UV cartography} as a unified boundary reference across all years
-  \item This determines the UV each person corresponds to in 2024 --- the basis for treatment assignment
+  \footnotesize
+  \item Each JUNJI/Integra preschool is \textbf{geolocated} and matched to the UV where it sits (spatial join)
+  \item UV boundaries \textbf{changed a lot} over time $\to$ we traced them and mapped everything to \textbf{2024 boundaries}
+  \item Preschools and women's UV of residence share \textbf{one common geography} across all years
 \end{itemize}
-\vspace{4pt}
-\begin{center}
-\includegraphics[width=0.68\textwidth,height=0.5\textheight,keepaspectratio]{../jardines_uv_RM.jpeg}
-\end{center}
-\fuente{Source: \texttt{base\_cobertura\_cp.dta}. Preschools by UV, Regi\'on Metropolitana.}
+\end{column}
+\begin{column}{0.60\textwidth}
+\centering
+\includegraphics[width=\linewidth,height=0.62\textheight,keepaspectratio]{../jardines_uv_RM.jpeg}
+\end{column}
+\end{columns}
+\fuente{Regi\'on Metropolitana. \textcolor{red}{$\bullet$} JUNJI \quad \textcolor{blue!60!black}{$\bullet$} Integra \quad Shading: public preschools per UV. Source: \texttt{base\_cobertura\_cp.dta}.}
+\takeaway{One common geography: every preschool and every woman mapped to 2024 UV boundaries.}
 \end{frame}
 
 % =============================================================================
 % 9b. MAPS: TREATED UVs
 % =============================================================================
-\begin{frame}{What treated UVs look like on the ground: two examples}
+\begin{frame}
+\vspace{2pt}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
 \centering
-{\small\textbf{\textcolor{navy}{Example: RM}}}\\[4pt]
-\includegraphics[width=0.95\textwidth,height=0.72\textheight,keepaspectratio]{../output/figures/mapa_uv_tratadas_panel.png}
+{\small\textbf{\textcolor{navy}{Regi\'on Metropolitana}}}\\[2pt]
+\includegraphics[width=0.98\textwidth,height=0.82\textheight,keepaspectratio]{../output/figures/mapa_uv_tratadas_panel.png}
 \end{column}
 \begin{column}{0.5\textwidth}
 \centering
-{\small\textbf{\textcolor{navy}{Example: Valpara\'iso}}}\\[4pt]
-\includegraphics[width=0.95\textwidth,height=0.72\textheight,keepaspectratio]{../output/figures/mapa_uv_tratadas_valparaiso.png}
+{\small\textbf{\textcolor{navy}{Valpara\'iso}}}\\[2pt]
+\includegraphics[width=0.98\textwidth,height=0.82\textheight,keepaspectratio]{../output/figures/mapa_uv_tratadas_valparaiso.png}
 \end{column}
 \end{columns}
-\fuente{Illustrative examples, not the full sample. Treated UVs, 2015--2024 (go from 0 to 1+ preschools). Source: \texttt{base\_cobertura\_cp.dta}.}
+\fuente{Illustrative examples. Shaded: treated UVs (0 $\to$ 1+ preschools), 2015--2024.}
 \end{frame}
 
 % =============================================================================
@@ -335,70 +445,87 @@ First stage (enrollment) & + Matr\'icula parvularia (child-level) & \texttt{matr
 \begin{frame}{Who is in each sample, and what we measure}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
-{\small\textcolor{steel}{\textbf{Samples}}}
+{\small\textcolor{steel}{\textbf{1. Samples}} \textcolor{graytext}{(selected at the individual level)}}
 \begin{itemize}
-  \footnotesize
+  \small
   \item \textbf{Fertility}: women of fertile age (18--49)
   \item \textbf{Labor market}: women with a child $<$5 \emph{that specific year} --- not ``ever had a child''
   \item \textbf{First stage}: children of treatment-sample mothers, birth to birth+4
 \end{itemize}
 \end{column}
 \begin{column}{0.48\textwidth}
-{\small\textcolor{steel}{\textbf{Outcome variables}}}
+{\small\textcolor{steel}{\textbf{2. Outcomes}} \textcolor{graytext}{(averaged at UV $\times$ year)}}
 \begin{itemize}
-  \footnotesize
-  \item \textbf{Fertility}: had a child that year (\texttt{tuvo\_hijo}), from Civil Registry birth records
-  \item \textbf{Labor market}: annual income (renta + cotizaciones fallback), months worked, employed (yes/no), dependent vs.\ independent
+  \small
+  \item \textbf{Fertility}: share of women who had a child that year (Civil Registry birth records)
+  \item \textbf{Labor market}: average annual income, months worked, share employed, dependent vs.\ independent
+  \item \textbf{First stage}: enrollment rate
 \end{itemize}
 \end{column}
 \end{columns}
 
-\vspace{10pt}
-\begin{block}{Income variable}
-\small Two \textbf{administrative} sources only: renta imponible (SII) + cotizaciones (AFP) as fallback. Decision made \textbf{not} to add self-reported RSH income --- subreporting risk in a means-tested instrument.
-\end{block}
+\vspace{8pt}
+
+\takeaway{Each outcome is measured on its relevant population, from administrative records, averaged at the UV $\times$ year level.}
 \end{frame}
 
 % =============================================================================
 % 11. BALANCE EVIDENCE
 % =============================================================================
 \begin{frame}{Treated and never-treated UVs look alike --- except in size}
-\small
+\noindent{\small\textcolor{steel}{\textbf{Labor market sample}} \textcolor{graytext}{(mothers with a child $<$5) --- covariate levels in 2014, before any opening}}\par
+\vspace{2pt}
 \begin{center}
-\renewcommand{\arraystretch}{0.88}
-\begin{tabular}{@{}lrrrc@{}}
+\scriptsize
+\renewcommand{\arraystretch}{0.95}
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{@{}lrrrrrrc@{}}
 \toprule
- & \multicolumn{2}{c}{Unweighted} & & \\
-\cmidrule(lr){2-3}
-Variable & Never-tr. & Treated & Norm.\ diff. & Sig.\textsuperscript{a} \\
+ & \multicolumn{3}{c}{Unweighted} & \multicolumn{3}{c}{Weighted by UV population} & \\
+\cmidrule(lr){2-4} \cmidrule(lr){5-7}
+Variable & Never-tr. & Treated & Norm.\ diff. & Never-tr. & Treated & Norm.\ diff. & Sig.\textsuperscript{a} \\
 \midrule
-Annual income (M CLP) & 3.60 & 3.55 & -0.033 & * \\
-Months worked         & 8.14 & 8.10 & -0.024 & * \\
-Age                    & 29.24 & 29.25 & 0.008 & \\
-N. children $<$5       & 1.11 & 1.11 & 0.045 & \\
-Hours worked           & 37.07 & 37.68 & 0.099 & \\
-Works (share)          & 0.45 & 0.45 & 0.023 & \\
-Education (code)       & 4.98 & 5.02 & 0.028 & \\
-\textbf{UV population}          & 1126.79 & 2011.08 & \textbf{0.410} & *** \\
-Child density 0-5 UV   & 0.06 & 0.06 & 0.155 & *** \\
+Annual income (M CLP) & 3.60 & 3.55 & -0.033 & 3.95 & 3.89 & -0.039 & * \\
+Months worked         & 8.14 & 8.10 & -0.024 & 8.44 & 8.37 & -0.058 & * \\
+Age                   & 29.24 & 29.25 & 0.008 & 29.26 & 29.29 & 0.026 & \\
+N.\ children $<$5     & 1.11 & 1.11 & 0.045 & 1.11 & 1.11 & 0.049 & \\
+Hours worked          & 37.07 & 37.68 & 0.099 & 36.55 & 36.81 & 0.068 & \\
+Works (share)         & 0.45 & 0.45 & 0.023 & 0.48 & 0.48 & -0.006 & \\
+Education (code)      & 4.98 & 5.02 & 0.028 & 5.20 & 5.18 & -0.020 & \\
+\textbf{UV population} & 1126.79 & 2011.08 & \textbf{0.410} & 3530.92 & 5287.26 & \textbf{0.340} & *** \\
+Child density 0--5 UV & 0.06 & 0.06 & 0.155 & 0.06 & 0.06 & 0.139 & *** \\
 \midrule
-N (UVs) & \multicolumn{2}{c}{3{,}909 \ / \ 422} & & \\
+N (UVs) & \multicolumn{2}{c}{3{,}909 \ / \ 422} & & \multicolumn{2}{c}{3{,}909 \ / \ 422} & & \\
 \bottomrule
 \end{tabular}
 \end{center}
-\vspace{3pt}
-\footnotesize \textsuperscript{a} t-test (* p$<$0.05, *** p$<$0.01), normalized diff.\ prioritized. Year 2014 (pre-treatment). Only \textbf{UV population} (0.41) and \textbf{child density} (0.16) exceed the 0.25 concern threshold --- selection is in \emph{where} preschools are placed, not \emph{who} lives there $\to$ motivates UV + year FE.
-\fuente{Source: \texttt{tabla\_balance\_uv\_2014.pdf}.}
+\vspace{-6pt}
+{\tiny \textsuperscript{a} t-test at the woman level (* p$<$0.05, *** p$<$0.01), for reference only; normalized differences prioritized (concern threshold: 0.25).}
+
+\vspace{4pt}
+{\footnotesize The UV population gap is \textbf{expected}: the State prioritizes new preschools where need and population are larger. Same pattern in the fertility sample (App.\ A7).}
+\takeaway{Selection is in \emph{where} preschools open (UV size), not in \emph{who} lives there $\to$ UV fixed effects.}
 \end{frame}
 
 % =============================================================================
-% 12. FIRST STAGE -- VISUAL
+% 12. FIRST STAGE -- EVENT STUDY
 % =============================================================================
-\begin{frame}{Enrollment jumps sharply the year a preschool opens}
-\begin{center}
-\includegraphics[width=0.78\textwidth,height=0.76\textheight,keepaspectratio]{../RIS/matricula_agrupado_1.png}
-\end{center}
-\fuente{Source: authors' elaboration, panel UV $\times$ year, \texttt{primera\_etapa\_panel\_uv.dta}.}
+\begin{frame}{Enrollment rises the year a preschool opens and stays higher}
+\begin{columns}[c]
+\begin{column}{0.62\textwidth}
+\centering
+{\scriptsize\textbf{Sun--Abraham event study: enrollment rate (weighted)}}\\[1pt]
+\includegraphics[width=\linewidth,height=0.64\textheight,keepaspectratio]{eventstudy_primera_etapa_sintitulo.png}
+\end{column}
+\begin{column}{0.36\textwidth}
+\colorbox{bgpanel}{\parbox{0.92\linewidth}{\raggedright\footnotesize
+Opening a preschool raises the enrollment rate of children aged 0--4 by \textbf{$\approx$1pp} vs.\ never-treated UVs, on a base of $\sim$33\%.
+
+\vspace{4pt}
+The effect appears in the \textbf{opening year} and persists for \textbf{at least five years}.}}
+\end{column}
+\end{columns}
+\fuente{Sun--Abraham, weighted by number of children, never-treated UVs as controls, UV and year FE, 95\% CI clustered by UV. Reference $k=-1$.}
 \end{frame}
 
 % =============================================================================
@@ -409,7 +536,7 @@ N (UVs) & \multicolumn{2}{c}{3{,}909 \ / \ 422} & & \\
 \begin{center}
 \begin{tabular}{@{}crrr@{}}
 \toprule
-{$k$} & {Unweighted TWFE} & {Weighted TWFE} & {Sun--Abraham} \\
+{$k$} & {Unweighted TWFE} & {Weighted TWFE} & {Sun--Abraham (unweighted)} \\
 \midrule
 -5 & -0.002 & -0.015 & 0.006 \\
 -4 & -0.009 & -0.011* & 0.004 \\
@@ -439,7 +566,7 @@ N (UVs) & \multicolumn{2}{c}{3{,}909 \ / \ 422} & & \\
 \footnotesize
 \begin{itemize}
   \item $k=-2$ is \textbf{negative and significant in all three specifications}, and \textbf{survives Sun--Abraham} --- the estimator designed to remove cross-cohort comparison bias
-  \item By contrast, $k=-3$ loses significance under Sun--Abraham (p=0.066 $\to$ p=0.429)
+  \item By contrast, $k=-3$ loses significance under unweighted Sun--Abraham (p=0.066 $\to$ p=0.429)
 \end{itemize}
 
 \vspace{5pt}
@@ -452,28 +579,6 @@ N (UVs) & \multicolumn{2}{c}{3{,}909 \ / \ 422} & & \\
 \end{itemize}
 \end{block}
 
-\vspace{6pt}
-{\small\textcolor{placeholderline}{\bfseries $\varnothing$ Placeholder:} \textcolor{graytext}{Disaggregation of $k=-2$ by opening cohort ($g1$) --- running before Thursday.}}
-\end{frame}
-
-% =============================================================================
-% 15. LABOR MARKET OUTCOMES -- PLACEHOLDER
-% =============================================================================
-\begin{frame}{Labor market outcomes}
-\vfill
-\placeholder{Income and employment estimates (corrected UV + year FE specification) --- in progress}
-\vfill
-\small\textcolor{graytext} Sample: women with a child $<$5 that year. Outcomes: annual income, months worked. Two administrative income sources (renta + cotizaciones), $\approx$47\% missing, non-differential by treatment.
-\end{frame}
-
-% =============================================================================
-% 16. FERTILITY OUTCOMES -- PLACEHOLDER
-% =============================================================================
-\begin{frame}{Fertility outcomes}
-\vfill
-\placeholder{Fertility (\emph{tuvo\_hijo}) event-study estimates --- in progress}
-\vfill
-\small\textcolor{graytext} Sample: women 18--49. Outcome: whether the woman had a child that year, at the UV $\times$ year level.
 \end{frame}
 
 % =============================================================================
@@ -485,7 +590,7 @@ N (UVs) & \multicolumn{2}{c}{3{,}909 \ / \ 422} & & \\
 \begin{block}{Immediate}
 \footnotesize
 \begin{itemize}
-  \item Finish labor market estimation (correct year-FE spec)
+  \item Finish labor market estimation
   \item Finish fertility estimation
 \end{itemize}
 \end{block}
@@ -504,7 +609,6 @@ N (UVs) & \multicolumn{2}{c}{3{,}909 \ / \ 422} & & \\
 \footnotesize
 \begin{itemize}
   \item Robustness: weighted vs.\ unweighted, outlier UVs
-  \item Placebo: pre-treatment birth rate
   \item Write results section
 \end{itemize}
 \end{block}
@@ -668,6 +772,36 @@ N (UVs) & \multicolumn{2}{c}{3{,}909 \ / \ 422} & & \\
 \bottomrule
 \end{tabular}
 \end{center}
+\end{frame}
+
+% A7. Balance -- fertility sample
+\begin{frame}{Appendix A7. Balance in the fertility sample}
+\noindent{\small\textcolor{steel}{\textbf{Fertility sample}} \textcolor{graytext}{(women aged 18--49) --- covariate levels in 2014, before any opening}}\par
+\vspace{2pt}
+\begin{center}
+\scriptsize
+\renewcommand{\arraystretch}{0.95}
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{@{}lrrrrrrc@{}}
+\toprule
+ & \multicolumn{3}{c}{Unweighted} & \multicolumn{3}{c}{Weighted by UV population} & \\
+\cmidrule(lr){2-4} \cmidrule(lr){5-7}
+Variable & Never-tr. & Treated & Norm.\ diff. & Never-tr. & Treated & Norm.\ diff. & Sig.\textsuperscript{a} \\
+\midrule
+Birth rate            & 0.057 & 0.058 & 0.031 & 0.06 & 0.060 & 0.051 & \\
+Age                   & 31.90 & 31.83 & -0.053 & 31.74 & 31.82 & 0.095 & \\
+Children $<$5 per woman & 0.303 & 0.319 & 0.156 & 0.31 & 0.320 & 0.117 & ** \\
+\textbf{UV population} & 1111.42 & 2025.96 & \textbf{0.423} & 3540.63 & 5305.76 & \textbf{0.342} & *** \\
+Child density 0--5 UV & 0.0590 & 0.0631 & 0.176 & 0.06 & 0.064 & 0.148 & ** \\
+\textbf{Women in sample per UV} & 233.60 & 445.45 & \textbf{0.401} & 795.29 & 1234.46 & \textbf{0.347} & *** \\
+\midrule
+N (UVs) & \multicolumn{2}{c}{3{,}973 \ / \ 422} & & \multicolumn{2}{c}{3{,}973 \ / \ 422} & & \\
+\bottomrule
+\end{tabular}
+\end{center}
+\vspace{-6pt}
+{\tiny \textsuperscript{a} t-test at the UV level (** p$<$0.01, *** p$<$0.001), for reference only; normalized differences prioritized (concern threshold: 0.25). UVs with at least one sample woman in 2014, hence more never-treated UVs than in the labor sample.}
+\takeaway{Same conclusion as the labor sample: women look alike, UVs differ in size.}
 \end{frame}
 
 \end{document}
