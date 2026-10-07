@@ -1,0 +1,27 @@
+# Primera etapa - paso 5: control limpio, SA con 3 definiciones de control (coefs_ctrl.csv)
+import os, pandas as pd, matplotlib.pyplot as plt
+os.chdir(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))  # corre desde RIS/20261006
+plt.rcParams.update({'font.size':10,'axes.spines.top':False,'axes.spines.right':False,'axes.grid':True,'grid.color':'#e6e5e1','grid.linewidth':0.6})
+AZUL, NAR, AQUA, GRIS = '#2a78d6', '#eb6834', '#1baf7a', '#52514e'
+d = pd.read_csv('coefs_ctrl.csv')
+d = d[(d.outcome=='tasa_matricula') & d.k.between(-5, 9)]
+d['b'] = d.b * 100
+d['se'] = d.se * 100
+
+specs = [('todas', AZUL, -0.2, 'Todas las nunca tratadas (4.146)'),
+         ('abre', NAR, 0.0, 'Sin vecina que abrió jardín (2.150)'),
+         ('jardin', AQUA, 0.2, 'Sin ningún jardín vecino (652)')]
+fig, axs = plt.subplots(1, 2, figsize=(12,4.2), sharey=True)
+for ax, (pref, tit) in zip(axs, [('sa', 'Sun-Abraham sin ponderar'), ('sa_w', 'Sun-Abraham ponderado por n° niños')]):
+    for s, col, dx, lab in specs:
+        x = d[d.modelo==f'{pref}_{s}'].sort_values('k')
+        ax.errorbar(x.k + dx, x.b, yerr=1.96*x.se, fmt='o', color=col, ms=4.5, elinewidth=1.3, capsize=0, label=lab)
+    ax.axhline(0, color=GRIS, lw=0.8)
+    ax.axvline(-0.5, color=GRIS, ls='--', lw=0.8)
+    ax.set_xticks(range(-5, 10)); ax.set_xlabel('Años desde la apertura (k)')
+    ax.set_title(tit, loc='left', fontsize=10)
+axs[0].set_ylabel('Efecto en tasa de matrícula (pp)')
+h, l = axs[0].get_legend_handles_labels()
+fig.legend(h, l, loc='lower center', ncol=3, frameon=False, fontsize=9, title='Grupo control (n° UVs control)', title_fontsize=9)
+fig.suptitle('Primera etapa con distintos grupos de control (IC 95%, ref. k = −1)', x=0.01, ha='left')
+fig.tight_layout(rect=(0, 0.12, 1, 1)); fig.savefig('graficos/pe_04_control_limpio.png', dpi=200)
