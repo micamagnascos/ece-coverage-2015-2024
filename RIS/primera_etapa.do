@@ -116,7 +116,7 @@ assert post_t1 == round(post_t1)
 assert g1== round(g1)
 
 
-*dejamos solo a los not yet treated y never treated en 2014 
+*dejamos solo a los not yet treated y never treated en 2014, dejamos fuera a las excluidas (las uv que ya tenian jardin)
 keep if muestra_t1 == 1
 tab grupo_t1
 sum n_ninos, detail 
@@ -132,6 +132,7 @@ replace rel_t1_bin = -1 if missing(rel_t1)
 
 
 *GRAFICOS TIME TO EVENT 
+*Gráficos solo para las tratadas 
 *Agrupando primeros años 
 preserve 
 keep if grupo_t1 == 3 
@@ -152,16 +153,114 @@ restore
 tab rel_t1_bin, gen(d)
 
 reghdfe tasa_matricula d1 d2 d3 d4 d6 d7 d8 d9 d10 d11, absorb(id_uv_2024 anio) vce(cluster id_uv_2024)
-estimates store sinpond 
+estimates store sinpond
+
+* chequeo de pre-tendencia -- tiene que ir INMEDIATAMENTE despues de este
+* reghdfe (no despues del eventstudyinteract, sus coeficientes no se llaman
+* "d1","d2",... -- ver la misma correccion en fertilidad/laboral)
+test d1 d2 d3 d4
+
+* efecto resumen post-tratamiento del TWFE (aprox. simple ecuacion 31, Sec. 5.2.4)
+lincom (d6 + d7 + d8 + d9 + d10 + d11)/6
 
 reghdfe tasa_matricula d1 d2 d3 d4 d6 d7 d8 d9 d10 d11 [aweight=n_ninos], absorb(id_uv_2024 anio) vce(cluster id_uv_2024)
-estimates store ponderado 
-
+estimates store ponderado
 
 gen nunca_tratada = (g1==0)
+*solo dentro de las tratadas
 eventstudyinteract tasa_matricula d1 d2 d3 d4 d6 d7 d8 d9 d10 d11, cohort(g1) control_cohort(nunca_tratada)  absorb(id_uv_2024 anio) vce(cluster id_uv_2024)
 
 matrix list e(b_iw)
+
+* version ponderada por n_ninos -- pendiente que faltaba, el paper pondera
+* por poblacion en TODAS sus figuras (Figuras 6-9), consistente con el TWFE
+eventstudyinteract tasa_matricula d1 d2 d3 d4 d6 d7 d8 d9 d10 d11 [aweight=n_ninos], cohort(g1) control_cohort(nunca_tratada) absorb(id_uv_2024 anio) vce(cluster id_uv_2024)
+
+
+******************************************************************************
+* GRAFICO PARA LA REUNION: event study de la primera etapa, analogo Figura 8
+* (Seccion 5.2.4). Esto es lo que pidieron mostrar en formato grafico.
+
+* --- 11a: grafico del TWFE de referencia ---
+* vuelve a correr el reghdfe SIN ponderar (linea de arriba, antes del test)
+* inmediatamente antes de este bloque si corriste algo mas en el medio
+matrix T = r(table)
+preserve
+clear
+set obs 11
+gen k = _n - 6
+* k = -5,-4,-3,-2,-1,0,1,2,3,4,5 (ventana de este spec, no llega a +9)
+gen coef = 0 if k==-1
+gen se = 0 if k==-1
+forvalues t = -5/5 {
+    if `t' != -1 {
+        local dnum = `t' + 6
+        replace coef = T[1,colnumb(T,"d`dnum'")] if k==`t'
+        replace se   = T[2,colnumb(T,"d`dnum'")] if k==`t'
+    }
+}
+gen ci_lo = coef - 1.96*se
+gen ci_hi = coef + 1.96*se
+sort k
+twoway (rcap ci_lo ci_hi k) (scatter coef k), ///
+    yline(0) xline(-0.5, lpattern(dash)) ///
+    ytitle("Efecto sobre tasa de matricula") xtitle("Tiempo relativo (k)") legend(off) ///
+    title("Event study TWFE (referencia) -- primera etapa", size(small))
+graph export "primera_etapa_eventstudy_twfe.png", replace width(1200)
+restore
+
+* --- 11b: grafico del estimador robusto (Sun-Abraham) -- EL QUE PIDIERON ---
+* vuelve a correr el eventstudyinteract SIN ponderar (el de mas arriba, antes
+* de la version [aweight=n_ninos]) inmediatamente antes de este bloque
+matrix T = r(table)
+preserve
+clear
+set obs 11
+gen k = _n - 6
+gen coef = 0 if k==-1
+gen se = 0 if k==-1
+forvalues t = -5/5 {
+    if `t' != -1 {
+        local dnum = `t' + 6
+        replace coef = T[1,colnumb(T,"d`dnum'")] if k==`t'
+        replace se   = T[2,colnumb(T,"d`dnum'")] if k==`t'
+    }
+}
+gen ci_lo = coef - 1.96*se
+gen ci_hi = coef + 1.96*se
+sort k
+twoway (rcap ci_lo ci_hi k) (scatter coef k), ///
+    yline(0) xline(-0.5, lpattern(dash)) ///
+    ytitle("Efecto sobre tasa de matricula") xtitle("Tiempo relativo (k)") legend(off) ///
+    title("Event study robusto (Sun-Abraham) -- primera etapa", size(small))
+graph export "primera_etapa_eventstudy_robusto.png", replace width(1200)
+restore
+
+* --- 11c: version ponderada del grafico robusto (opcional, para comparar) ---
+* vuelve a correr el eventstudyinteract [aweight=n_ninos] inmediatamente antes
+matrix T = r(table)
+preserve
+clear
+set obs 11
+gen k = _n - 6
+gen coef = 0 if k==-1
+gen se = 0 if k==-1
+forvalues t = -5/5 {
+    if `t' != -1 {
+        local dnum = `t' + 6
+        replace coef = T[1,colnumb(T,"d`dnum'")] if k==`t'
+        replace se   = T[2,colnumb(T,"d`dnum'")] if k==`t'
+    }
+}
+gen ci_lo = coef - 1.96*se
+gen ci_hi = coef + 1.96*se
+sort k
+twoway (rcap ci_lo ci_hi k) (scatter coef k), ///
+    yline(0) xline(-0.5, lpattern(dash)) ///
+    ytitle("Efecto sobre tasa de matricula") xtitle("Tiempo relativo (k)") legend(off) ///
+    title("Event study robusto ponderado (Sun-Abraham) -- primera etapa", size(small))
+graph export "primera_etapa_eventstudy_robusto_ponderado.png", replace width(1200)
+restore
 
 
 

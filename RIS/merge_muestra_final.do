@@ -84,7 +84,7 @@ drop _merge
 
 rename id_uv_2024 t_id_uv_ca
 
-merge m:1 anio t_id_uv_ca using "\\10.60.214.178\Repositorio_Datos_ADM\repositorio_ris\RIS_INVESTIGACION_11\190_impacto_jardines\03_EDITABLES\01_DATOS_SALIDA\FERTILIDAD_ML\cobertura/base_cobertura_cp.dta", keepusing(t_* n_* tratada stock_base muestra_t1 g1 grupo_t1 post_t1 rel_t1) update keep(master match match_update match_conflict)
+merge m:1 anio t_id_uv_ca using "\\10.60.214.178\Repositorio_Datos_ADM\repositorio_ris\RIS_INVESTIGACION_11\190_impacto_jardines\03_EDITABLES\01_DATOS_SALIDA\FERTILIDAD_ML\cobertura/base_cobertura_cp.dta", keepusing(t_* n_* tratada stock_base muestra_t1 g1 grupo_t1 post_t1 rel_t1 vecina_jardin vecina_abre) update keep(master match match_update match_conflict)
 
 rename t_id_uv_ca id_uv_2024 
 
@@ -157,7 +157,7 @@ restore
 
 
 *MUESTRA TOTAL
-keep anio rut_inn codigo_uv_rsh id_uv_2024 tratada stock_base muestra_t1 g1 grupo_t1 post_t1 rel_t1
+keep anio rut_inn codigo_uv_rsh id_uv_2024 tratada stock_base muestra_t1 g1 grupo_t1 post_t1 rel_t1 n_vecinas vecina_jardin vecina_abre
 gduplicates report rut_inn anio 
 *OJO ACA
 duplicates drop rut_inn anio, force
