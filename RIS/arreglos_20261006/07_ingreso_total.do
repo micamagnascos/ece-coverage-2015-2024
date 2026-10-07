@@ -64,8 +64,8 @@ guardar sa_w ingreso_rel `m0w'
 guardarV sa_w_ingreso_rel
 
 *promedio k 0-6 del SA ponderado, con su SE (para leer en pantalla)
-lincom (d6 + d7 + d8 + d9 + d10 + d11 + d12)/7
-test d1 d2 d3 d4
+capture noisily lincom (d6 + d7 + d8 + d9 + d10 + d11 + d12)/7 // CAMBIO 4: agregar "capture noisily" al inicio
+capture noisily test d1 d2 d3 d4 // CAMBIO 4: agregar "capture noisily" al inicio
 
 postclose pf
 

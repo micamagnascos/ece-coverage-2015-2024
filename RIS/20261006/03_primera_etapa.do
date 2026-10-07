@@ -54,7 +54,7 @@ lincom (d6 + d7 + d8 + d9 + d10 + d11 + d12 + d13 + d14 + d15)/10
 post pf ("twfe_prom") ("tasa_matricula") (99) (r(estimate)) (r(se)) (.) (.) (`m0')
 
 reghdfe tasa_matricula d1-d4 d6-d15 [aw= n_ninos], absorb(id_uv_2024 anio) cluster(id_uv_2024)
-guardar twfe_w tuvo_hijo `m0w'
+guardar twfe_w tasa_matricula `m0w' // CAMBIO 3: cambiar tuvo_hijo por tasa_matricula (etiqueta mal puesta)
 
 eventstudyinteract tasa_matricula d1-d4 d6-d15, cohort(g1) control_cohort(nunca_tratada) absorb(id_uv_2024 anio) vce(cluster id_uv_2024)
 guardar sa tasa_matricula `m0'
@@ -62,6 +62,7 @@ guardarV tasa_matricula
 
 eventstudyinteract tasa_matricula d1-d4 d6-d15 [aw= n_ninos], cohort(g1) control_cohort(nunca_tratada)  absorb(id_uv_2024 anio) vce(cluster id_uv_2024)
 guardar sa_w tasa_matricula `m0w'
+guardarV sa_w_tasa_matricula // CAMBIO 1: linea nueva, guarda la V del SA ponderado
 
 postclose pf 
 

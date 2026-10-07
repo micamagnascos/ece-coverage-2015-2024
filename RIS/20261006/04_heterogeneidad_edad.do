@@ -50,6 +50,7 @@ forvalues e = 1/3 {
 
 	eventstudyinteract tasa_matricula d1-d4 d6-d15 if g_edad == `e', cohort(g1) control_cohort(nunca_tratada) absorb(id_uv_2024 anio) vce(cluster id_uv_2024)
 	guardar sa_e`e' tasa_matricula `m0'
+	guardarV sa_e`e'_tasa_matricula // CAMBIO 2: linea nueva, guarda la V del SA por grupo de edad
 }
 postclose pf
 
@@ -109,6 +110,7 @@ foreach y in empleo_formal ln_ingreso {
 
 		eventstudyinteract `y' d1-d4 d6-d15 if g_edad == `e', cohort(g1) control_cohort(nunca_tratada) absorb(id_uv_2024 anio) vce(cluster id_uv_2024)
 		guardar sa_e`e' `y' `m0'
+		guardarV sa_e`e'_`y' // CAMBIO 2: linea nueva, guarda la V del SA por edad del hijo menor
 	}
 }
 postclose pf

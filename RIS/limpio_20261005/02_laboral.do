@@ -57,7 +57,7 @@ gcollapse (mean) ingreso_anual ln_ingreso empleo_formal meses_trabajando per_eda
 gduplicates report id_uv_2024 anio
 count
 gunique id_uv_2024
-save "$muestra/muestra_laboral_uvs_v2.dta", replace
+save "$muestra/muestra_laboral_ingresos_v2.dta", replace
 
 gen ever_t1 = (g1 > 0)
 gen nunca_tratada = (g1 == 0)

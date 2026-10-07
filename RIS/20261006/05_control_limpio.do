@@ -59,6 +59,7 @@ program define est4
 
 	eventstudyinteract `y' d1-d4 d6-d15 [aw = `w'], cohort(g1) control_cohort(nunca_tratada) `copt' absorb(id_uv_2024 anio) vce(cluster id_uv_2024)
 	guardar sa_w_`spec' `y' `m0w'
+	guardarV sa_w_`spec'_`y' // CAMBIO 1: linea nueva, guarda la V del SA ponderado
 end
 
 

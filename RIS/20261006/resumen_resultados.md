@@ -5,7 +5,9 @@
 2. `04_heterogeneidad_edad.do`: no guarda pretest (`test d1 d2 d3 d4`), promedio post (`lincom`) ni V de Sun-Abraham (`guardarV`). No controla por `per_edad` (los modelos principales sí).
 3. `06_horas.do`: `hogar` y `cuida_hogar` con pretest p ≈ 0 → pre-tendencias no paralelas.
 4. `per_fic_trabaja`: el valor 0 (6,8%) se trata como "no trabaja" junto con el 2. Revisar etiqueta.
-5. `03_primera_etapa.do` (y 01, 02, 05): `guardarV` solo después de `sa`, no de `sa_w` → sin SE del promedio ponderado. Agregar `guardarV sa_w_<y>` tras el eventstudyinteract ponderado.
+5. `03_primera_etapa.do` (y 01, 02, 05, 06): `guardarV` solo después de `sa`, no de `sa_w` → sin SE del promedio ponderado. Agregar `guardarV sa_w_<y>` tras el eventstudyinteract ponderado.
+6. Promedio SA en el RIS: NO usar `matrix b = e(b_iw)` / `ereturn post b V` antes de `lincom` (dio promedios inconsistentes: empleo 0,0020 y ln ingreso 0,108 vs 0,0059 y 0,023 esperados). Usar `lincom` directo después de `eventstudyinteract`. Ya corregido en `arreglos_20261006/07_ingreso_total.do`.
+7. `06_horas.do`: en `busca` el k = 9 sale 0 (sin SE) → no hay celdas tratadas en k = 9 con dato de búsqueda; revisar.
 
 ## Revisión general
 - Contenido: 7 do-files (00–06), coefs de primera etapa, fertilidad, laboral, heterogeneidad por edad, control limpio y horas/RSH; tendencias por cohorte; balances 2014; matrices V de Sun-Abraham.
@@ -43,7 +45,6 @@ Implicancias:
 Pendientes:
 - Cohorte 2015: por qué el efecto es menor (¿aperturas que ya funcionaban y se registraron tarde?).
 - Cohorte 2016: revisar fechas de apertura (salto en k = −1).
-- Generar `pe_01c` (cohortes 2020–2024): script listo, falta correr.
 
 Nota k: k = anio − g1. Cohorte 2015 es la única en k = 9 (178 celdas), 2015+2016 en k = 8 (239), 2015–2017 en k = 7 (314). Cohorte 2015 no aporta a k = −5…−2.
 
@@ -142,7 +143,7 @@ Gráfico: `graficos/pe_04_control_limpio.png`. Para qué: si niños de controles
 `arreglos_20261006/03_primera_etapa_sin2015.do`. d6–d14 = k 0–8 (sin k = 9).
 - SA k 0–8: 4,7 / 5,2 / 5,1 / 4,8 / 4,4 / 4,5 / 4,3 / 4,5 / 4,9 pp. Prom k 0–6 = 4,7 pp (vs 3,1).
 - SA_w ≈ 3 pp en todos los k (vs 1,9).
-- TWFE prom = 4,66 pp (SE 0,80) (vs 2,47). Pretest TWFE p = 0,024 (pre individuales no significativos). n_uv = 4.391.
+- TWFE prom = 4,66 pp (SE 0,80) (vs 2,47). Pretest TWFE p = 0,024: pre k −5…−2 todos ≈ +0,5 pp, no significativos uno a uno (mismo signo) → chicos frente a 4,7 pp. n_uv = 4.391.
 - +50%: coincide con cálculo aproximado (2,9 pp ponderado). Caída k 7–9 era composición.
 - Pendiente: extraer `coefs_pe_sin2015` + V (sa y sa_w) → SE del promedio SA y pretest SA.
 - Interpretación: cambia la población (cohortes 2016–2024). Válido como "efecto real" solo si aperturas 2015 son error de registro (JEL §5.2.2).
@@ -176,6 +177,7 @@ Gráfico: `graficos/fe_02_eventstudy.png`. Media control 4,3%. Covariable: per_e
 - Se descartan efectos mayores a ~±5% en fertilidad de la UV.
 - Referencia (verificar): Bauernschuster, Hener & Rainer (2016), +10 pp cobertura → ~+3% nacimientos. Escalado a +3 pp → ~+1% (~0,04 pp): dentro del IC → no distinguible de 0.
 - Cero relativamente preciso para la UV, pero no para el efecto esperado dada la primera etapa chica (dilución UV). Más poder: madres con hijos pequeños / análisis a nivel mujer.
+- Conclusión: no hay efecto en fertilidad.
 
 ## 3. Mercado laboral (empleo_formal, ln_ingreso, meses_trabajando)
 
@@ -200,3 +202,67 @@ ln ingreso: sin ponderar +3–5% k 0–5 (no sig.); ponderado +1–3%, sig. en k
 Meses: sin ponderar +0,13/+0,16 en k 0–1 (t ≈ 2), luego se diluye; ponderado ~+0,04 (no sig.). Sin efecto relevante. Pre limpios (p = 0,70).
 - TWFE ≈ SA en los 3. Patrón gradual, sin salto en la apertura.
 - Paso 3: promedios con IC + evaluar tendencia previa de empleo (Rambachan-Roth / Bilinski-Hatfield, JEL §5.1.2).
+
+### Paso 3: promedios post y pre-tendencias (en curso)
+Empleo formal:
+| Modelo | Promedio | SE | p |
+|---|---|---|---|
+| SA k0–6 | 0,62 pp | 0,51 | 0,23 |
+| SA k0–9 | 0,63 pp | 0,56 | 0,26 |
+| SA k4–7 | 1,13 pp | 0,65 | 0,08 |
+| SA_w k0–6 (prom. CSV) | 0,59 pp | 0,28 (lincom RIS) | ≈ 0,04 si el promedio es 0,59 |
+
+- Pre-tendencias: no significativas (|t| ≤ 1,6; conjunto SA p = 0,26; SA_w p = 0,82 en RIS), pero crecientes y de tamaño comparable al efecto → no se descarta que sea continuación de tendencia previa.
+- Pre (k −4…−2) = solo cohortes tardías (k = −4: cohortes 2018–2024, 120 UVs; pesan 2018 y 2019). Post lejanos (k 4–7) = sobre todo 2015–2017. Cohorte 2015 no aporta a ningún pre.
+- k4–7 elegido después de ver el gráfico → reportar solo como complemento, con justificación del rezago (niño debe llegar a edad de jardín).
+- Pendiente: confirmar promedio SA_w en RIS con `lincom` directo (debe coincidir con promedio de d6–d12 de la tabla) → define si empleo es significativo.
+- Pendiente: event study balanceado (mismas cohortes en toda la ventana, ej. k −3…+5 = cohortes 2017–2019, ~150 UVs; JEL §5.2.4 ec. 32).
+
+ln ingreso:
+| Modelo | Promedio k0–6 | % | Significancia |
+|---|---|---|---|
+| SA | 0,039 (SE 0,025) | +4,0% | p = 0,12, IC [−1% ; +9%] |
+| SA k0–9 | 0,029 (SE 0,029) | +3,0% | p = 0,32 |
+| SA_w | 0,023 | +2,3% | t entre 1,5 y 4,0 (sin V) |
+
+- Solo madres con ingreso > 0 (`ln_ingreso` missing si no hay ingreso; peso `n_con_ingreso`).
+- En pesos (aprox.): ingreso promedio control ~$6,3 MM/año (2019) → +2–4% ≈ $130–250 mil/año (~$10–20 mil/mes).
+- Composición (inferencia, no observado): si empleo sube ~1 pp, ~2% de las madres con ingreso post son entrantes. Si ganan ~la mitad, bajan el promedio ~1,4% → el efecto en las que ya trabajaban puede ser mayor (~+3–5%).
+- Verificación directa posible: estimar ln ingreso solo en madres que ya trabajaban antes (panel nivel mujer).
+- Efecto total sin composición: `arreglos_20261006/07_ingreso_total.do` → ingreso con 0 para las sin ingreso, como % del promedio del año (`ingreso_rel`); evita logs con ceros (Chen y Roth 2024).
+
+## 4. Variables RSH (coefs_horas.csv, 06_horas.do)
+Outcomes de la ficha RSH a nivel UV-año (madres):
+- `horas`: horas trabajadas declaradas (solo quienes reportan; > 80 a missing). Media control 36,5.
+- `busca`: % que busca trabajo. Media 18,6%.
+- `cuida`: % que no busca trabajo porque "no tiene con quién dejar a los niños" (motivo 2; sobre todas las madres). Media 11,8%.
+- `hogar`: % que no busca por "quehaceres del hogar" (motivo 1). Media 12,0%.
+- `cuida_hogar`: cuida o hogar. Media 23,7%.
+
+| Outcome | SA prom k0–6 | SE | p | Pretest SA p | SA_w prom k0–6 (sin SE) |
+|---|---|---|---|---|---|
+| horas | −0,29 h | 0,22 | 0,18 | 0,18 | +0,08 h |
+| busca | +0,79 pp | 0,56 | 0,16 | 0,54 | +0,58 pp |
+| **cuida** | **−0,67 pp** | **0,31** | **0,03** | **0,87** | −0,42 pp |
+| hogar | +2,03 pp | 0,54 | 0,00 | **0,00** | +1,11 pp |
+| cuida_hogar | +1,36 pp | 0,54 | 0,01 | **0,00** | +0,68 pp |
+
+- **cuida = resultado más interesante**: baja ~0,7 pp el % de madres que no busca trabajo por no tener con quién dejar a los niños (−6% relativo sobre 11,8%). Significativo (p = 0,03), pre-tendencias limpias (p = 0,87), aparece desde k = 1 (k 1–3 ≈ −0,8 a −1,0 pp, t ≈ −2 a −2,6). Es la medida más directa del mecanismo (restricción de cuidado). Ponderado: misma dirección (−0,4 pp), más débil.
+- busca: +0,8 pp (no sig.), signo consistente con más vinculación laboral.
+- horas: sin efecto (−0,3 h sin ponderar, +0,1 h ponderado).
+- hogar y cuida_hogar: **no interpretables**. Pre k −5…−2 ≈ +3 / +2,6 / +2,7 / +1,1 pp (significativos) y post ≈ +2 a +2,5 → forma de V con mínimo en k = −1/0. El "efecto" viene de un año base anómalo, no de un cambio post. Respecto de k −5…−2, el post no cambia.
+- Hipótesis para la V (por verificar): la ficha RSH no se actualiza todos los años; las familias la actualizan al postular a beneficios (p. ej. al jardín) → el momento de la medición depende del tratamiento. Afecta a todas las variables RSH, incluida cuida.
+- TWFE ≈ SA (pretest TWFE: horas 0,40; busca 0,72; cuida 0,76; hogar 0,00; cuida_hogar 0,00).
+
+## Pendiente de revisar en esta extracción
+- Control limpio para fertilidad y laboral (`coefs_ctrl.csv` también trae tuvo_hijo, empleo_formal, ln_ingreso, meses).
+- Heterogeneidad laboral por edad del hijo menor (`coefs_het_lab.csv`).
+
+## Próximos pasos (consolidado)
+1. Confirmar promedios SA_w con `lincom` directo en el RIS (empleo y ln ingreso).
+2. Correr `07_ingreso_total.do` (efecto total en ingreso, sin composición).
+3. Cohorte 2015: verificar si los jardines "nuevos" 2015 tienen matrícula en 2014; extraer corrida sin 2015 con V. Do-files listos para fertilidad y laboral (`01_fertilidad_sin2015.do`, `02_laboral_sin2015.do`).
+4. Event study balanceado (empleo).
+5. Redefinir edad con corte de matrícula (31/03 o `edad_30_06`).
+6. Corregir errores 1–7 de arriba (guardar V ponderadas).
+7. Verificar timing de actualización de la ficha RSH respecto de la apertura.

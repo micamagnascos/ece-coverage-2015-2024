@@ -126,6 +126,7 @@ foreach y in empleo_formal ln_ingreso meses_trabajando {
 
 	eventstudyinteract `y' d1-d4 d6-d15 [aw= `w'], cohort(g1) control_cohort(nunca_tratada) covariates(per_edad) absorb(id_uv_2024 anio) vce(cluster id_uv_2024)
 	guardar sa_w `y' `m0w'
+	guardarV sa_w_`y' // CAMBIO 1: linea nueva, guarda la V del SA ponderado (empleo, ingreso, meses)
 
 }
 postclose pf 

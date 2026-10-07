@@ -82,6 +82,7 @@ guardarV sa_tuvo_hijo
 
 eventstudyinteract tuvo_hijo d1-d4 d6-d15 [aw= n_mujeres], cohort(g1) control_cohort(nunca_tratada) covariates(per_edad) absorb(id_uv_2024 anio) vce(cluster id_uv_2024)
 guardar sa_w tuvo_hijo `m0w'
+guardarV sa_w_tuvo_hijo // CAMBIO 1: linea nueva, guarda la V del SA ponderado
 
 postclose pf 
 

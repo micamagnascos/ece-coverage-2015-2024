@@ -1,0 +1,338 @@
+\documentclass[aspectratio=169,10pt]{beamer}
+
+% ---------------------------------------------------------------------------
+% Paquetes
+% ---------------------------------------------------------------------------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-noshorthands]{babel}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usepackage{colortbl}
+\usepackage{array}
+
+% ---------------------------------------------------------------------------
+% Paleta sobria (estilo economía / seminario)
+% ---------------------------------------------------------------------------
+\definecolor{navy}{RGB}{16,32,63}
+\definecolor{steel}{RGB}{43,92,157}
+\definecolor{steellight}{RGB}{140,175,214}
+\definecolor{graytext}{RGB}{95,95,95}
+\definecolor{pendiente}{RGB}{150,155,164}
+\definecolor{flag}{RGB}{176,72,36}
+\definecolor{depJunji}{RGB}{16,32,63}
+\definecolor{depIntegra}{RGB}{43,92,157}
+\definecolor{depPriv}{RGB}{140,175,214}
+\definecolor{depMunicipal}{RGB}{122,139,116}
+\definecolor{depSlep}{RGB}{172,186,166}
+\definecolor{depSubv}{RGB}{199,154,86}
+\definecolor{depPagada}{RGB}{140,98,57}
+
+% ---------------------------------------------------------------------------
+% Tema base minimalista
+% ---------------------------------------------------------------------------
+\usetheme{default}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{headline}{}
+
+\setbeamercolor{normal text}{fg=black,bg=white}
+\setbeamercolor{structure}{fg=navy}
+\setbeamercolor{title}{fg=white,bg=navy}
+\setbeamercolor{frametitle}{fg=navy,bg=white}
+\setbeamercolor{itemize item}{fg=steel}
+\setbeamercolor{itemize subitem}{fg=steellight}
+\setbeamerfont{frametitle}{series=\bfseries}
+\setbeamerfont{footline}{size=\scriptsize}
+
+\setbeamertemplate{itemize item}{\raise1.2pt\hbox{\textcolor{steel}{\rule{4pt}{4pt}}}}
+\setbeamertemplate{itemize subitem}{\raise1.2pt\hbox{\textcolor{steellight}{\rule{3pt}{3pt}}}}
+
+\setlist[itemize]{itemsep=6pt, topsep=4pt, leftmargin=*}
+\setlist[itemize,2]{itemsep=3pt, topsep=2pt}
+\setlist[enumerate]{itemsep=6pt, topsep=4pt, leftmargin=*}
+
+\setbeamertemplate{frametitle}{
+  \vspace{6pt}
+  \textcolor{navy}{\Large\bfseries\insertframetitle}\par
+  \vspace{3pt}
+  \textcolor{steel}{\rule{\linewidth}{0.7pt}}
+  \vspace{2pt}
+}
+
+\setbeamertemplate{footline}{
+  \hfill
+  \raisebox{6pt}{\textcolor{graytext}{\scriptsize\insertframenumber\,/\,\inserttotalframenumber}}
+  \hspace{10pt}
+  \vspace{6pt}
+}
+
+% Fuente al pie de lámina
+\newcommand{\fuente}[1]{%
+  \vfill{\color{graytext}\scriptsize Fuente: #1.}%
+}
+
+% Fuentes múltiples al pie de lámina
+\newcommand{\fuentes}[1]{%
+  \vfill{\color{graytext}\scriptsize Fuentes: #1.}%
+}
+
+% Destacar frases clave
+\newcommand{\destacar}[1]{\textcolor{steel}{\textbf{#1}}}
+
+% Bullet marcado como pendiente (contenido aún no decidido)
+\newcommand{\pend}[1]{{\color{pendiente}\itshape #1}}
+
+\title{Brechas territoriales entre oferta y demanda potencial de\\ educación parvularia pública y criterios de priorización\\ según vulnerabilidad socioterritorial}
+\subtitle{Presentación oral --- Informe 1}
+\author{Micaella Magnasco}
+\institute{Desafíos de la Economía Aplicada\\ Profesora: Francisca Moreno \quad Ayudante: María Maceiras}
+\date{Jueves 1 de octubre de 2026}
+
+\begin{document}
+
+% =============================================================================
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+% =============================================================================
+\begin{frame}{Agenda}
+  \begin{enumerate}
+    \item Motivación
+    \item El problema: brecha entre oferta y demanda
+    \item Pregunta de investigación y objetivos
+    \item Gobernanza e impactos de la educación parvularia
+    \item Cómo se focaliza hoy en Chile
+    \item Literatura internacional: medición de brechas y comparación de metodologías
+    \item Metodología DALS
+    \item Aplicación al estudio: datos y regresión tentativa
+    \item Próximos pasos
+  \end{enumerate}
+\end{frame}
+
+% =============================================================================
+\begin{frame}{Motivación}
+  \small
+  \begin{itemize}
+    \item La educación en la primera infancia es una de las \destacar{inversiones sociales más costo-efectivas}, con impactos de largo plazo en las trayectorias educativas, laborales y de salud
+    \item La matrícula parvularia \destacar{cae hace años ($-16,9\%$ acumulado desde 2019)}, pero la cobertura total sube (57,3\%$\to$61,8\%) porque la población en edad teórica cae aún más rápido: \destacar{un alza en la cobertura no implica necesariamente mejor acceso}
+      \begin{itemize}
+        \item El rezago se concentra en sala cuna, el tramo de mayor retorno: \destacar{26,6\% de cobertura vs.\ 38\% promedio OCDE}. Además, solo 59,7\% de asistencia efectiva entre los matriculados
+      \end{itemize}
+    \item La tasa de fecundidad en Chile es de \destacar{0,99 hijos por mujer}, una de las más bajas del mundo, y los nacimientos cayeron \destacar{46,9\% en 32 años}
+  \end{itemize}
+  \fuentes{Heckman et al.\ (2010); GEEAP (2023); SdEP (2025); OCDE Family Database (2025); INE (2026)}
+\end{frame}
+
+% =============================================================================
+\begin{frame}{El problema: brecha entre oferta y demanda}
+  \small
+  \begin{itemize}
+    \item \textbf{En algunos territorios, la oferta no logra cubrir la demanda:} se estima que de 233 mil niños que solicitaron un cupo de sala cuna, \destacar{116 mil no tuvieron respuesta oportuna}
+    \item \textbf{En otros, la demanda es baja frente a la oferta:} \destacar{69 jardines JUNJI cerrados en 2024}; en CASEN 2024, 2 de cada 3 hogares sin asistencia dicen que el niño es cuidado en el hogar, 1 de cada 5 no lo considera necesario
+    \item \textbf{Focalizar bien los recursos escasos importa más que nunca:} presupuesto 2026 con \destacar{reducción real de 1,5\%}, afecta especialmente jardines vía VTF e infraestructura
+    \item \textbf{Contexto legislativo actual:} tramitación de la Ley de Sala Cuna Universal; promulgación de la Ley Chile Cuida y el Sistema Nacional de Apoyos y Cuidados
+  \end{itemize}
+  \fuentes{SDRM; Colunga (2026); Ex-Ante (2026); CASEN 2024; Holz (2025)}
+\end{frame}
+
+% =============================================================================
+\begin{frame}{Pregunta de investigación y objetivos}
+  \begin{center}
+    {\itshape ``¿En qué medida la oferta pública de educación parvularia en Chile se distribuye territorialmente de acuerdo con la demanda potencial existente, y qué criterios deberían orientar la priorización de su expansión hacia los territorios de mayor vulnerabilidad socioterritorial?''}
+  \end{center}
+  \vspace{6pt}
+  \textbf{Objetivos específicos:}
+  \begin{enumerate}
+    \item Diagnóstico de la oferta pública y su distribución territorial
+    \item Estimación de la demanda potencial
+    \item Comparación territorial entre oferta y demanda
+    \item Caracterización de los territorios con mayores brechas
+    \item Criterios de priorización y recomendaciones de política
+  \end{enumerate}
+\end{frame}
+
+% =============================================================================
+\begin{frame}{Gobernanza de la educación parvularia}
+  \small
+  \begin{itemize}[itemsep=1pt,topsep=0pt]
+    \item JUNJI y Fundación Integra: provisión pública, foco en hogares más vulnerables; se completa con provisión municipal, SLEP y oferta particular
+    \item 2025: JUNJI + Integra concentran el \textbf{37\%} de la matrícula total; municipal + SLEP, \textbf{24,6\%}; particular, \textbf{38,4\%}
+    \item Especialización por tramo etario: JUNJI e Integra concentran sala cuna y nivel medio; en transición, el \textbf{97\%} de la matrícula está en otros proveedores
+  \end{itemize}
+  \begin{center}
+  \begin{tikzpicture}[y=1cm,x=1cm]
+    % ejes
+    \draw[graytext] (-0.3,0) -- (9.3,0);
+    % JUNJI AD y VTF: 26,7%
+    \fill[depJunji] (0,0) rectangle (1.25,1.07);
+    \node[anchor=south,font=\tiny\bfseries] at (0.625,1.07) {26,7\%};
+    \node[anchor=north,align=center,font=\tiny] at (0.625,-0.05) {JUNJI\\AD y VTF};
+    % INTEGRA AD y CAD: 10,3%
+    \fill[depIntegra] (1.5,0) rectangle (2.75,0.41);
+    \node[anchor=south,font=\tiny\bfseries] at (2.125,0.41) {10,3\%};
+    \node[anchor=north,align=center,font=\tiny] at (2.125,-0.05) {INTEGRA\\AD y CAD};
+    % Jardines infantiles privados: 0,6%
+    \fill[depPriv] (3.0,0) rectangle (4.25,0.02);
+    \node[anchor=south,font=\tiny\bfseries] at (3.625,0.02) {0,6\%};
+    \node[anchor=north,align=center,font=\tiny] at (3.625,-0.05) {Jard.\ infantiles\\privados};
+    % Escuelas Municipales: 15,9%
+    \fill[depMunicipal] (4.5,0) rectangle (5.75,0.64);
+    \node[anchor=south,font=\tiny\bfseries] at (5.125,0.64) {15,9\%};
+    \node[anchor=north,align=center,font=\tiny] at (5.125,-0.05) {Escuelas\\Municipales};
+    % Escuelas SLEP: 8,7%
+    \fill[depSlep] (6.0,0) rectangle (7.25,0.35);
+    \node[anchor=south,font=\tiny\bfseries] at (6.625,0.35) {8,7\%};
+    \node[anchor=north,align=center,font=\tiny] at (6.625,-0.05) {Escuelas\\SLEP};
+    % Escuela Particular Subvencionada: 34,4%
+    \fill[depSubv] (7.5,0) rectangle (8.75,1.38);
+    \node[anchor=south,font=\tiny\bfseries] at (8.125,1.38) {34,4\%};
+    \node[anchor=north,align=center,font=\tiny] at (8.125,-0.05) {Esc.\ Part.\\Subvencionada};
+    % Escuela Particular Pagada: 3,4%
+    \fill[depPagada] (9.0,0) rectangle (10.25,0.14);
+    \node[anchor=south,font=\tiny\bfseries] at (9.625,0.14) {3,4\%};
+    \node[anchor=north,align=center,font=\tiny] at (9.625,-0.05) {Esc.\ Part.\\Pagada};
+  \end{tikzpicture}
+  \end{center}
+  \fuente{Base de Datos de Matrícula Oficial de Educación Parvularia 2025, Centro de Estudios MINEDUC (SdEP, 2025)}
+\end{frame}
+
+% =============================================================================
+\begin{frame}{Impactos de la educación parvularia}
+  \renewcommand{\arraystretch}{1.5}
+  \footnotesize
+  \begin{center}
+  \begin{tabular}{@{}>{\raggedright\arraybackslash}p{2.2cm}>{\raggedright\arraybackslash}p{6.9cm}>{\raggedright\arraybackslash}p{3.5cm}@{}}
+    \textbf{Dimensión} & \textbf{Hallazgo} & \textbf{Evidencia} \\
+    \hline
+    Período crítico & Aquí surgen las \destacar{primeras brechas de desigualdad}; si no se atienden, persisten en la trayectoria escolar y laboral & Heckman (2008) \\
+    Corto plazo & Mejor \destacar{desarrollo cognitivo y de lenguaje} (expansión de cuidado infantil en Noruega; un año más de preescolar en Argentina) & Dearing et al.\ (2018); Berlinski et al.\ (2009) \\
+    Largo plazo & \destacar{Más escolaridad, empleo e ingresos; menos criminalidad} en la adultez (Head Start, Perry Preschool) & Bailey et al.\ (2021); Schweinhart et al.\ (2005) \\
+    \rowcolor{steellight!25}
+    Heterogeneidad & Retornos \destacar{mayores en niños y niñas en desventaja}: focalizar es equitativo y también la asignación más eficiente & Heckman (2013); Yoshikawa y Kabay (2015) \\
+    Madres y hogares & Menor costo del cuidado; empleo materno \destacar{+7 pp (Quebec) y +12 pp (Nicaragua)}; incide en la fertilidad & Baker et al.\ (2008); Hojman y López Boo (2022) \\
+  \end{tabular}
+  \end{center}
+\end{frame}
+
+% =============================================================================
+\begin{frame}{Cómo se focaliza hoy en Chile}
+  \small
+  \begin{itemize}
+    \item La focalización territorial \destacar{no es de conocimiento público ni está unificada entre proveedores}: JUNJI prioriza infraestructura en sectores de mayor vulnerabilidad según el RSH; Integra georreferencia oferta y demanda antes de construir un nuevo jardín
+    \item En octubre de 2025, JUNJI presentó su Metodología de Focalización Territorial (Índice de Brecha en Educación Parvularia, Modelo de Predisposición a la Demanda, proyecciones a 2040), pero \destacar{su detalle no es público}: no se sabe con precisión cómo se aplica en la práctica
+  \end{itemize}
+  \fuentes{Castillo (2016); JUNJI (2025)}
+\end{frame}
+
+% =============================================================================
+\begin{frame}{Literatura internacional: medición de brechas}
+  \small
+  \begin{itemize}[itemsep=4pt,topsep=2pt]
+    \item \textbf{Optimización de servicios públicos:} en vez de decisiones arbitrarias, modelos calculan la \destacar{combinación óptima de ubicación, cantidad y calidad} según lo que valoran las familias (Fortney, 1996) --- Ej: \textit{food deserts}.
+    \item El estándar internacional para educación parvularia son los \destacar{\textit{childcare deserts}} (Center for American Progress): clasifican como desierto un área con \destacar{más de 3 niños $<5$ por cupo disponible}
+  \end{itemize}
+  \vspace{6pt}
+  {\setlength{\fboxsep}{3pt}\colorbox{steellight!30}{\textbf{Brown (2026):} {\itshape Undersupply or Lack of Demand? Evaluating Measures of Child Care Access}}}
+  \begin{itemize}[itemsep=3pt,topsep=3pt]
+    \item Evalúa y compara empíricamente distintas métricas de acceso al cuidado infantil, incluyendo \textit{childcare deserts}
+    \item Muestra que no predicen bien dónde faltan cupos, porque asumen que todos los barrios demandan jardines por igual --- \destacar{confundiendo escasez real con baja demanda} por preferencia de cuidado en el hogar
+  \end{itemize}
+\end{frame}
+
+% =============================================================================
+\begin{frame}{Comparación de metodologías (Brown, 2026)}
+  \renewcommand{\arraystretch}{1.35}
+  \footnotesize
+  \begin{center}
+  \begin{tabular}{@{}p{2.3cm}p{3.1cm}p{2.7cm}p{2.9cm}@{}}
+    \textbf{Métrica} & \textbf{Cómo se calcula} & \textbf{Ventaja} & \textbf{Problema} \\
+    \hline
+    CCD --- Desierto de cuidado (3:1 / 4:1) & Niños $<5$ por cupo & Simple, muy usada & No predice vacantes; indefinida con 0 cupos \\
+    CCG --- Brecha de cuidado & (Niños con padres trabajando $-$ cupos) / niños trabajadores; 20\% con mayor brecha & Ajusta por demanda directa & Endógena; no distingue bien zonas con 0 cupos \\
+    \rowcolor{steellight!25}
+    \textbf{DALS --- Oferta baja ajustada demográficamente} & Residuo entre oferta real y esperada (regresión con demografía exógena); 20\% más negativo & \textbf{Predice bien vacantes en sala cuna; exógena; distingue zonas con 0 cupos} & Requiere microdatos y un modelo de regresión previo \\
+  \end{tabular}
+  \end{center}
+  \fuente{Brown (2026)}
+\end{frame}
+
+% =============================================================================
+\begin{frame}{Metodología DALS: estimación del modelo (Brown, 2026)}
+  \small
+  \textbf{Paso 1 --- Oferta real (invertida para incluir áreas con 0 cupos):}
+  \[
+    \text{CuposPorNiño}_c = \frac{\text{Cupos licenciados}_c}{\text{Población} < 5\text{ años}_c}
+  \]
+  \textbf{Paso 2 --- Oferta esperada según demografía exógena (regresión MCO por condado):}
+  \[
+    \widehat{\text{CuposPorNiño}}_c = \hat\alpha + \hat\beta_1 \text{Religiosidad}_c + \hat\beta_2 \text{Educación}_c + \hat\beta_3 \text{Urbanización}_c + \hat\beta_4 \text{Etnia}_c + \hat\beta_5 \text{DosPadres}_c + \dots
+  \]
+  \textbf{Paso 3 --- Residuo de oferta y umbral DALS:}
+  \[
+    \text{Residuo}_c = \text{CuposPorNiño}_c - \widehat{\text{CuposPorNiño}}_c
+  \]
+  \begin{itemize}[itemsep=2pt,topsep=1pt]
+    \item Se clasifica como \textbf{DALS} al 20\% de las áreas con los residuos más negativos: donde hay muchos menos cupos que los que predice el perfil sociodemográfico del barrio
+  \end{itemize}
+  \fuente{Brown (2026)}
+\end{frame}
+
+% =============================================================================
+\begin{frame}{Aplicación al estudio y datos disponibles}
+  \footnotesize
+  \textbf{1. Unidades vecinales}\par
+  {\color{graytext} Subdivisión territorial más pequeña que la comuna, usada por el MDS para la asignación de beneficios.\par}
+  \begin{itemize}[itemsep=2pt,topsep=1pt]
+    \item Dato Vecino: el portal cubre 3.675 UV de 109 comunas; contiene n.\textsuperscript{o} de niños menores de 5, población total
+    \item Índice Global de Vulnerabilidad Socioterritorial (IGVUST)
+    \item Shapefiles de unidades vecinales 2026: límites geográficos (BIDAT)
+  \end{itemize}
+  \vspace{3pt}
+  \textbf{2. Cobertura de educación parvularia pública georreferenciada}\par
+  {\color{graytext} Obtenida mediante solicitudes de transparencia.\par}
+  \begin{itemize}[itemsep=2pt,topsep=1pt]
+    \item Latitud y longitud de los jardines, para ubicarlos en su UV
+    \item Matrícula por nivel
+    \item Disponibilidad total por jardín y nivel
+  \end{itemize}
+\end{frame}
+
+% =============================================================================
+\begin{frame}{Regresión tentativa: oferta esperada por unidad vecinal}
+  \footnotesize
+  \[
+    \begin{aligned}
+      \widehat{\text{CuposPorNiño}}_{uv} = \hat\alpha &+ \hat\beta_1 \%\text{Indígena}_{uv} + \hat\beta_2 \%\text{Inmigrante}_{uv} + \hat\beta_3 \text{Densidad}_{uv} \\
+      &+ \hat\beta_4 \%\text{ViviendaPrecaria}_{uv} + \hat\beta_5 \%\text{SinAguaRed}_{uv} + \hat\psi_{comuna}
+    \end{aligned}
+  \]
+  \begin{itemize}[itemsep=2pt,topsep=0pt]
+    \item \textbf{Variables:} todas disponibles a nivel UV en el \destacar{portal Dato Vecino}; los niños menores de 5 entran solo en el denominador de la variable dependiente
+    \item \textbf{Efectos fijos de comuna:} cada UV se compara con UV de su misma comuna (análogo a los efectos fijos de región de Brown)
+    \item \textbf{¿Incluir el IGVUST? No como control.} Agrega 18 indicadores con pesos de un análisis factorial (MDSF, 2026)
+      \begin{itemize}[itemsep=1pt,topsep=1pt]
+        \item $\approx$\destacar{47\% del peso viene de ingresos y empleo}, incluyendo ``cuidadoras no remuneradas'' (adultos sin trabajo que viven con menores) $\to$ dependen de la oferta de jardines: \destacar{\textit{bad control}}
+        \item Brown excluye ingreso y empleo materno justamente por esta razón
+        \item \textbf{Idea:} \destacar{priorizar} entre las UV DALS; como robustez, comparar la clasificación con y sin IGVUST
+      \end{itemize}
+    \item \textbf{Datos RIS:} construir estadísticas por UV a partir de los microdatos es complejo
+  \end{itemize}
+  \vfill
+  {\scriptsize\color{graytext}\textit{No incluye estructura familiar ni educación/empleo de los padres, como sí hace Brown: no están disponibles públicamente a nivel UV.}}
+\end{frame}
+
+% =============================================================================
+\begin{frame}{Próximos pasos}
+  \begin{itemize}
+    \item Armar la base de cobertura de jardines por UV y sacar estadística descriptiva
+    \item Unificar la información de las distintas bases de unidades vecinales
+    \item Definir las variables que entrarán en la regresión, según su significancia
+    \item Solicitud de transparencia a JUNJI e Integra por las listas de espera, para estimar mejor la demanda
+  \end{itemize}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,50 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{times}
+\pagestyle{empty}
+
+\sisetup{
+  table-format=2.2,
+  table-number-alignment = center
+}
+
+\begin{document}
+
+\begin{table}[!ht]
+\centering
+{\bfseries \MakeUppercase{Estad\'isticas de balance de covariables --- muestra fertilidad}}\\[8pt]
+
+\begin{tabular}{@{}l S[table-format=4.3] S[table-format=4.3] S[table-format=-1.3] S[table-format=4.2] S[table-format=4.3] S[table-format=1.3] c@{}}
+\toprule
+\toprule
+ & \multicolumn{3}{c}{Sin ponderar} & \multicolumn{3}{c}{Ponderado por poblaci\'on UV} & \\
+\cmidrule(lr){2-4} \cmidrule(lr){5-7}
+{Variable} & {No tratada} & {Tratada} & {Dif. norm.} & {No tratada} & {Tratada} & {Dif. norm.} & {Sig.\textsuperscript{a}} \\
+\midrule
+\multicolumn{8}{@{}l}{\textit{Niveles de covariables, a\~no 2014}} \\
+Tasa de natalidad            & 0.057 & 0.058 & 0.031 & 0.06 & 0.060 & 0.051 & \\
+Edad                         & 31.90 & 31.83 & -0.053 & 31.74 & 31.815 & 0.095 & \\
+Hijos $<$5 por mujer         & 0.303 & 0.319 & 0.156 & 0.31 & 0.320 & 0.117 & ** \\
+Poblaci\'on de la UV          & 1111.42 & 2025.96 & {\bfseries 0.423} & 3540.63 & 5305.758 & {\bfseries 0.342} & *** \\
+Densidad ni\~nos 0-5 UV        & 0.0590 & 0.0631 & 0.176 & 0.06 & 0.064 & 0.148 & ** \\
+Mujeres en la muestra por UV  & 233.60 & 445.45 & {\bfseries 0.401} & 795.29 & 1234.461 & {\bfseries 0.347} & *** \\
+\midrule
+N\'umero de UVs               & \multicolumn{2}{c}{3973 \quad 422} & & \multicolumn{2}{c}{3973 \quad 422} & & \\
+\bottomrule
+\end{tabular}
+
+\par\vspace{6pt}
+\begin{minipage}{0.95\textwidth}
+\footnotesize
+\textit{Notas:} balance de covariables entre UV que nunca abren un jard\'in infantil y UV que lo abren en alg\'un momento (\texttt{ever\_t1}), a\~no 2014 (previo a toda apertura), muestra de fertilidad colapsada a nivel UV. Tasa de natalidad: fracci\'on de mujeres de la UV que tuvo un hijo en el a\~no. Columnas ponderadas usan la poblaci\'on de la UV como peso. Diferencia normalizada $=$ (media tratada $-$ media no tratada)~/~$\sqrt{(\text{var. tratada}+\text{var. no tratada})/2}$. En negrita, $|$dif. norm.$|>0.25$.
+
+\textsuperscript{a}T-test a nivel UV, sin ponderar (** p$<$0.01, *** p$<$0.001), solo como referencia. Se prioriza la diferencia normalizada.
+\end{minipage}
+
+\end{table}
+
+\end{document}
