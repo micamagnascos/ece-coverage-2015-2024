@@ -150,20 +150,24 @@ Andr\'es Hojman \quad Marigen Narea \quad Jorge Rodr\'iguez \quad Pedro Carneiro
 {\small\textcolor{steel}{\textbf{What we find so far}}}
 \begin{itemize}
   \footnotesize
-  \item \textbf{Balance}: in 2014, women in treated and never-treated UVs look alike; UVs differ in \emph{size} $\to$ UV + year FE
-  \item \textbf{First stage}: enrollment rises $\approx$\textbf{2pp} on a 33\% base ($\approx$6\%) the year a preschool opens, persistent and robust across 3 estimators
-  \item \textbf{Labor \& fertility}: estimates in progress
+  \item \textbf{First stage}: enrollment \textbf{+2pp} (33\% $\to$ 35\%), from the opening year, no pre-trends; strongest at ages 2--3
+  \item \textbf{2015 cohort} ($\sim$40\% of treated) shows almost no effect; without it, $\approx$\textbf{+3pp} (preliminary)
+  \item \textbf{Fertility}: no effect so far --- a fairly precise zero
+  \item \textbf{Formal employment}: \textbf{+1pp} from year 4 on; pre-trends not significant but rising
+  \item \textbf{Earnings} (mothers who work): \textbf{suggestive +2--4\%}, not yet significant
+  \item \textbf{Months worked}: no effect so far
+  \item \textbf{Cleaner control group}: same results
 \end{itemize}
 \end{column}
 \end{columns}
 
-\vspace{10pt}
+\vspace{6pt}
 \begin{block}{Project status}
 \footnotesize
-\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.36\textwidth}>{\raggedright\arraybackslash}p{0.30\textwidth}>{\raggedright\arraybackslash}p{0.28\textwidth}@{}}
-{\color{statuslisto}\textbf{Done}}: data construction, treatment definition, balance, first stage &
-{\color{statuspink}\textbf{In progress}}: labor market and fertility event studies &
-{\color{statusred}\textbf{Next}}: heterogeneity, mechanisms, writing
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.30\textwidth}>{\raggedright\arraybackslash}p{0.34\textwidth}>{\raggedright\arraybackslash}p{0.30\textwidth}@{}}
+{\color{statuslisto}\textbf{Done}}: data, treatment, balance, first stage, first labor and fertility estimates &
+{\color{statuspink}\textbf{In progress}}: 2015 cohort check, earnings including non-working mothers &
+{\color{statusred}\textbf{Next}}: pre-trend robustness, mechanisms, writing
 \end{tabular}
 \end{block}
 \end{frame}
@@ -341,6 +345,7 @@ Treated         & 0 in 2014, opens first center 2015--2024           & 447     &
   \item \textbf{2015 cohort is the largest}: 179 UVs (40\%), tied to the Bachelet preschool expansion
   \item \textbf{71\% open in 2015--2017}; only 45 UVs open after 2019
   \item \textbf{2014 as base year} lets us identify the 2015 cohort as 0 $\to$ 1; without it, treated UVs drop from 447 to $\sim$268
+  \item But the 2015 cohort has \textbf{only one pre-period} and sits at the edge of the panel $\to$ we come back to it below
 \end{itemize}
 \end{column}
 \end{columns}
@@ -510,57 +515,298 @@ N (UVs) & \multicolumn{2}{c}{3{,}909 \ / \ 422} & & \multicolumn{2}{c}{3{,}909 \
 % =============================================================================
 % 12. FIRST STAGE -- EVENT STUDY
 % =============================================================================
-\begin{frame}{Enrollment rises the year a preschool opens and stays higher}
-\begin{columns}[c]
-\begin{column}{0.62\textwidth}
+\begin{frame}[label=fses]{First stage: enrollment rises the year a preschool opens and stays higher}
 \centering
-{\scriptsize\textbf{Sun--Abraham event study: enrollment rate (weighted)}}\\[1pt]
-\includegraphics[width=\linewidth,height=0.64\textheight,keepaspectratio]{eventstudy_primera_etapa_sintitulo.png}
-\end{column}
-\begin{column}{0.36\textwidth}
-\colorbox{bgpanel}{\parbox{0.92\linewidth}{\raggedright\footnotesize
-Opening a preschool raises the enrollment rate of children aged 0--4 by \textbf{$\approx$1pp} vs.\ never-treated UVs, on a base of $\sim$33\%.
+\includegraphics[width=\linewidth,height=0.45\textheight,keepaspectratio]{../RIS/20261006/graficos/pe_02_eventstudy_en.png}
 
-\vspace{4pt}
-The effect appears in the \textbf{opening year} and persists for \textbf{at least five years}.}}
+\vspace{2pt}
+\begin{columns}[T]
+\begin{column}{0.50\textwidth}
+\begin{itemize}
+  \footnotesize
+  \item \textbf{Weighted (main)}: $\approx$\textbf{+2pp} on a 33\% base ($\approx$+6\%), immediate and stable for $k=0$--6
+  \item Unweighted: $\approx$+3pp --- larger UVs move less with the same new places
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\begin{itemize}
+  \footnotesize
+  \item \textbf{No pre-trends}: small and not significant
+  \item $k=7$--9: only early cohorts (mostly 2015) observed $\to$ composition, not a fading effect
+\end{itemize}
+\hfill\hyperlink{fsavg}{\beamergotobutton{Average effects (A6)}}
 \end{column}
 \end{columns}
-\fuente{Sun--Abraham, weighted by number of children, never-treated UVs as controls, UV and year FE, 95\% CI clustered by UV. Reference $k=-1$.}
+\takeaway{A new preschool raises enrollment from 33\% to 35\%: about 3 more children enrolled per UV.}
+\par\fuente{Sun--Abraham and TWFE, never-treated UVs as controls, UV and year FE, 95\% CI clustered by UV, reference $k=-1$. Children aged 0--4.}
 \end{frame}
 
 % =============================================================================
-% 13. FIRST STAGE -- ROBUSTNESS TABLE
+% 14. FIRST STAGE -- BY CHILD AGE
 % =============================================================================
-\begin{frame}{The enrollment effect is robust across three estimators}
-\small
-\begin{center}
-\begin{tabular}{@{}crrr@{}}
+\begin{frame}{First stage by child age: strongest at ages 2--3}
+\centering
+\includegraphics[width=\linewidth,height=0.42\textheight,keepaspectratio]{../RIS/20261006/graficos/pe_03_het_edad_en.png}
+
+\vspace{4pt}
+\begin{columns}[T]
+\begin{column}{0.50\textwidth}
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lrrr@{}}
 \toprule
-{$k$} & {Unweighted TWFE} & {Weighted TWFE} & {Sun--Abraham (unweighted)} \\
+Child age & Control mean & SA $k=0$--6 & Relative \\
 \midrule
--5 & -0.002 & -0.015 & 0.006 \\
--4 & -0.009 & -0.011* & 0.004 \\
--3 & -0.013\textsuperscript{\dag} & -0.018*** & -0.005 \\
-\textbf{-2} & \textbf{-0.023***} & \textbf{-0.017***} & \textbf{-0.017***} \\
-0 & 0.020*** & 0.007* & 0.023*** \\
-1 & 0.023*** & 0.013*** & 0.026*** \\
-2 & 0.016*** & 0.012*** & 0.019*** \\
-3 & 0.018*** & 0.007** & 0.021*** \\
-4 & 0.017*** & 0.009** & 0.020*** \\
-5 & 0.019*** & 0.009*** & 0.023*** \\
+Ages 0--1 & 8\% & +1.3pp & +15\% \\
+\textbf{Ages 2--3} & 35\% & \textbf{+4.2pp} & +12\% \\
+Age 4 & 68\% & +3.6pp & +5\% \\
 \bottomrule
 \end{tabular}
-\end{center}
-\vspace{4pt}
-\footnotesize *** p$<$0.01, ** p$<$0.05, * p$<$0.1, \textsuperscript{\dag} p=0.066. Base rate $\approx$32.6\%. $N=$48,348 UV-year, clusters = 4,568 UVs.
-
-\vspace{6pt}
-\normalsize \textbf{Effect: $\approx$2pp on a $\approx$33\% base ($\approx$6\% relative), robust across specifications and growing slightly over time.}
-\fuente{Source: \texttt{primera\_etapa.txt}.}
+\end{column}
+\begin{column}{0.46\textwidth}
+\begin{itemize}
+  \footnotesize
+  \item \textbf{Ages 2--3}: largest effect, immediate and stable
+  \item \textbf{Ages 0--1}: small in pp but largest in relative terms; grows over time
+  \item \textbf{Age 4}: also positive
+  \item \textbf{Caution}: ages are measured at different points in time across datasets (to check)
+\end{itemize}
+\end{column}
+\end{columns}
+\raggedright\takeaway{Enrollment rises at all ages, most at ages 2--3.}
 \end{frame}
 
 % =============================================================================
-% 17. NEXT STEPS
+% 15. THE 2015 COHORT
+% =============================================================================
+\begin{frame}{An open issue: the 2015 cohort}
+\centering
+\includegraphics[width=\linewidth,height=0.38\textheight,keepaspectratio]{../RIS/20261006/graficos/pe_01b_brecha_cohortes_en.png}
+
+\vspace{2pt}
+\begin{columns}[T]
+\begin{column}{0.52\textwidth}
+\begin{itemize}
+  \footnotesize
+  \item \textbf{172 UVs} --- 41\% of treated UVs, $\sim$half of the sample at $k=6$, the only cohort at $k=9$
+  \item Its effect is \textbf{very small} ($\approx$0.7pp in raw gaps) and it has only one pre-period (2014)
+  \item \textbf{Without it}: $\approx$\textbf{+3pp} vs.\ 1.9pp, $\sim$50\% larger and stable over time (preliminary)
+\end{itemize}
+\end{column}
+\begin{column}{0.46\textwidth}
+\colorbox{bgpanel}{\parbox{0.95\linewidth}{\raggedright\footnotesize
+\textbf{Hypothesis}: registration error at the edge of the panel --- preschools that already operated in 2014 but are recorded as 2015 openings.\\[2pt]
+\textbf{Next}: carefully review the coverage data provided by JUNJI/Integra.}}
+\end{column}
+\end{columns}
+\takeaway{The 2015 cohort pulls the average effect down --- possibly a data error to check.}
+\end{frame}
+
+% =============================================================================
+% 16. CLEAN CONTROL -- MOTIVATION
+% =============================================================================
+\begin{frame}{A cleaner control group: never-treated UVs can be exposed too}
+\begin{columns}[c]
+\begin{column}{0.40\textwidth}
+\begin{itemize}
+  \footnotesize
+  \item \textbf{Concern}: children from a never-treated UV can enroll in a new preschool next door $\to$ control enrollment rises $\to$ \textbf{effect underestimated}
+  \item We built a \textbf{neighbor map}: for every UV, which adjacent UVs had or opened a preschool (shared border, 2024 boundaries)
+  \item Example: this control UV has 9 neighbors --- \textbf{5 open a preschool} during the period
+\end{itemize}
+\end{column}
+\begin{column}{0.58\textwidth}
+\centering
+\includegraphics[width=\linewidth,height=0.72\textheight,keepaspectratio]{../output/figures/spillover_1_ejemplo_uv_en.png}
+\end{column}
+\end{columns}
+\takeaway{Idea: compare treated UVs with controls that could \emph{not} use a neighbor's new preschool.}
+\par\fuente{* Neighbors only capture proximity to home. If mothers use preschools near their workplace, spillovers may reach UVs that are not adjacent.}
+\end{frame}
+
+% =============================================================================
+% 17. CLEAN CONTROL -- RESULTS
+% =============================================================================
+\begin{frame}{A cleaner control group gives the same first stage}
+\centering
+\includegraphics[width=0.92\linewidth,height=0.36\textheight,keepaspectratio]{../RIS/20261006/graficos/pe_04_control_limpio_en.png}
+
+\vspace{2pt}
+\scriptsize
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+Control group & UVs & Median area & Control mean & SA weighted, $k=0$--6 \\
+\midrule
+All never-treated (main) & 4{,}146 & 2.8 km$^2$ & 33.2\% & 1.92 \\
+\textbf{No neighbor opened a preschool 2015--24} & \textbf{2{,}150} & 3.8 km$^2$ & 32.7\% & \textbf{2.14} \\
+No neighboring preschool in any year & 652 & \textbf{6.7 km$^2$} & 28.2\% & 2.13 \\
+\midrule
+\textit{Treated UVs} & \textit{422} & \textit{1.5 km$^2$} & & \\
+\bottomrule
+\end{tabular}
+
+\raggedright
+\vspace{3pt}
+\footnotesize Same effect with all three groups and clean pre-trends. The strictest group is not a good comparison: its UVs are \textbf{$\sim$4$\times$ larger} than treated ones (isolated areas) $\to$ preferred clean control: \textbf{no neighbor opened}.
+\takeaway{Spillovers to controls do not explain the small first stage.}
+\end{frame}
+
+% =============================================================================
+% 18b. WHY IS THE FIRST STAGE SMALL?
+% =============================================================================
+\begin{frame}{Why is the first stage small?}
+\begin{columns}[T]
+\begin{column}{0.44\textwidth}
+{\small\textcolor{steel}{\textbf{What we checked}}}
+\begin{itemize}
+  \footnotesize
+  \item \textbf{2015 cohort}: very small effect, possibly a data error $\to$ without it, $\approx$3pp
+  \item \textbf{Cleaner control group}: same $\approx$2pp $\to$ spillovers to controls are not the reason
+\end{itemize}
+
+\vspace{6pt}
+{\small\textcolor{steel}{\textbf{What our outcome measures}}}
+\begin{itemize}
+  \footnotesize
+  \item Whether children \textbf{living} in the treated UV are enrolled in \textbf{any} preschool
+\end{itemize}
+\end{column}
+\begin{column}{0.54\textwidth}
+{\small\textcolor{steel}{\textbf{A new preschool can fill up without moving our outcome}}}
+\begin{itemize}
+  \footnotesize
+  \item It raises enrollment only if it takes local children who were \textbf{not enrolled before}
+  \item \textbf{Substitution}: local children already enrolled elsewhere switch to the new preschool $\to$ no net change
+  \item \textbf{Mothers use other preschools}, e.g.\ near their workplace in another UV $\to$ new places go to children from other UVs
+\end{itemize}
+
+\vspace{6pt}
+\colorbox{bgpanel}{\parbox{0.95\linewidth}{\raggedright\footnotesize
+\textbf{Future work}: enrollment records show which preschool each child attends $\to$ who fills the new preschool, where they live, and which preschools local mothers use.}}
+\end{column}
+\end{columns}
+\takeaway{Enrollment of local children can move little, even if the new preschool fills up.}
+\end{frame}
+
+% =============================================================================
+% 18. FERTILITY
+% =============================================================================
+\begin{frame}{Fertility: no effect yet}
+\centering
+\includegraphics[width=\linewidth,height=0.50\textheight,keepaspectratio]{../RIS/20261006/graficos/fe_02_eventstudy_en.png}
+
+\vspace{2pt}
+\begin{columns}[T]
+\begin{column}{0.50\textwidth}
+\begin{itemize}
+  \footnotesize
+  \item Treated and control UVs decline together; \textbf{no jump at opening}
+  \item Clean pre-trends
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\begin{itemize}
+  \footnotesize
+  \item A \textbf{fairly precise zero}: rules out large effects
+  \item Still checking: cumulative outcome (having had a child)
+\end{itemize}
+\end{column}
+\end{columns}
+\raggedright\takeaway{Expected: having a child depends on many factors, and a nearby preschool might weigh little.}
+\par\fuente{Women aged 18--49. Outcome: share who had a child in the year (control mean 4.3\%). Controls for average age.}
+\end{frame}
+
+% =============================================================================
+% 19. FORMAL EMPLOYMENT
+% =============================================================================
+\begin{frame}{Mothers' formal employment rises by 1pp from the fourth year}
+\begin{columns}[c]
+\begin{column}{0.58\textwidth}
+\centering
+\includegraphics[width=\linewidth,height=0.62\textheight,keepaspectratio]{../RIS/20261006/graficos/lab_02a_empleo_w_en.png}
+\end{column}
+\begin{column}{0.40\textwidth}
+\begin{itemize}
+  \footnotesize
+  \item Nothing at opening; \textbf{significant every year from $k=4$ to 7}
+\end{itemize}
+
+\vspace{4pt}
+{\footnotesize\textcolor{steel}{\textbf{Why gradual?}}}
+\begin{itemize}
+  \footnotesize
+  \item Each year's sample = mothers with a child $<$5
+  \item At $k=0$, many children are already 3--4: little time to use the preschool
+  \item From $k\approx4$, every mother in the sample had it available \textbf{since her child was born} $\to$ exposure builds up
+\end{itemize}
+
+\vspace{2pt}
+{\scriptsize\textcolor{graytext}{\textbf{Caution}: pre-trends not significant (joint test $p=0.82$) but slightly rising; pre and post years come from different cohorts.}}
+\end{column}
+\end{columns}
+\takeaway{A new preschool raises mothers' formal employment by $\approx$1pp from the fourth year.}
+\par\fuente{Weighted by number of mothers. Mothers with a child under 5. Employed = any taxable income or social security contribution in the year.}
+\end{frame}
+
+% =============================================================================
+% 20. EARNINGS AND MONTHS WORKED
+% =============================================================================
+\begin{frame}{Earnings: suggestive increase of $\approx$2--3\%}
+\begin{columns}[c]
+\begin{column}{0.58\textwidth}
+\centering
+\includegraphics[width=\linewidth,height=0.62\textheight,keepaspectratio]{../RIS/20261006/graficos/lab_02b_ingreso_w_en.png}
+\end{column}
+\begin{column}{0.40\textwidth}
+\begin{itemize}
+  \footnotesize
+  \item Same \textbf{gradual shape} as employment; clean pre-trends
+  \item $\approx$+3\% at $k=4$--6; average $k=0$--6: \textbf{+2.3\%} $\approx$ CLP 10--20k per month, not yet significant
+\end{itemize}
+
+\vspace{4pt}
+{\footnotesize\textcolor{steel}{\textbf{Still to do}}}
+\begin{itemize}
+  \footnotesize
+  \item ln earnings is measured \textbf{only among mothers with earnings} $\to$ new entrants may pull it down
+  \item Add earnings \textbf{in levels, including zeros} for mothers without earnings
+  \item \textbf{Months worked} (App.\ A5): no effect so far, but also conditional on working $\to$ re-estimate with 0 for mothers without work
+\end{itemize}
+\end{column}
+\end{columns}
+\takeaway{Mothers who work earn $\approx$2--3\% more from the fourth year: a suggestive result.}
+\end{frame}
+
+% =============================================================================
+% 21. EMPLOYMENT BY AGE OF YOUNGEST CHILD
+% =============================================================================
+\begin{frame}{Employment effect appears for mothers whose youngest child is 0--3}
+\centering
+\includegraphics[width=\linewidth,height=0.43\textheight,keepaspectratio]{../RIS/20261006/graficos/lab_03a_het_empleo_en.png}
+
+\vspace{2pt}
+\begin{columns}[T]
+\begin{column}{0.50\textwidth}
+\begin{itemize}
+  \footnotesize
+  \item Youngest child \textbf{0--1 and 2--3}: positive, +1 to +2pp
+  \item Youngest child \textbf{4}: no effect
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\begin{itemize}
+  \footnotesize
+  \item Fits the mechanism: mothers of younger children face a tighter care constraint; at age 4, most children are already enrolled (68\%)
+  \item Not significant one by one --- the \textbf{pattern across groups} is what is informative
+\end{itemize}
+\end{column}
+\end{columns}
+\takeaway{The effect comes from mothers of children aged 0--3, who need care the most.}
+\par\fuente{Unweighted (weighted version not yet estimated).}
+\end{frame}
+
+% =============================================================================
+% 22. NEXT STEPS
 % =============================================================================
 \begin{frame}{Next steps}
 \begin{columns}[T]
@@ -568,8 +814,11 @@ The effect appears in the \textbf{opening year} and persists for \textbf{at leas
 \begin{block}{Immediate}
 \footnotesize
 \begin{itemize}
-  \item Finish labor market estimation
-  \item Finish fertility estimation
+  \item 2015 cohort: review the coverage data provided by JUNJI/Integra
+  \item Re-estimate all outcomes \textbf{without the 2015 cohort}
+  \item Earnings \textbf{in levels, including zeros}
+  \item Months worked \textbf{including zeros}
+  \item Fertility: \textbf{cumulative} outcome (having had a child)
 \end{itemize}
 \end{block}
 \end{column}
@@ -577,8 +826,8 @@ The effect appears in the \textbf{opening year} and persists for \textbf{at leas
 \begin{block}{Short term}
 \footnotesize
 \begin{itemize}
-  \item Disaggregate $k=-2$ by opening cohort
-  \item Heterogeneity by education level (nursery/toddler vs.\ pre-K)
+  \item Employment: balanced event study (same cohorts pre and post)
+  \item Child age: align age definitions across datasets
 \end{itemize}
 \end{block}
 \end{column}
@@ -586,7 +835,8 @@ The effect appears in the \textbf{opening year} and persists for \textbf{at leas
 \begin{block}{Medium term}
 \footnotesize
 \begin{itemize}
-  \item Robustness: weighted vs.\ unweighted, outlier UVs
+  \item Mechanisms: care constraints (RSH self-reports, App.\ A7)
+  \item Who fills the new preschool? (child-level enrollment)
   \item Write results section
 \end{itemize}
 \end{block}
@@ -649,17 +899,17 @@ The effect appears in the \textbf{opening year} and persists for \textbf{at leas
  & Treated / non-treated definition & {\color{statuslisto}\textbf{ready}} & \texttt{grupo\_t1}, \texttt{g1}, \texttt{muestra\_t1} \\
 \midrule
 \multirow{2}{1.3cm}{\shortstack[l]{3. Panel\\analysis}}
- & First-stage estimation (enrollment) & {\color{statuslisto}\textbf{ready}} & 3 specifications; $k=-2$ open issue \\
+ & First-stage estimation (enrollment) & {\color{statuslisto}\textbf{ready}} & +3pp; 2015 cohort under review \\
  & Balance / validity check & {\color{statuslisto}\textbf{ready}} & UV-level balance table \\
 \midrule
 \multirow{4}{1.3cm}{\shortstack[l]{4. Data\\analysis}}
  & Methodology choice & {\color{statuslisto}\textbf{ready}} & Sun--Abraham within Baker et al.\ (JEL 2026) framework \\
  & Treatment definition & {\color{statuslisto}\textbf{ready}} & Extensive margin, 0$\to$1 \\
- & Run regressions (labor, fertility) & {\color{statuspink}\textbf{in progress}} & Expected before Thursday \\
- & Analyze results & {\color{statuspink}\textbf{in progress}} & First stage analyzed; rest pending \\
+ & Run regressions (labor, fertility) & {\color{statuslisto}\textbf{ready}} & Re-run without 2015 cohort pending \\
+ & Analyze results & {\color{statuspink}\textbf{in progress}} & Pre-trend robustness for employment \\
 \midrule
 \multirow{2}{1.3cm}{\shortstack[l]{5. Mechanisms}}
- & Heterogeneity by group / level & {\color{statusred}\textbf{not started}} & \\
+ & Heterogeneity by group / level & {\color{statuspink}\textbf{in progress}} & By child age (first stage, employment) \\
  & Public-policy implications & {\color{statusred}\textbf{not started}} & \\
 \midrule
 \shortstack[l]{6. Writing} & --- & {\color{statuspink}\textbf{in progress}} & \\
@@ -696,6 +946,89 @@ N (UVs) & \multicolumn{2}{c}{3{,}973 \ / \ 422} & & \multicolumn{2}{c}{3{,}973 \
 \vspace{-6pt}
 {\tiny \textsuperscript{a} t-test at the UV level (** p$<$0.01, *** p$<$0.001), for reference only; normalized differences prioritized (concern threshold: 0.25). UVs with at least one sample woman in 2014, hence more never-treated UVs than in the labor sample.}
 \takeaway{Same conclusion as the labor sample: women look alike, UVs differ in size.}
+\end{frame}
+
+% A5. Months worked
+\begin{frame}{Appendix A5. Months worked: no effect so far}
+\centering
+\includegraphics[width=\linewidth,height=0.62\textheight,keepaspectratio]{../RIS/20261006/graficos/lab_02c_meses_w_en.png}
+
+\raggedright
+\fuente{Weighted. Mothers with earnings: about +0.03 months on a base of 8.7, clean pre-trends.\\
+\textbf{Caveat}: currently conditional on working. Next: months worked with 0 for mothers without work.}
+\end{frame}
+
+% =============================================================================
+% A6. FIRST STAGE -- AVERAGE EFFECT (linked from first-stage event study)
+% =============================================================================
+\begin{frame}[label=fsavg]{Appendix A6. First stage: average effect is $\approx$2pp for the average child}
+\vspace{-4pt}\hfill\hyperlink{fses}{\beamerreturnbutton{Back to first stage}}
+\begin{center}
+\small
+\begin{tabular}{@{}lcc@{}}
+\toprule
+Sun--Abraham average (pp) & \textbf{Weighted (main)} & Unweighted \\
+\midrule
+\textbf{Post, $k=0$--6} & \textbf{1.92} & 3.11 (0.58) \\
+Post, $k=0$--9 & 1.53 & 2.23 (0.63) \\
+Pre, $k=-5$--$-2$ & $-$0.06 & 0.49 (0.59) \\
+\midrule
+Joint pre-test & --- & $p=0.90$ \\
+Control mean & 33.2\% & 32.4\% \\
+Relative effect ($k=0$--6) & \textbf{+6\%} & +10\% \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\vspace{4pt}
+\colorbox{bgpanel}{\parbox{0.97\linewidth}{\raggedright\footnotesize
+\textbf{Weighted} = effect for the average child (weights: children aged 0--4 in the UV). \textbf{Unweighted} = effect for the average UV.\\[2pt]
+\textbf{What changed since last meeting}: the model now includes \emph{all} event-time dummies. The negative $k=-2$ we flagged came from TWFE; it disappears with Sun--Abraham.}}
+
+\fuente{Average of event-study coefficients; SE (in parentheses) uses their full covariance matrix. Weighted SE pending. $k=0$--6 is our main window (balanced across cohorts).}
+\takeaway{A clear first stage: 33\% $\to$ 35\%, immediate, no pre-trends --- but small.}
+\end{frame}
+
+% A7. RSH self-reported outcomes
+\begin{frame}{Appendix A7. Self-reported outcomes (RSH): exploratory}
+\begin{center}
+\footnotesize
+\begin{tabular}{@{}lrcc@{}}
+\toprule
+Outcome (mothers, RSH) & Control mean & Weighted & Unweighted \\
+\midrule
+\textbf{Not looking for work: no childcare} & 11.8\% & $-$0.4pp & \textbf{$-$0.7pp}* \\
+Looking for work & 18.6\% & +0.6pp & +0.8pp \\
+Weekly hours worked & 36.5 h & +0.1 h & $-$0.3 h \\
+Not looking for work: household chores & 12.0\% & \multicolumn{2}{c}{not interpretable (pre-trends)} \\
+\bottomrule
+\end{tabular}
+\end{center}
+\vspace{4pt}
+\begin{itemize}
+  \footnotesize
+  \item \textbf{Most interesting}: fewer mothers say they don't look for work because they have no one to care for their children ($-$6\% relative), from $k=1$, clean pre-trends --- the most direct measure of the care-constraint mechanism
+  \item Weighted: same direction, weaker
+  \item \textbf{Caveats}: self-reported; the RSH form is not updated every year, and families may update it when applying for benefits (e.g., a preschool) $\to$ timing may depend on treatment
+\end{itemize}
+\fuente{Sun--Abraham average effect, $k=0$--6. * $p<0.05$. Weighted SE pending.}
+\end{frame}
+
+% A8. RSH childcare constraint
+\begin{frame}{Appendix A8. RSH: fewer mothers lack childcare}
+\centering
+\includegraphics[width=\linewidth,height=0.44\textheight,keepaspectratio]{../RIS/20261006/graficos/rsh_01c_cuida_en.png}
+
+\raggedright
+\vspace{2pt}
+\begin{itemize}
+  \footnotesize
+  \item Fewer mothers say they don't look for work because they have no one to leave the children with. Unweighted: $-$0.7pp ($-$6\%), significant from $k=1$, clean pre-trends; weighted: same direction, weaker
+\end{itemize}
+{\scriptsize\textcolor{graytext}{\textbf{Caveats} (exploratory):
+only mothers who neither work nor look for work answer the reason; all others are coded 0, so it is a \% of all mothers --- if more mothers start working, it falls too (part of the effect).
+The RSH form is not updated every year: the same answer can repeat for several years, so changes are slow and noisy.
+Some UVs have very few answers ($\sim$4 women).}}
 \end{frame}
 
 \end{document}
