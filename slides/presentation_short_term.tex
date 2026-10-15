@@ -523,7 +523,7 @@ N (UVs) & \multicolumn{2}{c}{3{,}909 \ / \ 422} & & \multicolumn{2}{c}{3{,}909 \
   \footnotesize
   \item \textbf{33\%} of mothers change UV at least once while in the sample
   \item \textbf{7--12\% per year}
-  \item \textbf{2022: 27\%} --- likely a cartography artifact, not real moves
+  \item \textbf{2022: 27\%} --- the year codes were standardized: likely an artifact, not real moves
 \end{itemize}
 \end{column}
 \begin{column}{0.48\textwidth}
@@ -545,38 +545,62 @@ Excluded & 11.9 \\
 \end{columns}
 
 \vspace{6pt}
-{\footnotesize Moving is frequent: part of the mothers in a treated UV arrive after the opening and others leave $\to$ dilutes UV-level effects. We address it by following each mother from her first UV (woman fixed effects, below).}
+\colorbox{bgpanel}{\parbox{0.97\linewidth}{\raggedright\footnotesize
+\textbf{How we assign a UV to each woman}: RSH UV codes are not consistent across years; they are standardized only from 2022. For 2017--2021 we decoded them backwards by following the same women to the next year (majority rule) to place everyone on 2024 boundaries. $\to$ \textbf{Part of the measured moves may be decoding errors, not real moves} (e.g., the 2022 jump).}}
+
+\vspace{3pt}
+{\footnotesize Real moves dilute UV-level effects $\to$ we also follow each mother from her first UV (woman fixed effects, below).}
 \takeaway{Mothers move often, but not toward UVs that open a preschool.}
 \par\fuente{Moves measured with 2024 UV boundaries, the same map that defines treatment. Year-to-year changes from 2017 on (2014--2015 UVs are proxied by 2016). 33\% = among mothers observed in at least two comparable years.}
+\end{frame}
+
+% =============================================================================
+% 11c. RESULTS -- BASELINE SPECIFICATION
+% =============================================================================
+\begin{frame}{Results: baseline specification}
+\begin{block}{Results in the next slides use the previous definitions}
+\footnotesize
+\begin{itemize}
+  \item \textbf{All women} in the RSH --- no vulnerability restriction
+  \item \textbf{Labor market}: mothers with a child $<$5 \emph{that specific year}
+  \item \textbf{First stage}: children of those mothers; \textbf{fertility}: women aged 18--49
+  \item UV-level estimates, all treatment cohorts (2015 included)
+\end{itemize}
+\end{block}
+\vspace{4pt}
+\begin{block}{Suggestions from the last meeting}
+\footnotesize
+\begin{itemize}
+  \item 60\% most vulnerable, mothers followed over time, individual-level estimates
+  \item \textbf{Incorporated from slide~\ref{changes} on}
+\end{itemize}
+\end{block}
+\takeaway{First the baseline results, then what changes with the new samples.}
 \end{frame}
 
 % =============================================================================
 % 12. FIRST STAGE -- EVENT STUDY
 % =============================================================================
 \begin{frame}[label=fses]{First stage: enrollment rises the year a preschool opens and stays higher}
+\begin{columns}[c]
+\begin{column}{0.58\textwidth}
 \centering
-\includegraphics[width=\linewidth,height=0.45\textheight,keepaspectratio]{../RIS/20261006/graficos/pe_02_eventstudy_en.png}
-
-\vspace{2pt}
-\begin{columns}[T]
-\begin{column}{0.50\textwidth}
-\begin{itemize}
-  \footnotesize
-  \item \textbf{Weighted (main)}: $\approx$\textbf{+2pp} on a 33\% base ($\approx$+6\%), immediate and stable for $k=0$--6
-  \item Unweighted: $\approx$+3pp --- larger UVs move less with the same new places
-\end{itemize}
+\includegraphics[width=\linewidth,height=0.62\textheight,keepaspectratio]{../RIS/20261006/graficos/pe_02_w_en.png}
 \end{column}
-\begin{column}{0.48\textwidth}
+\begin{column}{0.40\textwidth}
 \begin{itemize}
   \footnotesize
-  \item \textbf{No pre-trends}: small and not significant
-  \item $k=7$--9: only early cohorts (mostly 2015) observed $\to$ composition, not a fading effect
+  \item \textbf{Y-axis}: change in the enrollment rate (\% of children 0--4) in treated vs.\ never-treated UVs, relative to the year before opening
+  \item Treated UVs: \textbf{33\% $\to$ $\approx$35\%} (+2pp), from the opening year on
+  \item A treated UV has $\approx$\textbf{135 children} aged 0--4 $\to$ $\approx$\textbf{3 more enrolled}
+  \item \textbf{No pre-trends}
+  \item $k=7$--9: only early cohorts (mostly 2015) $\to$ composition, not a fading effect
 \end{itemize}
 \hfill\hyperlink{fsavg}{\beamergotobutton{Average effects (A6)}}
 \end{column}
 \end{columns}
-\takeaway{A new preschool raises enrollment from 33\% to 35\%: about 3 more children enrolled per UV.}
-\par\fuente{Sun--Abraham and TWFE, never-treated UVs as controls, UV and year FE, 95\% CI clustered by UV, reference $k=-1$. Children aged 0--4.}
+\takeaway{A new preschool raises enrollment from 33\% to $\approx$35\%: $\approx$3 more children per UV.}
+\par\fuente{Weighted by number of children. Sun--Abraham and TWFE, 95\% CI clustered by UV. Children aged 0--4.}
 \end{frame}
 
 % =============================================================================
@@ -642,7 +666,7 @@ Age 4 & 68\% & +3.6pp & +5\% \\
 % =============================================================================
 % 23. FIRST STAGE WITHOUT 2015
 % =============================================================================
-\begin{frame}{Without the 2015 cohort, the first stage is $\sim$50\% larger}
+\begin{frame}[label=fs15]{Without the 2015 cohort, the first stage is $\sim$50\% larger}
 \begin{columns}[c]
 \begin{column}{0.58\textwidth}
 \centering
@@ -789,63 +813,40 @@ No neighboring preschool in any year & 652 & \textbf{6.7 km$^2$} & 28.2\% & 2.13
 \begin{column}{0.40\textwidth}
 \begin{itemize}
   \footnotesize
-  \item Nothing at opening; \textbf{significant every year from $k=4$ to 7}
-\end{itemize}
-
-\vspace{4pt}
-{\footnotesize\textcolor{steel}{\textbf{Why gradual?}}}
-\begin{itemize}
-  \footnotesize
-  \item Each year's sample = mothers with a child $<$5
-  \item At $k=0$, many children are already 3--4: little time to use the preschool
-  \item From $k\approx4$, every mother in the sample had it available \textbf{since her child was born} $\to$ exposure builds up
+  \item Nothing at opening; \textbf{significant from $k=4$}; no pre-trends ($p=0.82$)
 \end{itemize}
 
 \vspace{2pt}
-{\scriptsize\textcolor{graytext}{\textbf{Caution}: pre-trends not significant (joint test $p=0.82$) but slightly rising; pre and post years come from different cohorts.}}
+{\footnotesize\textcolor{steel}{\textbf{Why gradual? Two possible reasons}}}
+\begin{itemize}
+  \footnotesize
+  \item \textbf{Who is in the sample}: if the child is already 3--4 at opening, the mother barely uses it; later, more mothers had it since birth
+  \item \textbf{Returning to work takes time}
+\end{itemize}
+{\scriptsize How to tell them apart:}
+\begin{itemize}
+  \scriptsize
+  \item Keep mothers until 2024 $\to$ no one leaves when her child turns 5
+  \item Woman FE $\to$ each mother compared with herself
+  \item If still gradual $\to$ it is the time to return to work
+\end{itemize}
+
 \end{column}
 \end{columns}
 \takeaway{A new preschool raises mothers' formal employment by $\approx$1pp from the fourth year.}
-\par\fuente{Weighted by number of mothers. Mothers with a child under 5. Employed = any taxable income or social security contribution in the year.}
-\end{frame}
-
-% =============================================================================
-% 21. EMPLOYMENT BY AGE OF YOUNGEST CHILD
-% =============================================================================
-\begin{frame}{Employment effect appears for mothers whose youngest child is 0--3}
-\centering
-\includegraphics[width=\linewidth,height=0.43\textheight,keepaspectratio]{../RIS/20261006/graficos/lab_03a_het_empleo_en.png}
-
-\vspace{2pt}
-\begin{columns}[T]
-\begin{column}{0.50\textwidth}
-\begin{itemize}
-  \footnotesize
-  \item Youngest child \textbf{0--1 and 2--3}: positive, +1 to +2pp
-  \item Youngest child \textbf{4}: no effect
-\end{itemize}
-\end{column}
-\begin{column}{0.48\textwidth}
-\begin{itemize}
-  \footnotesize
-  \item Fits the mechanism: mothers of younger children face a tighter care constraint; at age 4, most children are already enrolled (68\%)
-  \item Not significant one by one --- the \textbf{pattern across groups} is what is informative
-\end{itemize}
-\end{column}
-\end{columns}
-\takeaway{The effect comes from mothers of children aged 0--3, who need care the most.}
-\par\fuente{Unweighted (weighted version not yet estimated).}
+\par\fuente{Weighted by number of mothers. Mothers with a child $<$5 that year. Employed = any taxable income or contribution.}
 \end{frame}
 
 % =============================================================================
 % 20. NEW THIS WEEK -- SAMPLE CHANGES
 % =============================================================================
-\begin{frame}{Changes to the samples}
+\begin{frame}[label=changes]{Changes to the samples}
 \begin{block}{1. Only the 60\% most vulnerable (labor and fertility samples)}
 \footnotesize
 \begin{itemize}
   \item The population \textbf{eligible} for JUNJI/Integra preschools $\to$ removes women who could not be treated
-  \item FPS score ($\leq$13{,}500) in 2014--2015, RSH bracket ($\leq$60) from 2016; \textbf{fixed per woman} at her first year with data
+  \item Vulnerable = RSH bracket $\leq$60 (FPS score $\leq$13{,}500 in 2014--2015, new samples only)
+  \item \textbf{Fixed per woman}: her classification in the \textbf{first year she appears}, kept for all years $\to$ does not respond to the opening
 \end{itemize}
 \end{block}
 \vspace{2pt}
@@ -853,18 +854,41 @@ No neighboring preschool in any year & 652 & \textbf{6.7 km$^2$} & 28.2\% & 2.13
 \footnotesize
 \begin{itemize}
   \item Before: a mother is in the sample only \textbf{while} she has a child $<$5
-  \item Now: she enters the first year she has a child $<$5 and \textbf{stays until 2024}, even after the child turns 5
-  \item The sample no longer changes year to year with births and children aging out
+  \item Now: she enters the first year she has a child $<$5 and \textbf{stays until 2024}, even after the child turns 5 $\to$ the sample no longer changes with births and children aging out
 \end{itemize}
 \end{block}
 \takeaway{We now focus on eligible mothers and follow the same mothers over time.}
-\par\fuente{Results below use change 1 with the previous mother definition; change 2 is being built.}
+\par\fuente{Results below: change 1 with RSH only and the previous mother definition. FPS and change 2: new samples being built.}
+\end{frame}
+
+% =============================================================================
+% 20b. WHERE WE ARE
+% =============================================================================
+\begin{frame}{Where each change stands}
+\begin{center}
+\footnotesize
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+ & \textbf{First stage} & \textbf{Labor market} & \textbf{Fertility} \\
+\midrule
+60\% most vulnerable & \textcolor{graytext}{pending} & \textbf{done} (slides \ref{empv}--\ref{ingv}) & \textcolor{graytext}{pending} \\
+Mothers followed until 2024 & --- & \textcolor{graytext}{running} & --- \\
+Woman FE, fixed UV & --- & \textbf{preliminary} (slide \ref{femuj}) & --- \\
+Without the 2015 cohort & \textbf{done} (slide \ref{fs15}) & \textbf{done}: similar & \textcolor{graytext}{pending} \\
+Earnings including zeros & --- & \textbf{done} (slide \ref{ingv}) & --- \\
+\bottomrule
+\end{tabular}
+\end{center}
+\vspace{4pt}
+{\footnotesize Labor results for vulnerable mothers use RSH only and the previous mother definition. The first stage for their children comes next.}
+\takeaway{Labor results already reflect the vulnerable sample; first stage and fertility come next.}
 \end{frame}
 
 % =============================================================================
 % 21. EMPLOYMENT -- 60% MOST VULNERABLE
 % =============================================================================
-\begin{frame}{Employment: same effect among the 60\% most vulnerable}
+\begin{frame}[label=empv]{Employment: same effect among the 60\% most vulnerable}
 \begin{columns}[c]
 \begin{column}{0.58\textwidth}
 \centering
@@ -874,20 +898,49 @@ No neighboring preschool in any year & 652 & \textbf{6.7 km$^2$} & 28.2\% & 2.13
 \begin{itemize}
   \footnotesize
   \item \textbf{No pre-trends} (joint test $p=0.79$)
-  \item Gradual: nothing at opening, $\approx$\textbf{+1pp from the fourth year}
-  \item Average after opening: \textbf{+0.8pp} on a 46\% base ($\approx$+1.6\%), significant
-  \item Almost identical to all mothers: vulnerable mothers are 2/3 of the sample
+  \item Gradual, $\approx$+1pp from the 4th year; average \textbf{+0.8pp} on a 46\% base ($\approx$+1.6\%), significant
 \end{itemize}
+\vspace{2pt}
+\colorbox{bgpanel}{\parbox{0.95\linewidth}{\raggedright\scriptsize
+\textbf{Why so similar to all mothers?} If the non-vulnerable third had no effect, we would expect $\approx$1.1pp (same effect, fewer mothers). But:
+\begin{itemize}
+  \item Those excluded are RSH middle class, not rich; vulnerable mothers are 2/3 of the sample
+  \item Eligibility is not strict: free places go to other families
+\end{itemize}
+Next: estimate the non-vulnerable separately.}}
 \end{column}
 \end{columns}
 \takeaway{The employment effect holds in the eligible population.}
-\par\fuente{Sun--Abraham, weighted by number of mothers, 95\% CI clustered by UV, reference $k=-1$. Mothers with a child $<$5 that year.}
+\par\fuente{Sun--Abraham, weighted by number of mothers, 95\% CI clustered by UV, ref.\ $k=-1$.}
+\end{frame}
+
+% =============================================================================
+% 22b. LN EARNINGS (WORKING MOTHERS)
+% =============================================================================
+\begin{frame}[label=lnv]{Working mothers do not earn more}
+\begin{columns}[c]
+\begin{column}{0.58\textwidth}
+\centering
+\includegraphics[width=\linewidth,height=0.62\textheight,keepaspectratio]{../RIS/20261014/graficos/en_v60_ln_ingreso.png}
+\end{column}
+\begin{column}{0.40\textwidth}
+\begin{itemize}
+  \footnotesize
+  \item ln earnings: \textbf{only mothers who work}
+  \item \textbf{No pre-trends}; after opening, $\approx$\textbf{0} among vulnerable mothers (+0.3\%, not significant)
+  \item All mothers: slightly higher ($\approx$+3\% at $k=3$--6), also not significant
+  \item Months worked: also no effect
+\end{itemize}
+\end{column}
+\end{columns}
+\takeaway{The earnings gain does not come from higher wages.}
+\par\fuente{Sun--Abraham, weighted by number of mothers with earnings, 95\% CI clustered by UV, reference $k=-1$. Mothers with a child $<$5 that year.}
 \end{frame}
 
 % =============================================================================
 % 22. EARNINGS INCLUDING ZEROS
 % =============================================================================
-\begin{frame}{Earnings rise because more mothers work, not because they earn more}
+\begin{frame}[label=ingv]{Earnings rise because more mothers work, not because they earn more}
 \begin{columns}[c]
 \begin{column}{0.58\textwidth}
 \centering
@@ -909,49 +962,79 @@ No neighboring preschool in any year & 652 & \textbf{6.7 km$^2$} & 28.2\% & 2.13
 \end{frame}
 
 % =============================================================================
-% 22b. LN EARNINGS (WORKING MOTHERS)
+% 24. WOMAN FIXED EFFECTS
 % =============================================================================
-\begin{frame}{Working mothers do not earn more}
-\begin{columns}[c]
-\begin{column}{0.58\textwidth}
-\centering
-\includegraphics[width=\linewidth,height=0.62\textheight,keepaspectratio]{../RIS/20261014/graficos/en_v60_ln_ingreso.png}
-\end{column}
-\begin{column}{0.40\textwidth}
+\begin{frame}[label=femuj]{Woman fixed effects: a design to discuss}
+\begin{columns}[T]
+\begin{column}{0.49\textwidth}
+{\small\textcolor{steel}{\textbf{Approach}}}
 \begin{itemize}
   \footnotesize
-  \item ln earnings: \textbf{only mothers who work}
-  \item \textbf{No pre-trends}; after opening, $\approx$\textbf{0} among vulnerable mothers (+0.3\%, not significant)
-  \item All mothers: slightly higher ($\approx$+3\% at $k=3$--6), also not significant
-  \item Months worked: also no effect
+  \item Compare \textbf{the same mother} before and after the opening $\to$ removes her fixed traits (e.g., attachment to work)
+  \item Treatment from her \textbf{UV before the opening}, kept if she moves (intention-to-treat)
+  \item Movers are \textbf{not dropped}: staying could itself respond to the preschool
+\end{itemize}
+\vspace{2pt}
+{\small\textcolor{steel}{\textbf{Results so far} (preliminary)}}
+\begin{itemize}
+  \footnotesize
+  \item Employment: no pre-trends; gradual, significant from the 4th year, $\approx$+1.6pp by $k=9$ --- same pattern as UV level
+\end{itemize}
+\end{column}
+\begin{column}{0.49\textwidth}
+{\small\textcolor{steel}{\textbf{Limitation}}}
+\begin{itemize}
+  \footnotesize
+  \item Does \textbf{not} address \emph{where} and \emph{when} preschools open --- that happens at the UV level
+  \item Only helps if who lives in treated UVs changes after the opening
+\end{itemize}
+\vspace{4pt}
+\colorbox{bgpanel}{\parbox{0.95\linewidth}{\raggedright\footnotesize
+\textbf{Open questions}
+\begin{itemize}
+  \footnotesize
+  \item Is woman FE worth it? Moves are similar in treated and control UVs (12.6\% vs.\ 12.3\%) $\to$ it may mainly serve as a robustness check
+  \item Fixed pre-opening UV or contemporaneous UV?
+  \item Should movers be kept or dropped?
+\end{itemize}}}
+\end{column}
+\end{columns}
+\takeaway{Same employment result following the same mothers --- input welcome on the design.}
+\par\fuente{Women first observed in 2014--2015: UV proxied by 2016 (App.\ A2). To be re-estimated with the new mother sample.}
+\end{frame}
+
+\begin{frame}{Woman fixed effects: specification}
+\[
+E_{it} \;=\; \mu_i \;+\; \lambda_t \;+\; \sum_{k \neq -1} \beta_k \, \mathbf{1}\{\, t - G_{u_0(i)} = k \,\} \;+\; \varepsilon_{it}
+\]
+\vspace{-4pt}
+\begin{center}
+\colorbox{bgpanel}{\parbox{0.92\linewidth}{\scriptsize\ttfamily
+eventstudyinteract empleo\_formal d1-d4 d6-d15, cohort(g1\_f) control\_cohort(nunca\_f) \\
+\hspace*{2em}absorb(rut\_inn anio) vce(cluster uv\_fija)}}
+\end{center}
+\vspace{-4pt}
+\begin{columns}[T]
+\begin{column}{0.52\textwidth}
+\begin{itemize}
+  \footnotesize
+  \item $E_{it}$: formal employment of mother $i$ in year $t$
+  \item $\mu_i$: \textbf{woman} fixed effect; $\lambda_t$: year fixed effect
+  \item $u_0(i)$: \textbf{fixed UV} = first UV where the mother appears, before the opening
+  \item $G_{u_0(i)}$: year her fixed UV opens its first preschool $\to$ kept even if she moves
+\end{itemize}
+\end{column}
+\begin{column}{0.46\textwidth}
+\begin{itemize}
+  \footnotesize
+  \item \textbf{Sun--Abraham}: cohorts by $G_{u_0(i)}$ (\texttt{g1\_f}); controls = fixed UV never opens one (\texttt{nunca\_f})
+  \item $k \leq -5$ binned; ref.\ $k=-1$; SE clustered by fixed UV
+  \item Sample: vulnerable mothers whose fixed UV had no preschool in 2014, first observed before the opening
 \end{itemize}
 \end{column}
 \end{columns}
-\takeaway{The earnings gain does not come from higher wages.}
-\par\fuente{Sun--Abraham, weighted by number of mothers with earnings, 95\% CI clustered by UV, reference $k=-1$. Mothers with a child $<$5 that year.}
-\end{frame}
-
-% =============================================================================
-% 24. WOMAN FIXED EFFECTS
-% =============================================================================
-\begin{frame}{Following each mother: woman fixed effects (preliminary)}
-\begin{block}{Fixed UV}
-\footnotesize
-\begin{itemize}
-  \item Each mother is assigned to the \textbf{first UV where she appears}; if she moves, she keeps that UV's treatment
-  \item Compares \textbf{the same mother} before and after the opening $\to$ removes fixed differences between mothers and the effect of moves
-\end{itemize}
-\end{block}
-\vspace{2pt}
-\begin{block}{Result: formal employment}
-\footnotesize
-\begin{itemize}
-  \item No pre-trends; gradual increase, \textbf{significant from the fourth year}
-  \item Same pattern as the UV-level estimate
-\end{itemize}
-\end{block}
-\takeaway{Following the same mothers confirms the employment effect.}
-\par\fuente{Disclaimer: for women first observed in 2014--2015, the UV in those years is proxied by their 2016 UV (App.\ A2), so their fixed UV is the 2016 one. Sun--Abraham, woman and year FE, clustered by fixed UV. To be re-estimated with the new mother sample.}
+\takeaway{Each mother is compared with herself, treated by the UV where she lived before the opening.}
+\par\fuente{Preliminary run: $\approx$5M mother-years, 1{,}634 clusters; estimated on an earlier version of the new mother sample, to be re-estimated.}
 \end{frame}
 
 % =============================================================================
@@ -972,8 +1055,9 @@ No neighboring preschool in any year & 652 & \textbf{6.7 km$^2$} & 28.2\% & 2.13
 \begin{block}{Pending}
 \footnotesize
 \begin{itemize}
-  \item All outcomes with the new samples
   \item \textbf{First stage} among the 60\% most vulnerable
+  \item All outcomes with the new samples
+  \item Who fills the new preschool? Enrollment in JUNJI/Integra vs.\ other providers
   \item Balanced event study (same cohorts pre and post)
   \item The other 40\% separately: is the effect concentrated among vulnerable mothers?
   \item 2015 cohort: were 2015 ``openings'' already operating in 2014?

@@ -126,10 +126,13 @@ Gráfico: `graficos/pe_01_sin2015.png`. Muestra completa (no v60); solo cambia s
 4. **Arreglar el 07 y re-correr** SA y SA_w sobre `ingreso_rel` en muestra completa (con `guardarV`).
 5. **Winsorizar** el 1% superior de `ingreso_rel`.
 6. **Correr el 10** (fertilidad v60).
+7. **Heterogeneidad por edad del hijo menor ponderada** (`04_heterogeneidad_edad.do`): hoy solo existe sin ponderar (`coefs_het_lab`: sa_e1–e3). Agregar `eventstudyinteract ... [aw = n_mujeres]` por grupo de edad + `guardarV`; idealmente con la muestra v60. Se sacó de la presentación del 15/10 por no estar ponderada.
+8. **Primera etapa por edad del niño ponderada** (`04_heterogeneidad_edad.do`, `coefs_het_pe`): hoy solo sin ponderar (sa_e1–e3). Agregar `[aw = n_ninos]` + `guardarV`. Se mostró igual el 15/10 (diapo 17), sin ponderar → **hacerlo bien la próxima semana**.
 
 ### Después
 7. Estimaciones laborales a nivel UV con la **muestra fija v60** (adaptar 02 a la base del 09).
 8. **40% no vulnerable por separado** → ¿el efecto en empleo está concentrado en v60?
+8b. **¿Quién llena el jardín nuevo?** (a) DiD sobre matrícula en JUNJI/Integra (cualquier UV) vs. otros jardines (`dependencia` en `mat_parv`); (b) descriptivo: niños de la UV matriculados en el jardín nuevo (uso bruto). Bruto − neto = sustitución. Solo (a) es DiD: (b) es 0 por construcción en controles y antes de la apertura.
 9. **Cohorte 2015:** ¿jardines "nuevos" 2015 con matrícula en 2014? (requiere explorar `mat_parv` por establecimiento).
 10. Pedidos de los profesores aún sin empezar: tratamiento por stock inicial de jardines (no solo stock 2014 = 0) y muestra por probabilidad predicha de embarazo.
 
