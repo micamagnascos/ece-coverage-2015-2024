@@ -42,3 +42,6 @@ legacy/*
 
 # Guión y audio de presentaciones — uso personal, no se comparte
 slides/guion_*
+
+# Guion personal de presentaciones (no subir)
+slides/script_short_term.md

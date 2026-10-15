@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Childcare Expansion, Santiago</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+  :root {
+    --junji: #1f6fb4;
+    --integra: #d1352b;
+    --treated: #f2a20c;
+    --excluded: #8c96a3;
+    --ink: #1d232b;
+    --muted: #5f6b78;
+    --card: rgba(255, 255, 255, 0.96);
+    --line: #dde2e8;
+  }
+  html, body { margin: 0; height: 100%; font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; color: var(--ink); background: #f4f5f7; }
+  #map { position: absolute; inset: 0; }
+
+  .card { position: absolute; z-index: 1000; background: var(--card); border-radius: 12px;
+          box-shadow: 0 4px 18px rgba(0,0,0,0.14); }
+
+  #panel { top: 16px; left: 16px; width: 300px; padding: 16px 18px; max-height: calc(100% - 140px); overflow-y: auto; }
+  #panel h1 { font-size: 16px; margin: 0 0 2px; font-weight: 650; }
+  #panel .sub { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+  #year { font-size: 52px; font-weight: 750; line-height: 1; letter-spacing: -1px; font-variant-numeric: tabular-nums; }
+  #yearnote { font-size: 12px; color: var(--muted); margin: 2px 0 12px; min-height: 15px; }
+
+  .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 12px; margin-bottom: 12px; }
+  .stat .v { font-size: 22px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .stat .l { font-size: 11px; color: var(--muted); line-height: 1.25; }
+
+  #bars { width: 100%; height: 86px; display: block; margin-bottom: 4px; }
+  .barlbl { font-size: 11px; color: var(--muted); margin-bottom: 10px; }
+
+  .sec { border-top: 1px solid var(--line); padding-top: 10px; margin-top: 4px; }
+  .sec h2 { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 6px; font-weight: 650; }
+  label.tg { display: flex; align-items: center; gap: 8px; font-size: 13px; margin: 4px 0; cursor: pointer; }
+  .sw { display: inline-block; width: 12px; height: 12px; border-radius: 50%; flex: none; }
+  .sq { display: inline-block; width: 14px; height: 12px; border-radius: 2px; flex: none; }
+  .leg { display: flex; align-items: center; gap: 8px; font-size: 12px; margin: 3px 0; color: var(--ink); }
+
+  #ctrl { left: 50%; transform: translateX(-50%); bottom: 22px; width: min(760px, calc(100% - 32px));
+          padding: 12px 18px; display: flex; align-items: center; gap: 14px; box-sizing: border-box; }
+  #play { width: 42px; height: 42px; border-radius: 50%; border: none; background: var(--ink); color: #fff;
+          font-size: 16px; cursor: pointer; flex: none; }
+  #play:hover { opacity: .85; }
+  .sl { flex: 1; }
+  #slider { width: 100%; accent-color: var(--ink); cursor: pointer; }
+  .ticks { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); padding: 0 2px; font-variant-numeric: tabular-nums; }
+  .ticks span.on { color: var(--ink); font-weight: 700; }
+  #speed { font-size: 12px; border: 1px solid var(--line); border-radius: 6px; padding: 4px; background: #fff; }
+
+  .leaflet-tooltip { font-size: 12px; }
+  .com span { position: absolute; transform: translate(-50%, -50%); white-space: nowrap;
+              font-size: 11px; font-weight: 600; color: #4a5562; letter-spacing: .02em;
+              text-shadow: 0 0 3px #fff, 0 0 3px #fff, 0 0 3px #fff; }
+
+  @media (max-width: 640px) {
+    #panel { width: auto; right: 16px; max-height: 42%; padding: 12px 14px; }
+    #year { font-size: 36px; }
+    #bars, .barlbl { display: none; }
+  }
+</style>
+</head>
+<body>
+<div id="map"></div>
+
+<div id="panel" class="card">
+  <h1>Public childcare centers, Santiago Metro Region</h1>
+  <div class="sub">JUNJI and Integra centers, 2014–2024</div>
+  <div id="year">2014</div>
+  <div id="yearnote">Baseline: centers already operating</div>
+
+  <div class="stats">
+    <div class="stat"><div class="v" id="s_total">–</div><div class="l">centers operating</div></div>
+    <div class="stat"><div class="v" id="s_new">–</div><div class="l">opened this year</div></div>
+    <div class="stat"><div class="v" id="s_cum">–</div><div class="l" id="l_cum">opened 2015–2014</div></div>
+    <div class="stat"><div class="v" id="s_uv">–</div><div class="l">units with a first center<br>(of <span id="s_uvtot"></span> treated)</div></div>
+  </div>
+
+  <svg id="bars"></svg>
+  <div class="barlbl">New centers opened per year</div>
+
+  <div class="sec">
+    <h2>Centers</h2>
+    <label class="tg"><input type="checkbox" id="t_junji" checked><span class="sw" style="background:var(--junji)"></span>JUNJI</label>
+    <label class="tg"><input type="checkbox" id="t_integra" checked><span class="sw" style="background:var(--integra)"></span>Integra</label>
+    <div class="leg"><span class="sw" style="background:#9aa4b0;opacity:.6;width:8px;height:8px;margin:0 2px"></span>Faded: open before 2015</div>
+    <div class="leg"><span class="sw" style="background:#fff;border:2.5px solid var(--ink);width:9px;height:9px"></span>Ringed: opened in selected year</div>
+  </div>
+
+  <div class="sec">
+    <h2>Neighborhood units (UV, 2024 boundaries)</h2>
+    <label class="tg"><input type="checkbox" id="t_uv"> Show treatment groups</label>
+    <div id="uvleg" style="display:none">
+      <div class="leg"><span class="sq" style="background:var(--treated);opacity:.6"></span>Treated: first center opened (lights up in that year)</div>
+      <div class="leg"><span class="sq" style="background:#fff;border:1px solid #7b8794"></span>Never treated / not yet treated</div>
+      <div class="leg"><span class="sq" style="background:var(--excluded);opacity:.35"></span>Excluded: already had a center in 2014</div>
+    </div>
+  </div>
+</div>
+
+<div id="ctrl" class="card">
+  <button id="play" title="Play (space)">▶</button>
+  <div class="sl">
+    <input type="range" id="slider" min="2014" max="2024" step="1" value="2014">
+    <div class="ticks" id="ticks"></div>
+  </div>
+  <select id="speed" title="Speed">
+    <option value="1800">Slow</option>
+    <option value="1100" selected>Normal</option>
+    <option value="600">Fast</option>
+  </select>
+</div>
+
+<script>
+// Datos insertados por code/build/11_mapa_animado_rm.py
+// PUNTOS: [lat, lon, tipo (J/I), anio_apertura, anio_termino, nombre, comuna]
+const PUNTOS = __PUNTOS__;
+// UV: GeoJSON con grupo (t/n/x), g1, comuna, n (n_total 2014..2024 separado por comas)
+const UV = __UV__;
+// COMUNAS: [lat, lon, nombre]
+const COMUNAS = __COMUNAS__;
+
+const Y0 = 2014, Y1 = 2024;
+const COL = { J: "#1f6fb4", I: "#d1352b" };
+const NAME = { J: "JUNJI", I: "Integra" };
+const css = getComputedStyle(document.documentElement);
+
+let year = Y0, timer = null, showT = false;
+const show = { J: true, I: true };
+
+// ---------- mapa base ----------
+const map = L.map("map", { preferCanvas: true, zoomControl: false });
+L.control.zoom({ position: "topright" }).addTo(map);
+const ESRI = "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/";
+L.tileLayer(ESRI + "World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}", {
+  attribution: "Tiles &copy; Esri", maxZoom: 16
+}).addTo(map);
+// nombres de comunas como texto (tamaño fijo al hacer zoom), sobre UV y puntos
+map.createPane("labels").style.zIndex = 450;
+map.getPane("labels").style.pointerEvents = "none";
+const comLayer = L.layerGroup(COMUNAS.map(c => L.marker([c[0], c[1]], {
+  pane: "labels", interactive: false,
+  icon: L.divIcon({ className: "com", html: `<span>${c[2]}</span>`, iconSize: [0, 0] })
+}))).addTo(map);
+function comZoom() { map.getPane("labels").style.display = map.getZoom() >= 10 ? "" : "none"; }
+map.on("zoomend", comZoom);
+
+// encuadre: percentiles 5-95 de los jardines (núcleo del Gran Santiago)
+function pct(a, p) { const s = [...a].sort((x, y) => x - y); return s[Math.floor(p * (s.length - 1))]; }
+const lats = PUNTOS.map(p => p[0]), lons = PUNTOS.map(p => p[1]);
+map.fitBounds([[pct(lats, .12), pct(lons, .12)], [pct(lats, .88), pct(lons, .88)]], { paddingTopLeft: [320, 0] });
+
+// ---------- capa UV ----------
+// UV y puntos en el mismo canvas: así el mouse detecta ambos (UV se agrega
+// primero, por lo que los puntos quedan encima)
+const rend = L.canvas({ padding: 0.5 });
+const uvLayer = L.geoJSON(UV, {
+  renderer: rend,
+  style: () => ({}),
+  onEachFeature: (f, l) => {
+    l.bindTooltip(() => {
+      const p = f.properties, n = p.n.split(",")[year - Y0];
+      const g = p.grupo === "t" ? `Treated — first center ${p.g1}` :
+                p.grupo === "x" ? "Excluded — had a center in 2014" : "Never treated";
+      const nom = /^[A-Z]?\d+$/i.test(p.nom) ? `UV ${p.nom}` : p.nom;
+      return `<b>${nom}</b> · ${p.comuna}<br>${showT ? g + "<br>" : ""}Centers in ${year}: <b>${n}</b>`;
+    }, { sticky: true });
+  }
+});
+
+function uvStyle(p) {
+  if (!showT) return { color: "#6b7785", weight: 0.6, opacity: 0.7, fillOpacity: 0 };
+  if (p.grupo === "t" && year >= p.g1)
+    return { color: "#c47f00", weight: 1, fillColor: css.getPropertyValue("--treated"), fillOpacity: year === p.g1 ? 0.75 : 0.5 };
+  if (p.grupo === "x")
+    return { color: "#8c96a3", weight: 0.5, fillColor: "#8c96a3", fillOpacity: 0.22 };
+  return { color: "#7b8794", weight: 0.5, fillColor: "#ffffff", fillOpacity: 0.05 };
+}
+
+// ---------- capa de jardines ----------
+uvLayer.addTo(map);
+const ptLayer = L.layerGroup().addTo(map);
+const marks = PUNTOS.map(p => {
+  const m = L.circleMarker([p[0], p[1]], { radius: 4, renderer: rend });
+  m.bindTooltip(`<b>${p[5]}</b><br>${NAME[p[2]]} · ${p[6]}<br>Opened ${p[3] < 2015 ? p[3] + " (before 2015)" : p[3]}`);
+  m._p = p;
+  return m;
+});
+
+function ptStyle(p) {
+  const c = COL[p[2]];
+  if (p[3] < 2015) return { radius: 2.2, color: c, weight: 0, fillColor: c, fillOpacity: 0.3 };
+  if (p[3] === year) return { radius: 5, color: "#1d232b", weight: 2, fillColor: c, fillOpacity: 1 };
+  return { radius: 3.5, color: "#ffffff", weight: 0.8, fillColor: c, fillOpacity: 0.95 };
+}
+
+// ---------- gráfico de barras: aperturas por año ----------
+const opened = {};
+for (let y = 2015; y <= Y1; y++) opened[y] = { J: 0, I: 0 };
+PUNTOS.forEach(p => { if (p[3] >= 2015 && p[3] <= Y1) opened[p[3]][p[2]]++; });
+
+function drawBars() {
+  const svg = document.getElementById("bars");
+  const W = svg.clientWidth || 264, H = 86, top = 14, bot = 14;
+  const yrs = Object.keys(opened).map(Number);
+  const tot = y => (show.J ? opened[y].J : 0) + (show.I ? opened[y].I : 0);
+  const mx = Math.max(1, ...yrs.map(tot));
+  const bw = W / yrs.length;
+  let s = "";
+  yrs.forEach((y, i) => {
+    const x = i * bw + 2, w = bw - 4, on = y <= year;
+    const hJ = show.J ? opened[y].J / mx * (H - top - bot) : 0;
+    const hI = show.I ? opened[y].I / mx * (H - top - bot) : 0;
+    const op = on ? 1 : 0.22;
+    s += `<rect x="${x}" y="${H - bot - hJ}" width="${w}" height="${hJ}" fill="${COL.J}" opacity="${op}" rx="1"/>`;
+    s += `<rect x="${x}" y="${H - bot - hJ - hI}" width="${w}" height="${hI}" fill="${COL.I}" opacity="${op}" rx="1"/>`;
+    if (y === year) s += `<text x="${x + w / 2}" y="${H - bot - hJ - hI - 3}" font-size="11" font-weight="700" text-anchor="middle" fill="#1d232b">${tot(y)}</text>`;
+    s += `<text x="${x + w / 2}" y="${H - 2}" font-size="9" text-anchor="middle" fill="${y === year ? "#1d232b" : "#8a95a1"}" font-weight="${y === year ? 700 : 400}">'${String(y).slice(2)}</text>`;
+  });
+  svg.innerHTML = s;
+}
+
+// ---------- ejes del slider ----------
+const ticks = document.getElementById("ticks");
+for (let y = Y0; y <= Y1; y++) ticks.insertAdjacentHTML("beforeend", `<span data-y="${y}">${y}</span>`);
+
+const nTreated = UV.features.filter(f => f.properties.grupo === "t").length;
+document.getElementById("s_uvtot").textContent = nTreated;
+
+// ---------- actualizar todo para el año seleccionado ----------
+function render() {
+  document.getElementById("year").textContent = year;
+  document.getElementById("slider").value = year;
+  document.getElementById("yearnote").textContent = year === Y0 ? "Baseline: centers already operating" : "";
+  ticks.querySelectorAll("span").forEach(s => s.classList.toggle("on", +s.dataset.y === year));
+
+  let total = 0, nuevos = 0, cum = 0;
+  marks.forEach(m => {
+    const p = m._p;
+    const vis = show[p[2]] && p[3] <= year && p[4] >= year;
+    if (vis) {
+      total++;
+      if (p[3] === year && year > Y0) nuevos++;
+      if (p[3] >= 2015) cum++;
+      m.setStyle(ptStyle(p));
+      if (!ptLayer.hasLayer(m)) ptLayer.addLayer(m);
+      if (p[3] === year) m.bringToFront();
+    } else if (ptLayer.hasLayer(m)) ptLayer.removeLayer(m);
+  });
+
+  let uvOn = 0;
+  uvLayer.eachLayer(l => {
+    const p = l.feature.properties;
+    if (p.grupo === "t" && year >= p.g1) uvOn++;
+    l.setStyle(uvStyle(p));
+  });
+
+  document.getElementById("s_total").textContent = total.toLocaleString("en-US");
+  document.getElementById("s_new").textContent = year === Y0 ? "–" : "+" + nuevos;
+  document.getElementById("s_cum").textContent = year === Y0 ? "–" : cum;
+  document.getElementById("l_cum").textContent = year === Y0 ? "opened since 2014" : year === 2015 ? "opened in 2015" : `opened 2015–${year}`;
+  document.getElementById("s_uv").textContent = uvOn;
+  drawBars();
+}
+
+// ---------- controles ----------
+const playBtn = document.getElementById("play");
+function stop() { clearInterval(timer); timer = null; playBtn.textContent = "▶"; }
+function play() {
+  if (year >= Y1) { year = Y0; render(); }
+  playBtn.textContent = "❚❚";
+  timer = setInterval(() => {
+    if (year >= Y1) return stop();
+    year++; render();
+    if (year >= Y1) stop();
+  }, +document.getElementById("speed").value);
+}
+playBtn.onclick = () => timer ? stop() : play();
+document.getElementById("speed").onchange = () => { if (timer) { stop(); play(); } };
+document.getElementById("slider").oninput = e => { stop(); year = +e.target.value; render(); };
+
+document.getElementById("t_junji").onchange = e => { show.J = e.target.checked; render(); };
+document.getElementById("t_integra").onchange = e => { show.I = e.target.checked; render(); };
+document.getElementById("t_uv").onchange = e => {
+  document.getElementById("uvleg").style.display = e.target.checked ? "block" : "none";
+  showT = e.target.checked; render();
+};
+
+document.addEventListener("keydown", e => {
+  if (e.target.tagName === "SELECT") return;
+  if (e.key === "ArrowRight" && year < Y1) { stop(); year++; render(); e.preventDefault(); }
+  if (e.key === "ArrowLeft" && year > Y0) { stop(); year--; render(); e.preventDefault(); }
+  if (e.key === " ") { timer ? stop() : play(); e.preventDefault(); }
+});
+window.addEventListener("resize", drawBars);
+
+comZoom();
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,218 @@
+*base completa muestra -- VERSION 13/10/2026: 60% mas vulnerable, laboral = alguna vez hijo menor de 5, mudanzas con UV 2024
+* cambios marcados con CAMBIO N. Guarda con nombres nuevos (_v60), no pisa las bases actuales
+
+clear all 
+
+*abrimos muestra total de mujeres rsh - fps
+use "\\10.60.214.178\Repositorio_Datos_ADM\repositorio_ris\RIS_INVESTIGACION_11\190_impacto_jardines\03_EDITABLES\01_DATOS_SALIDA\FERTILIDAD_ML\bases_muestra/fps_rsh_uv_panel_2014_2024.dta", clear
+
+rename uv_rsh codigo_uv_rsh
+tostring codigo_uv_rsh, replace 
+
+describe, fullnames 
+
+
+*UNIMOS INFO DE HIJOS 
+merge 1:1 anio rut_inn using "\\10.60.214.178\Repositorio_Datos_ADM\repositorio_ris\RIS_INVESTIGACION_11\190_impacto_jardines\03_EDITABLES\01_DATOS_SALIDA\FERTILIDAD_ML\hijos/hijos_panel.dta"
+
+*merge == 1 : no cumplen con alguna de las caract o tiene info missing -> tuvo hijo o tiene hijo menor a 5 
+* no se si es por missing o es porque no tiene info, aunque la base hijos debiese documentar a todo chile 
+*merge == 2 : esta en la base hijos pero no en el RSH (debe estar sesgada esa parte a altos ingresos)
+drop if _merge == 2 
+replace tuvo_hijo = 0 if _merge == 1
+replace n_hijos_menor5 = 0 if _merge == 1
+drop _merge 
+
+gen tiene_hijo_menor5 = 1 if n_hijos_menor5 > 0
+replace tiene_hijo_menor5 = 0 if missing(tiene_hijo_menor5)
+
+
+
+*ELIMINAMOS LAS OBS QUE NO NOS SIRVEN PARA NINGUNA DE LAS DOS MUESTRAS -> año en que mujer es mayor a 49 y no tiene hijo menor a 5 (para disminuir obs y peso base solamente)
+drop if per_edad > 49 & n_hijos_menor5 == 0 
+count
+
+
+
+*UNIMOS INFO DE COBERTURA y UVS
+merge m:1 anio codigo_uv_rsh using "\\10.60.214.178\Repositorio_Datos_ADM\repositorio_ris\RIS_INVESTIGACION_11\190_impacto_jardines\03_EDITABLES\01_DATOS_SALIDA\FERTILIDAD_ML\cobertura/cobertura_crosswalk_final.dta"
+
+tab anio tratada, m
+
+*!!!!!
+*botar las personas que no tengan uv de 2024 y con ello tratamiento, menos las de 2014 y 2015 
+drop if missing(id_uv_2024) & !inlist(anio,2014,2015)
+tab anio tratada, m
+
+describe, fullnames 
+
+
+*pegamos info de uv contemporànea de 2016 para 2014 y 2015 
+preserve 
+keep if anio == 2016 
+keep rut_inn id_uv_2024 codigo_uv_rsh uv_nom grupfami_c_zona grupfami_comunaine pob_total_uv densidad_ninos_uv n_hogares_uv n_ninos_0_5_uv  
+
+rename id_uv_2024 id_uv_2024_16
+rename codigo_uv_rsh codigo_uv_rsh_16
+rename uv_nom uv_nom16
+rename grupfami_c_zona grupfami_c_zona16
+rename grupfami_comunaine grupfami_comunaine16
+rename pob_total_uv pob_total_uv16 
+rename densidad_ninos_uv densidad_ninos_uv16
+rename n_hogares_uv n_hogares_uv16
+rename n_ninos_0_5_uv n_ninos_0_5_uv16
+
+duplicates drop rut_inn, force 
+tempfile ancla2016
+save `ancla2016'
+restore 
+
+merge m:1 rut_inn using `ancla2016', keep(master match) nogen 
+
+foreach v in uv_nom grupfami_c_zona grupfami_comunaine pob_total_uv densidad_ninos_uv n_hogares_uv n_ninos_0_5_uv {
+	replace `v' = `v'16 if inlist(anio, 2014, 2015) & missing(`v')
+}
+
+replace id_uv_2024 = id_uv_2024_16 if inlist(anio, 2014, 2015) & missing(id_uv_2024)
+replace codigo_uv_rsh = codigo_uv_rsh_16 if inlist(anio, 2014, 2015) & codigo_uv_rsh == "."
+
+drop id_uv_2024_16 codigo_uv_rsh_16 uv_nom16 grupfami_c_zona16 grupfami_comunaine16 pob_total_uv16 densidad_ninos_uv16 n_hogares_uv16 n_ninos_0_5_uv16
+
+sort anio
+
+*cobertura propia de 2014 y 2015 
+drop _merge 
+
+rename id_uv_2024 t_id_uv_ca
+
+merge m:1 anio t_id_uv_ca using "\\10.60.214.178\Repositorio_Datos_ADM\repositorio_ris\RIS_INVESTIGACION_11\190_impacto_jardines\03_EDITABLES\01_DATOS_SALIDA\FERTILIDAD_ML\cobertura/base_cobertura_cp.dta", keepusing(t_* n_* tratada stock_base muestra_t1 g1 grupo_t1 post_t1 rel_t1 vecina_jardin vecina_abre) update keep(master match match_update match_conflict)
+
+rename t_id_uv_ca id_uv_2024 
+
+tab anio _merge
+
+tab anio if missing(codigo_uv_rsh) 
+tab anio if codigo_uv_rsh == "."
+drop if missing(codigo_uv_rsh)
+*solamente son de 2014 y 2015 -> son las personas que no estaban en 2016, los eliminamos 
+
+count
+tab anio
+tab anio tratada
+
+tab per_edad
+tab anio tiene_hijo_menor5
+
+
+drop _merge 
+
+
+* CAMBIO 1 (INICIO, lineas nuevas): mudanzas con limites UV 2024 (desde 2017; 2014-15 tienen la UV de 2016)
+sort rut_inn anio
+by rut_inn: gen mueve24 = (id_uv_2024 != id_uv_2024[_n-1]) if _n > 1 & anio > anio[_n-1] & anio >= 2017 & !missing(id_uv_2024) & !missing(id_uv_2024[_n-1])
+bys rut_inn: egen cambia_uv24 = max(mueve24)
+bys rut_inn: egen cambia_uv24_s22 = max(cond(anio != 2022, mueve24, .))
+tab anio mueve24, row
+* CAMBIO 1 (FIN)
+
+
+* CAMBIO 2 (INICIO, lineas nuevas): 60% mas vulnerable, fijo por mujer en su primer año con dato
+* solo RSH (2016 en adelante): tramo calc_quintil_validacion2 <= 60. Sin puntaje FPS: mujeres que solo estan en 2014-2015 quedan con v60 missing
+tab anio calc_quintil_validacion2, m
+* CAMBIO 2: sin puntaje, ahora es gen (antes replace) y se borran las 2 lineas de puntaje
+gen vul60_anio = (calc_quintil_validacion2 <= 60) if anio >= 2016 & !missing(calc_quintil_validacion2) 
+bys rut_inn: egen anio_v = min(cond(!missing(vul60_anio), anio, .))
+gen v_pri = vul60_anio if anio == anio_v
+bys rut_inn: egen v60 = max(v_pri)
+tab anio_v v60, m
+drop anio_v v_pri vul60_anio
+
+bys rut_inn: gen tag_m = (_n == 1)
+tab v60 if tag_m, m
+tab cambia_uv24 if tag_m, m
+drop tag_m
+count
+gunique rut_inn
+* CAMBIO 2 (FIN)
+
+
+
+
+
+**************************************************************
+*SEPARAMOS AMBAS MUESTRAS 
+
+****************************************************************************
+*MUESTRA PARA M LABORAL 
+*solo mujeres que tengan hijos menores a 5 años ese año especìfico
+preserve 
+
+* CAMBIO 3: linea nueva
+bys rut_inn: egen alguna_hijo5 = max(tiene_hijo_menor5) 
+* CAMBIO 3: antes era keep if tiene_hijo_menor5 == 1
+keep if alguna_hijo5 == 1 
+* CAMBIO 4: linea nueva, 60% mas vulnerable
+keep if v60 == 1 
+* CAMBIO 4: linea nueva
+count 
+* CAMBIO 4: linea nueva
+gunique rut_inn 
+* CAMBIO 4: linea nueva (con mas años por mujer pueden aparecer duplicados y el merge 1:1 con rentas fallaria)
+duplicates drop rut_inn anio, force 
+
+
+*PEGAMOS INFO DE RENTAS 
+rename anio year
+merge 1:1 year rut_inn using "\\10.60.214.178\Repositorio_Datos_ADM\repositorio_ris\RIS_INVESTIGACION_11\190_impacto_jardines\03_EDITABLES\01_DATOS_SALIDA\FERTILIDAD_ML\rentas/rentas_rut_panelfinal.dta"
+rename year anio 
+*borramos a las personas que estan solo en rentas 
+drop if _merge == 2 
+drop _merge
+
+
+*PEGAMOS INFO DE COTIZACIONES
+merge 1:1 anio rut_inn using "\\10.60.214.178\Repositorio_Datos_ADM\repositorio_ris\RIS_INVESTIGACION_11\190_impacto_jardines\03_EDITABLES\01_DATOS_SALIDA\FERTILIDAD_ML\cotizaciones/panel_cotizaciones_run_anio.dta"
+*borramos a las personas que estan solo en cotizaciones 
+drop if _merge == 2 
+drop _merge
+
+compress
+* CAMBIO 5: nombre nuevo (antes muestra_laboral_ingresos)
+save "\\10.60.214.178\Repositorio_Datos_ADM\repositorio_ris\RIS_INVESTIGACION_11\190_impacto_jardines\03_EDITABLES\01_DATOS_SALIDA\FERTILIDAD_ML\bases_muestra/muestra_laboral_v60.dta", replace 
+restore
+
+
+
+
+****************************************************************************
+
+*MUESTRA PARA FERTILIDAD -> 18 A 49 AÑOS 
+*ya esta restringido para mujeres mayores de 18, hay que eliminar a las mayores de 49, para cualquier año, borra las obs de las mujeres en ese año si es que ese año tienen màs de 49
+describe, fullnames 
+preserve
+drop if per_edad > 49 
+* CAMBIO 6: linea nueva, 60% mas vulnerable
+keep if v60 == 1 
+*nos quedamos solo con las de fertilidad 
+drop per_sexo_id per_fic_asisteestabeducacional per_fic_noasistemotivo per_fic_ocupacionactual per_fic_codigosrama per_fic_temppermanen per_fic_codigocontrato per_fic_relacioncontractual per_fic_horastrabajo grupfami_fecha_encuesta
+count
+* CAMBIO 7: nombre nuevo (antes muestra_fertilidad)
+save "\\10.60.214.178\Repositorio_Datos_ADM\repositorio_ris\RIS_INVESTIGACION_11\190_impacto_jardines\03_EDITABLES\01_DATOS_SALIDA\FERTILIDAD_ML\bases_muestra/muestra_fertilidad_v60.dta", replace 
+restore
+
+
+*MUESTRA TOTAL
+* CAMBIO 8: agregar v60 mueve24 cambia_uv24 cambia_uv24_s22 al final
+keep anio rut_inn codigo_uv_rsh id_uv_2024 tratada stock_base muestra_t1 g1 grupo_t1 post_t1 rel_t1 n_vecinas vecina_jardin vecina_abre v60 mueve24 cambia_uv24 cambia_uv24_s22 
+gduplicates report rut_inn anio 
+*OJO ACA
+duplicates drop rut_inn anio, force
+compress
+* CAMBIO 9: nombre nuevo (antes muestra_completa_ruts_trat), sin filtrar v60
+save "\\10.60.214.178\Repositorio_Datos_ADM\repositorio_ris\RIS_INVESTIGACION_11\190_impacto_jardines\03_EDITABLES\01_DATOS_SALIDA\FERTILIDAD_ML\bases_muestra/muestra_completa_ruts_trat_v60.dta", replace 
+
+
+
+
+
+
