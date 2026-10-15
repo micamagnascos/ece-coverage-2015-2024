@@ -1,0 +1,81 @@
+﻿1 TABLA/ELEMENTO
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  \\10.60.214.178\Repositorio_Datos_ADM\repositorio_ris\RIS_INVESTIGACION_11\190_impacto_jardines\03_EDITABLES\01_DATOS_SALIDA\FERTILIDAD_ML/estimaciones/log_pe_sin_2015_20261005.txt
+  log type:  text
+ opened on:   7 Oct 2026, 09:59:57
+
+. 
+. *BASE UV AÑO 
+. use "\\10.60.214.178\Repositorio_Datos_ADM\repositorio_ris\RIS_INVESTIGACION_11\190_impacto_jardines\03_EDITABLES\01_DATOS_SALIDA\FERTILIDAD_ML\primera etapa/primera_etapa_panel_uv.dta", clear
+
+. count 
+  72,612
+
+-------
+
+. 
+. 
+. keep if muestra_t1 == 1 
+(24,240 observations deleted)
+
+. *OJO ACA -> SACAMOS LA COHORTE DE 2015 PARA ESTIMAR MEJOR
+. drop if g1 == 2015
+(1,903 observations deleted)
+
+. gen nunca_tratada = (g1==0)
+
+. count 
+  46,469
+
+. gunique id_uv_2024
+N = 46,469; 4,413 unbalanced groups of sizes 1 to 11
+
+. 
+. 
+. *TENDENCIAS POR AÑO Y COHORTE 
+. preserve 
+
+. gen matr = tasa_matricula * n_ninos
+
+. gcollapse (mean) tasa_matricula (sum) matr n_ninos (count) n_uv = n_ninos, by(anio g1)
+
+. save "$est/tend_pe_sin2015.dta", replace 
+file \\10.60.214.178\Repositorio_Datos_ADM\repositorio_ris\RIS_INVESTIGACION_11\190_impacto_jardines\03_EDITABLES\01_DATOS_SALIDA\FERTILIDAD_ML/estimaciones/tend_pe_sin2015.dta saved
+
+. restore 
+
+. 
+. 
+. *DUMMIES DE EVENTO
+. gen rel_t1_bin = rel_t1 
+(43,631 missing values generated)
+
+. replace rel_t1_bin = -5 if rel_t1 < -5 
+(119 real changes made)
+
+. replace rel_t1_bin = -1 if missing(rel_t1)
+(43,631 real changes made)
+
+. tab rel_t1_bin
+
+ rel_t1_bin |      Freq.     Percent        Cum.
+------------+-----------------------------------
+         -5 |        195        0.42        0.42
+         -4 |        120        0.26        0.68
+         -3 |        193        0.42        1.09
+         -2 |        250        0.54        1.63
+         -1 |     43,882       94.43       96.06
+          0 |        252        0.54       96.61
+          1 |        249        0.54       97.14
+          2 |        250        0.54       97.68
+          3 |        240        0.52       98.20
+          4 |        227        0.49       98.69
+          5 |        223        0.48       99.17
+          6 |        186        0.40       99.57
+          7 |        140        0.30       99.87
+          8 |         62        0.13      100.00
+------------+-----------------------------------
+      Total |     46,469      100.00
+
