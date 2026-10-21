@@ -299,15 +299,15 @@ Andr\'es Hojman \quad Marigen Narea \quad Jorge Rodr\'iguez \quad Pedro Carneiro
 \toprule
 \textbf{Group} & \textbf{Definition} & \textbf{N (UVs)} & \textbf{\%} \\
 \midrule
-Excluded        & Already had 1+ center in 2014 (out of design)      & 2{,}265 & 33.0\% \\
-Never-treated   & 0 in 2014, stays at 0 through 2024                 & 4{,}145 & 60.5\% \\
-Treated         & 0 in 2014, opens first center 2015--2024           & 447     & 6.5\%  \\
+Excluded        & Already had 1+ center in 2014 (out of design)      & 2{,}394 & 34.8\% \\
+Never-treated   & 0 in 2014, stays at 0 through 2024                 & 4{,}174 & 60.6\% \\
+Treated         & 0 in 2014, opens first center 2015--2024           & 319     & 4.6\%  \\
 \midrule
-\textbf{Total universe} & & \textbf{6{,}857} & 100\% \\
+\textbf{Total universe} & & \textbf{6{,}887} & 100\% \\
 \end{tabular}
 \end{center}
-\fuente{Source: \texttt{base\_cobertura\_cp.dta}. Design sample (\texttt{muestra\_t1==1}) = Never-treated + Treated = 4{,}592 UVs.}
-\takeaway{We identify the effect of the first preschool (0 $\to$ 1): 447 treated vs.\ 4{,}145 never-treated.}
+\fuente{Source: \texttt{base\_cobertura\_cp.dta}, corrected opening years (Oct 21). Design sample (\texttt{muestra\_t1==1}) = 4{,}493 UVs. Previous version: 447 treated, 2{,}265 excluded. Counts in the RIS samples (UVs with women) pending re-run.}
+\takeaway{We identify the effect of the first preschool (0 $\to$ 1): 319 treated vs.\ 4{,}174 never-treated.}
 \end{frame}
 
 % =============================================================================
@@ -331,25 +331,75 @@ Treated         & 0 in 2014, opens first center 2015--2024           & 447     &
   tick label style={font=\tiny},
   axis lines*=left,
   enlarge x limits=0.06,
-  nodes near coords,
-  nodes near coords style={font=\tiny,text=graytext},
+  legend style={font=\tiny,draw=none,at={(0.98,0.98)},anchor=north east},
+  legend cell align=left,
 ]
-\addplot[fill=steel,draw=none] coordinates {(2015,179)(2016,63)(2017,77)(2018,46)(2019,37)(2020,7)(2021,15)(2022,11)(2023,8)(2024,4)};
+\addplot[fill=neutralgray!45,draw=none,bar shift=0pt] coordinates {(2015,179)(2016,63)(2017,77)(2018,46)(2019,37)(2020,7)(2021,15)(2022,11)(2023,8)(2024,4)};
+\addplot[fill=steel,draw=none,bar shift=0pt,bar width=6pt,nodes near coords,nodes near coords style={font=\tiny,text=graytext}] coordinates {(2015,51)(2016,61)(2017,75)(2018,48)(2019,39)(2020,7)(2021,15)(2022,11)(2023,8)(2024,4)};
+\legend{Previous (447),Corrected (319)}
 \end{axis}
 \end{tikzpicture}
 \end{column}
 \begin{column}{0.42\textwidth}
 \begin{itemize}
   \footnotesize
-  \item \textbf{2015 cohort is the largest}: 179 UVs (40\%), tied to the Bachelet preschool expansion
-  \item \textbf{71\% open in 2015--2017}; only 45 UVs open after 2019
-  \item \textbf{2014 as base year} lets us identify the 2015 cohort as 0 $\to$ 1; without it, treated UVs drop from 447 to $\sim$268
-  \item But the 2015 cohort has \textbf{only one pre-period} and sits at the edge of the panel $\to$ we come back to it below
+  \item \textbf{2015 cohort corrected}: 179 $\to$ \textbf{51 UVs} --- in 127 UVs the ``opening'' was a center already operating in 2014 (next slide)
+  \item Other cohorts barely change; \textbf{2017 is now the largest} (75 UVs)
+  \item \textbf{59\% open in 2015--2017}; only 45 UVs open after 2019
+  \item The 2015 cohort still has \textbf{only one pre-period} (2014)
 \end{itemize}
 \end{column}
 \end{columns}
-\fuente{Source: \texttt{base\_cobertura\_cp.dta}. 447 treated UVs (0 centers in 2014).}
-\takeaway{Most openings are early (2015--17): long post-treatment windows for most treated UVs.}
+\fuente{Source: \texttt{base\_cobertura\_cp.dta}, corrected opening years (Oct 21). 319 treated UVs (0 centers in 2014).}
+\takeaway{Openings are spread over 2015--19, no longer concentrated in 2015.}
+\end{frame}
+
+% =============================================================================
+% 6b. RESOLVING THE 2015 COHORT
+% =============================================================================
+\begin{frame}{Resolved: most 2015 ``openings'' were centers already operating}
+\begin{columns}[T]
+\begin{column}{0.52\textwidth}
+\footnotesize
+\begin{itemize}[itemsep=3pt]
+  \item \textbf{Problem}: JUNJI opening dates come from records that start in March 2015 $\to$ centers with no earlier record were dated \textbf{01-03-2015} (84\% of 2015 openings)
+  \item \textbf{Evidence}: older transparency requests give \textbf{center $\times$ year panels} (JUNJI 1996--2023, Integra 2001--2024); JUNJI centers are flat at $\sim$3{,}150 a year in 2011--2016
+  \item \textbf{Fix}: opening year = first year the center appears in the panels
+\end{itemize}
+\end{column}
+\begin{column}{0.44\textwidth}
+\centering
+\scriptsize
+JUNJI centers ``opening'' in 2015\\[3pt]
+\begin{tabular}{@{}lrr@{}}
+\toprule
+Recorded date & Centers & Already there \\
+\midrule
+01-03-2015 & 444 & \textbf{427 (96\%)} \\
+Other 2015 date & 108 & 15 (14\%) \\
+\bottomrule
+\end{tabular}
+
+\vspace{10pt}
+\begin{tabular}{@{}lrr@{}}
+\toprule
+UVs & Before & After \\
+\midrule
+Treated & 447 & \textbf{319} \\
+\quad 2015 cohort & 179 & \textbf{51} \\
+Excluded (center in 2014) & 2{,}265 & 2{,}394 \\
+Never-treated & 4{,}175 & 4{,}174 \\
+\bottomrule
+\end{tabular}
+\end{column}
+\end{columns}
+
+\vspace{4pt}
+\begin{block}{Pending: re-run everything with the corrected treatment}
+\scriptsize
+All results that follow still use the previous treatment (447 treated UVs). The ``without 2015 cohort'' estimates are the closest preview.
+\end{block}
+\takeaway{The 2015 cohort was mostly a data artifact: 127 of its 179 UVs already had a center in 2014.}
 \end{frame}
 
 % =============================================================================
@@ -1056,12 +1106,12 @@ eventstudyinteract empleo\_formal d1-d4 d6-d15, cohort(g1\_f) control\_cohort(nu
 \begin{block}{Pending}
 \footnotesize
 \begin{itemize}
+  \item \textbf{Re-run everything with the corrected treatment} (319 treated UVs): samples, balance, first stage, employment, earnings, fertility
   \item \textbf{First stage} among the 60\% most vulnerable
   \item All outcomes with the new samples
   \item Who fills the new preschool? Enrollment in JUNJI/Integra vs.\ other providers
   \item Balanced event study (same cohorts pre and post)
   \item The other 40\% separately: is the effect concentrated among vulnerable mothers?
-  \item 2015 cohort: were 2015 ``openings'' already operating in 2014?
   \item Treatment by initial stock of preschools
   \item Sample by predicted probability of pregnancy
 \end{itemize}
