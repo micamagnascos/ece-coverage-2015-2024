@@ -12,6 +12,9 @@
 *   stata -b do run_all.do
 *===================================================================
 
+* Paso 0 — Primer año de cada jardín en los paneles anuales de transparencia (Python)
+shell python3 code/build/00_primer_anio_paneles.py
+
 * Paso 1 — Limpieza JUNJI/Integra (Stata)
 do "code/build/01_limpieza_junji_integra.do"
 

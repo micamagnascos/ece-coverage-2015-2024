@@ -218,6 +218,24 @@ count if missing(direccion)
 *año de apertura para hacer panel
 gen anio_apertura = year(fecha_apertura)
 
+*OJO: junji.xlsx viene de bases que parten en 2015 -> jardines sin fecha anterior
+*registrada quedan con 01mar2015 aunque ya existían (589 de 698 aperturas 2015).
+*Corregimos con el primer año en que el jardín aparece en los paneles anuales
+*de transparencia 1996-2023 (salida de 00_primer_anio_paneles.py)
+preserve
+import delimited "data/build/primer_anio_panel_junji.csv", clear
+tempfile panel_junji
+save `panel_junji'
+restore
+
+merge m:1 codigo_junji using `panel_junji', keep(master match)
+tab _merge
+drop _merge
+
+gen anio_apertura_registro = anio_apertura
+replace anio_apertura = primer_anio_panel if primer_anio_panel < anio_apertura
+tab anio_apertura_registro if anio_apertura_registro != anio_apertura
+
 * año de inicio para el panel UV-año: tope mínimo 2014 (igual que Integra),
 * para que jardines abiertos antes del período de estudio entren desde el
 * primer año del panel en vez de con anio_inicio faltante
@@ -637,10 +655,39 @@ tab modalidad anio
 *anio_termino = último año en que el establecimiento aparece en los datos (proxy de actividad, no de cierre real -> limitación conocida por cambios de identificador entre años)
 bysort codigo_integra: egen anio_termino = max(anio)
 
-collapse (firstnm) region comuna nom_estab modalidad ///
-         direccion lat longi anio_apertura ///
+*ordenar por año ANTES del collapse: el merge de Ñuble deja las filas de cada
+*jardín en orden aleatorio, y 116 jardines cambian de coordenadas entre años
+*-> sin esto cada corrida podía asignar otra UV. Ubicación = año más reciente,
+*anio_apertura = el que reporta el archivo más antiguo
+sort codigo_integra anio
+collapse (lastnm) region comuna nom_estab modalidad ///
+         direccion lat longi ///
+         (firstnm) anio_apertura ///
          (max) anio_termino, ///
          by(codigo_integra)
+
+*año de apertura según los paneles anuales de transparencia (salida de 00_primer_anio_paneles.py)
+*anio_inicio de Integra cambia entre archivos y no siempre calza con cuándo el jardín aparece con matrícula
+preserve
+import delimited "data/build/primer_anio_panel_integra.csv", clear
+*códigos Ñuble del panel: pasar a código nuevo y volver a tomar el primer año
+merge m:1 codigo_integra using "data/build/cambio_cod_nuble.dta", keep(master match)
+replace codigo_integra = codigo_nuevo if _merge == 3
+collapse (min) primer_anio_panel, by(codigo_integra)
+tempfile panel_integra
+save `panel_integra'
+restore
+
+merge 1:1 codigo_integra using `panel_integra', keep(master match)
+tab _merge
+drop _merge
+
+gen anio_apertura_registro = anio_apertura
+*panel antes que el registro -> se usa el panel (ya funcionaba)
+*panel después del registro -> solo si el registro es reciente (>= 2010); en jardines
+*antiguos suele ser cambio de código (ej. 132003: registro 1996, panel desde 2015)
+replace anio_apertura = primer_anio_panel if !missing(primer_anio_panel) & (primer_anio_panel < anio_apertura | anio_apertura >= 2010)
+tab anio_apertura_registro anio_apertura if anio_apertura_registro != anio_apertura
 
 tab anio_termino
 
