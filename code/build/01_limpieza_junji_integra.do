@@ -637,8 +637,13 @@ tab modalidad anio
 *anio_termino = último año en que el establecimiento aparece en los datos (proxy de actividad, no de cierre real -> limitación conocida por cambios de identificador entre años)
 bysort codigo_integra: egen anio_termino = max(anio)
 
+* anio_apertura = el MÍNIMO reportado entre los archivos anuales: Integra cambia
+* anio_inicio entre años para ~100 jardines (ej. 143909: 2014 en 2015-2019,
+* 2015 desde 2020) y firstnm no toma el año más antiguo (el merge de Ñuble
+* desordena las filas dentro de cada código)
 collapse (firstnm) region comuna nom_estab modalidad ///
-         direccion lat longi anio_apertura ///
+         direccion lat longi ///
+         (min) anio_apertura ///
          (max) anio_termino, ///
          by(codigo_integra)
 
