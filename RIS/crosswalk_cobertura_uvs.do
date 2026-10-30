@@ -26,7 +26,8 @@ tab anio _merge
 
 
 keep if _merge == 3
-keep if inlist(anio, 2017, 2020, 2021, 2022, 2023, 2024)
+* CAMBIO 1: match directo solo 2022-2024 (carto confiable desde 2022). 2021 y antes van a votacion
+keep if inlist(anio, 2022, 2023, 2024)
 drop _merge 
 tab anio 
 
@@ -39,7 +40,8 @@ duplicates drop anio codigo_uv, force
 save "$shapes/crosswalk_verdad.dta", replace
 
 
-foreach y in 2017 2020 2021 2022 2023 2024 {
+* CAMBIO 2: solo se guardan claves "verdad" de 2022-2024
+foreach y in 2022 2023 2024 {
 	preserve 
 	keep if anio == `y'
 	save "$shapes/claves_`y'.dta", replace
@@ -58,7 +60,8 @@ global SALTO_DIVISON 0.85
 
 
 *decodificamos 
-foreach t of numlist 2019 2018 2016 {
+* CAMBIO 3: votacion hacia atras, un año a la vez, EN ESTE ORDEN (cada año usa las claves del año siguiente)
+foreach t of numlist 2021 2020 2019 2018 2017 2016 {
 	local ay = `t' + 1 
 	local mt = cond(`t' == 2017, "06", "12")
 	

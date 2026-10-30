@@ -1,4 +1,4 @@
-ya*base completa muestra 
+*base completa muestra 
 
 clear all 
 ssc install gtools, replace 

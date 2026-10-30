@@ -1,5 +1,7 @@
 # Pendientes tras RIS 06/10/2026
 
+> ⚠️ **13/10: `coefs_lab.dta` en el RIS quedó sobrescrito con los resultados v60 (08).** Volver a correr `02_laboral.do` (con el CAMBIO 1, guardarV ponderado) para regenerar el `coefs_lab` de la muestra completa. Copia de los resultados originales: `RIS/20261006/coefs_lab.csv`.
+
 ## A. Correcciones en los do-files
 1. ⭐ Guardar la V de los modelos ponderados (`guardarV sa_w_…`) en 01, 02, 03 y 05.
 2. ⭐ Guardar la V en 04 (heterogeneidad), parte primera etapa y parte laboral.
@@ -8,7 +10,7 @@
 
 ## B. Estimaciones nuevas para ganar precisión
 1. ⭐ Estimar todo sin la cohorte 2015 (primera etapa con V, fertilidad, laboral, heterogeneidad).
-2. ⭐ Ingreso de todas las madres, con $0 para las que no trabajan (`07_ingreso_total.do`).
+2. ⭐ Ingreso de todas las madres, con $0 para las que no trabajan (`07_ingreso_total.do`, listo para tipear el lunes 12/10). Opcional: agregar `ln_ingreso_uv` = ln del promedio UV (incluye ceros) como robustez.
 3. Heterogeneidad laboral ponderada y con control por edad de la madre, guardando V.
 4. Event study de empleo con panel balanceado (mismas cohortes en toda la ventana).
 

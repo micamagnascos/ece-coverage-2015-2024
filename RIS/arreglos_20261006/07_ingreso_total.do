@@ -63,10 +63,6 @@ eventstudyinteract ingreso_rel d1-d4 d6-d15 [aw = n_mujeres], cohort(g1) control
 guardar sa_w ingreso_rel `m0w'
 guardarV sa_w_ingreso_rel
 
-*promedio k 0-6 del SA ponderado, con su SE (para leer en pantalla)
-capture noisily lincom (d6 + d7 + d8 + d9 + d10 + d11 + d12)/7 // CAMBIO 4: agregar "capture noisily" al inicio
-capture noisily test d1 d2 d3 d4 // CAMBIO 4: agregar "capture noisily" al inicio
-
 postclose pf
 
 
