@@ -20,10 +20,10 @@ En el orden de la presentación. Las frases "si preguntan" no están en las diap
 
 **Por qué la primera etapa sigue siendo chica (diapo 17).** "Ya revisamos el año de apertura, el crosswalk, la muestra vulnerable y un grupo control más limpio. Nuestro outcome mide si los niños que viven en la UV están matriculados en cualquier jardín, o sea un cambio neto. Un jardín nuevo puede llenarse con niños que ya iban a otro jardín y se cambian al más cercano: eso no mueve la matrícula neta, pero sí le ahorra tiempo a la madre."
 
-**k = −2 (anexo A13, solo si preguntan).** "Los pre-años no son significativos, salvo k = −2, que queda casi un punto por encima del año de referencia. Es un punto suelto que viene de las cohortes más nuevas, y aun en el peor caso el efecto sería de unos 2,7 puntos. Lo vamos a revisar con HonestDiD."
+**k = −2 (anexo A6, solo si preguntan).** "Los pre-años no son significativos, salvo k = −2, que queda casi un punto por encima del año de referencia. Es un punto suelto que viene de las cohortes más nuevas, y aun en el peor caso el efecto sería de unos 2,7 puntos. Lo vamos a revisar con HonestDiD."
 - *Recordar:* k = −1 siempre vale 0 porque es la referencia. Un k = −2 positivo solo dice que la brecha en k = −2 era más alta que en k = −1. No se sabe si k = −2 fue alto o k = −1 bajo, pero como k = −3 y k = −5 están al nivel de k = −1, parece un punto alto suelto.
 
-**Gráficos de niveles de primera etapa (anexo A12, solo si preguntan).** "El de la izquierda muestra la matrícula sin modelo: las tratadas parten más abajo y terminan más arriba. El de la derecha es la resta tratadas − control según años desde la apertura: un event study hecho a mano, donde el salto en k = 0 se ve en los datos crudos."
+**Gráficos de niveles de primera etapa (anexo A5, solo si preguntan).** "El de la izquierda muestra la matrícula sin modelo: las tratadas parten más abajo y terminan más arriba. El de la derecha es la resta tratadas − control según años desde la apertura: un event study hecho a mano, donde el salto en k = 0 se ve en los datos crudos."
 
 **Empleo (diapo 18).** "Tratadas y control parten con el mismo empleo formal, cerca de 52%. El año en que abre el jardín no cambia nada, pero desde el segundo año empieza a subir. En los primeros cinco años el aumento promedio es de casi un punto, unas 2 madres más trabajando por UV. Cuenta a todas las madres de la UV, usen o no el jardín."
 - *Si preguntan por qué hay más madres que niños:* "La matrícula es una foto de cada año, porque los niños salen a los 5. El empleo se acumula: una madre que volvió a trabajar sigue trabajando y sigue en la muestra."
@@ -38,7 +38,7 @@ En el orden de la presentación. Las frases "si preguntan" no están en las diap
 - *Recordar:* en k = 0–4 solo k = 3 es significativo por separado. Es el resultado más débil.
 
 **Ingreso contando ceros (diapo 22).** "Tratadas y control parten con ingresos parecidos. En los primeros cinco años después de la apertura, el ingreso promedio de las madres de la UV, contando como cero a las que no trabajan, sube unos 11 mil pesos al mes, alrededor de 2,5%. Es significativo desde el segundo año y no hay pre-tendencias."
-- *Números:* k 0–4 = +$10.870 (EE 4.396); k 0–7 = +$19.023 (EE 6.053). En relativo (anexo A14): +2,5 pts (EE 1,0) y +4,4 (EE 1,4). Es la misma estimación en otra escala.
+- *Números:* k 0–4 = +$10.870 (EE 4.396); k 0–7 = +$19.023 (EE 6.053). En relativo (anexo A7): +2,5 pts (EE 1,0) y +4,4 (EE 1,4). Es la misma estimación en otra escala.
 - *Si preguntan por qué antes era 19k:* "Ese era el promedio de los 8 años post. En los primeros cinco es menor porque el efecto crece con el tiempo."
 
 **De dónde viene el aumento (diapo 23).** "El ingreso promedio es el porcentaje que trabaja por lo que ganan las que trabajan. Si descompongo los 11 mil, más o menos la mitad viene de que más madres trabajan y la otra mitad de que las que ya trabajaban ganan algo más. Lo segundo sería consistente con madres que cambian a su hijo a un jardín más cercano: no cambia la matrícula, pero ahorran tiempo y pueden trabajar más horas o en mejores trabajos."
@@ -115,7 +115,7 @@ En el orden de la presentación. Las frases "si preguntan" no están en las diap
 
 ![Niveles y brecha bruta](graficos/pe_03_descriptivo.png)
 
-**Cómo leer cada gráfico** (en la presentación quedaron en el anexo A12):
+**Cómo leer cada gráfico** (en la presentación quedaron en el anexo A5):
 - **Izquierdo, "tasa de matrícula bruta":** es la tasa promedio de cada año calendario, sin modelo, con una línea para el control y otra para todas las tratadas juntas. *Conclusión:* las tratadas parten más abajo y terminan más arriba que el control, y las dos líneas suben con el tiempo y caen igual en 2020–21 (COVID).
 - **Derecho, "brecha bruta tratadas − control":** es la resta tratadas − control en el mismo año, ordenada por años desde la apertura (k). Funciona como un event study hecho a mano, sin modelo. *Conclusión:* la brecha es negativa antes de abrir y salta hacia arriba en k = 0. El salto se ve en los datos crudos, así que no lo inventa el estimador.
 - **Para qué sirven:** son respaldo por si alguien duda del event study. El mensaje es el mismo de la diapo principal.
@@ -140,7 +140,7 @@ En el orden de la presentación. Las frases "si preguntan" no están en las diap
 - Qué significa: todo se mide contra k = −1, que siempre vale 0 porque es la referencia y no se estima. Un k = −2 = +0,9 dice solo que **dos años antes de abrir, la brecha tratadas − control era 0,9 puntos más alta que un año antes de abrir**. Con ese punto solo no se sabe si k = −2 fue un año "alto" o k = −1 un año "bajo".
 - Mirando los otros pre: k = −3 (+0,1) y k = −5 (−0,2) están al mismo nivel que k = −1, y k = −4 (+1,2) no es significativo. Los pre suben y bajan, así que **es un punto suelto, no una tendencia**.
 - Si k = −1 hubiera sido un año anormalmente bajo, medir contra él inflaría el efecto. En el peor caso, midiendo contra k = −2, el efecto sería ~3,6 − 0,9 ≈ **2,7 pp**: sigue siendo positivo y grande.
-- **Cómo decirlo si preguntan (está en el anexo A13):** "Los pre-años no son significativos, salvo k = −2, que queda casi un punto por encima del año de referencia. Es un punto suelto que viene de las cohortes más nuevas, y aun en el peor caso el efecto sería de unos 2,7 puntos. Lo vamos a revisar con HonestDiD."
+- **Cómo decirlo si preguntan (está en el anexo A6):** "Los pre-años no son significativos, salvo k = −2, que queda casi un punto por encima del año de referencia. Es un punto suelto que viene de las cohortes más nuevas, y aun en el peor caso el efecto sería de unos 2,7 puntos. Lo vamos a revisar con HonestDiD."
 - Por cohorte (brecha bruta tratadas − control, cambio de k = −2 a k = −1):
   - 2016 y 2017 (las cohortes más grandes): sin cambio (−0,2 y −0,1 pp).
   - 2018–2023: caídas de −1 a −4 pp. Ahí se origina el k = −2.

@@ -49,3 +49,7 @@ slides/script_short_term.md
 # Excepción: base de cobertura UV-año (datos públicos de transparencia, sin personas).
 # Se versiona para tener a mano la versión que se sube al RIS.
 !data/final/base_cobertura_cp.dta
+
+# RIS: las estimaciones extraídas (csv) sí se versionan; los guiones de reunión no
+!RIS/**/*.csv
+RIS/**/guion_reunion.md
