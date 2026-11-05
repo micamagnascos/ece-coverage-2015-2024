@@ -52,3 +52,7 @@ sum ingreso_anual if ingreso_anual > 0
 count if monto_indep_anual > 0 & !missing(monto_indep_anual) & !missing(renta_imponible_anual)
 ```
 Anotar las dos medias y el conteo. Ojo: el log del 02 tiene que tener nombre propio, distinto del 01.
+
+## 21_laboral_todas (corrió; visto en el RIS 30/10)
+Misma forma que madres, magnitudes más chicas, menos pre-tendencia en empleo formal. Extraer coefs + V (empleo, ingreso_rel, ln_ingreso) y el do-file.
+Anotar a mano: % de mujeres con `tiene_hijo_menor5 == 1` en la muestra del 21 (para ver si la diferencia con madres es solo dilución).
